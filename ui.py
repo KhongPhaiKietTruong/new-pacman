@@ -3,6 +3,7 @@ import pygame
 import math
 import random
 from config import *
+from custom_maps import load_custom_maps, delete_custom_map
 
 class UI:
     def __init__(self, screen_width, screen_height):
@@ -40,6 +41,8 @@ class UI:
         self.map_size = 0.5
         self.dragging_slider = None
         self.mode = "AI vs AI"
+        self.selected_map_idx = 0
+        self.custom_maps = []
         self.hovered_btn = None
         self.hovered_sidebar_btn = None
         self.menu_view = "main"
@@ -529,14 +532,14 @@ class UI:
             
             # Panel Rect
             panel_w = int(760 * scale)
-            panel_h = int(360 * scale)
+            panel_h = int(440 * scale)
             panel_x = self.width // 2 - panel_w // 2
-            panel_y = self.height // 2 - panel_h // 2 - int(40 * scale)
+            panel_y = self.height // 2 - panel_h // 2 + int(20 * scale)
             panel_rect = pygame.Rect(panel_x, panel_y, panel_w, panel_h)
             
             # Title settings screen
             title_text = "CAU HINH BAN DO MOI"
-            self.draw_neon_text(surface, title_text, self.font_large, PACMAN_COLOR, (self.width//2, panel_rect.top - int(50 * scale)), glow_radius=30, pulse=pulse)
+            self.draw_neon_text(surface, title_text, self.font_large, PACMAN_COLOR, (self.width//2, panel_rect.top - int(75 * scale)), glow_radius=30, pulse=pulse)
             
             # Mouse coordinate checking for hover state
             mouse_pos = pygame.mouse.get_pos()
@@ -550,22 +553,44 @@ class UI:
             confirm_rect = pygame.Rect(self.width // 2 - int(180 * scale) - action_w // 2, buttons_y - action_h // 2, action_w, action_h)
             back_rect = pygame.Rect(self.width // 2 + int(180 * scale) - action_w // 2, buttons_y - action_h // 2, action_w, action_h)
             
+            # Map selection row
+            map_y = panel_rect.top + int(80 * scale)
+            left_arrow_rect = pygame.Rect(self.width // 2 - int(320 * scale) - int(20 * scale), map_y - int(20 * scale), int(40 * scale), int(40 * scale))
+            right_arrow_rect = pygame.Rect(self.width // 2 + int(320 * scale) - int(20 * scale), map_y - int(20 * scale), int(40 * scale), int(40 * scale))
+            
+            is_left_hover = left_arrow_rect.collidepoint(mouse_x, mouse_y)
+            is_right_hover = right_arrow_rect.collidepoint(mouse_x, mouse_y)
+            
+            # Delete button coordinates
+            delete_y = panel_rect.top + int(330 * scale)
+            delete_w = int(280 * scale)
+            delete_h = int(36 * scale)
+            delete_rect = pygame.Rect(self.width // 2 - delete_w // 2, delete_y - delete_h // 2, delete_w, delete_h)
+            is_delete_hover = delete_rect.collidepoint(mouse_x, mouse_y) if self.selected_map_idx > 0 else False
+            
             self.hovered_btn = None
             if confirm_rect.collidepoint(mouse_x, mouse_y):
                 self.hovered_btn = "confirm"
             elif back_rect.collidepoint(mouse_x, mouse_y):
                 self.hovered_btn = "back"
+            elif is_left_hover:
+                self.hovered_btn = "left_arrow"
+            elif is_right_hover:
+                self.hovered_btn = "right_arrow"
+            elif is_delete_hover:
+                self.hovered_btn = "delete_map"
             else:
-                # Hover checking for sliders
-                slider_w = int(500 * scale)
-                slider_x = self.width // 2 - slider_w // 2
-                comp_y = panel_rect.top + int(110 * scale)
-                size_y = panel_rect.top + int(240 * scale)
-                
-                if comp_y - int(20 * scale) <= mouse_y <= comp_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
-                    self.hovered_btn = "complexity"
-                elif size_y - int(20 * scale) <= mouse_y <= size_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
-                    self.hovered_btn = "map_size"
+                if self.selected_map_idx == 0:
+                    # Hover checking for sliders
+                    slider_w = int(500 * scale)
+                    slider_x = self.width // 2 - slider_w // 2
+                    comp_y = panel_rect.top + int(190 * scale)
+                    size_y = panel_rect.top + int(310 * scale)
+                    
+                    if comp_y - int(20 * scale) <= mouse_y <= comp_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
+                        self.hovered_btn = "complexity"
+                    elif size_y - int(20 * scale) <= mouse_y <= size_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
+                        self.hovered_btn = "map_size"
             
             # ── VE KHUNG PANEL (GLASSMORPHISM) ──
             # Background trong suot
@@ -580,30 +605,63 @@ class UI:
             lbl_tag = self.font_sidebar.render("[SYS.MAP.CFG]", True, (0, 114, 127))
             surface.blit(lbl_tag, (panel_rect.right - lbl_tag.get_width() - int(15 * scale), panel_rect.top + int(10 * scale)))
             
-            # Sliders
-            slider_w = int(500 * scale)
-            slider_x = self.width // 2 - slider_w // 2
-            comp_y = panel_rect.top + int(110 * scale)
-            size_y = panel_rect.top + int(240 * scale)
+            # Map select display
+            map_options = ["NGAU NHIEN"] + [m["name"] for m in self.custom_maps]
+            current_map_name = map_options[self.selected_map_idx]
             
-            # 1. Do Phuc Tap
-            self.draw_neon_text(surface, f"DO PHUC TAP BAN DO: {int(self.complexity * 100)}%", self.font_small, (0, 229, 255), (self.width//2, comp_y - int(35 * scale)), glow_radius=8, pulse=pulse)
-            pygame.draw.line(surface, WALL_COLOR, (slider_x, comp_y), (slider_x + slider_w, comp_y), 6)
-            thumb_comp_x = slider_x + int(self.complexity * slider_w)
-            is_comp_h = (self.hovered_btn == "complexity")
-            pygame.draw.circle(surface, (255, 235, 59) if is_comp_h else PACMAN_COLOR, (thumb_comp_x, comp_y), int(16 * scale))
+            self.draw_neon_text(surface, f"BAN DO: {current_map_name}", self.font_med, PACMAN_COLOR, (self.width//2, map_y), glow_radius=15, pulse=pulse)
             
-            # 2. Kich Thuoc
-            cols = MIN_GRID_COLS + int((MAX_GRID_COLS - MIN_GRID_COLS) * self.map_size)
-            rows = MIN_GRID_ROWS + int((MAX_GRID_ROWS - MIN_GRID_ROWS) * self.map_size)
-            if cols % 2 == 0: cols += 1
-            if rows % 2 == 0: rows += 1
+            left_color = TEXT_HOVER_COLOR if is_left_hover else TEXT_COLOR
+            right_color = TEXT_HOVER_COLOR if is_right_hover else TEXT_COLOR
             
-            self.draw_neon_text(surface, f"KICH THUOC LUOI: {cols}x{rows}", self.font_small, (0, 229, 255), (self.width//2, size_y - int(35 * scale)), glow_radius=8, pulse=pulse)
-            pygame.draw.line(surface, WALL_COLOR, (slider_x, size_y), (slider_x + slider_w, size_y), 6)
-            thumb_size_x = slider_x + int(self.map_size * slider_w)
-            is_size_h = (self.hovered_btn == "map_size")
-            pygame.draw.circle(surface, (255, 235, 59) if is_size_h else PACMAN_COLOR, (thumb_size_x, size_y), int(16 * scale))
+            self.draw_neon_text(surface, "<", self.font_med, left_color, left_arrow_rect.center, glow_radius=10, pulse=pulse if is_left_hover else 0.5)
+            self.draw_neon_text(surface, ">", self.font_med, right_color, right_arrow_rect.center, glow_radius=10, pulse=pulse if is_right_hover else 0.5)
+            
+            # Sliders or Info
+            if self.selected_map_idx == 0:
+                slider_w = int(500 * scale)
+                slider_x = self.width // 2 - slider_w // 2
+                comp_y = panel_rect.top + int(190 * scale)
+                size_y = panel_rect.top + int(310 * scale)
+                
+                # 1. Do Phuc Tap
+                self.draw_neon_text(surface, f"DO PHUC TAP BAN DO: {int(self.complexity * 100)}%", self.font_small, (0, 229, 255), (self.width//2, comp_y - int(35 * scale)), glow_radius=8, pulse=pulse)
+                pygame.draw.line(surface, WALL_COLOR, (slider_x, comp_y), (slider_x + slider_w, comp_y), 6)
+                thumb_comp_x = slider_x + int(self.complexity * slider_w)
+                is_comp_h = (self.hovered_btn == "complexity")
+                pygame.draw.circle(surface, (255, 235, 59) if is_comp_h else PACMAN_COLOR, (thumb_comp_x, comp_y), int(16 * scale))
+                
+                # 2. Kich Thuoc
+                cols = MIN_GRID_COLS + int((MAX_GRID_COLS - MIN_GRID_COLS) * self.map_size)
+                rows = MIN_GRID_ROWS + int((MAX_GRID_ROWS - MIN_GRID_ROWS) * self.map_size)
+                if cols % 2 == 0: cols += 1
+                if rows % 2 == 0: rows += 1
+                
+                self.draw_neon_text(surface, f"KICH THUOC LUOI: {cols}x{rows}", self.font_small, (0, 229, 255), (self.width//2, size_y - int(35 * scale)), glow_radius=8, pulse=pulse)
+                pygame.draw.line(surface, WALL_COLOR, (slider_x, size_y), (slider_x + slider_w, size_y), 6)
+                thumb_size_x = slider_x + int(self.map_size * slider_w)
+                is_size_h = (self.hovered_btn == "map_size")
+                pygame.draw.circle(surface, (255, 235, 59) if is_size_h else PACMAN_COLOR, (thumb_size_x, size_y), int(16 * scale))
+            else:
+                # Custom map info
+                chosen_map = self.custom_maps[self.selected_map_idx - 1]
+                rows = chosen_map["rows"]
+                cols = chosen_map["cols"]
+                grid = chosen_map["grid"]
+                
+                pellets = sum(row.count(2) for row in grid)
+                ghosts = sum(row.count(4) for row in grid)
+                
+                self.draw_neon_text(surface, f"KICH THUOC   : {cols}x{rows}", self.font_small, TEXT_COLOR, (self.width//2, panel_rect.top + int(180 * scale)), glow_radius=5)
+                self.draw_neon_text(surface, f"VIEN NANG LUONG : {pellets}", self.font_small, TEXT_COLOR, (self.width//2, panel_rect.top + int(240 * scale)), glow_radius=5)
+                self.draw_neon_text(surface, f"SO CON MA    : {ghosts}", self.font_small, TEXT_COLOR, (self.width//2, panel_rect.top + int(300 * scale)), glow_radius=5)
+                
+                # Delete map button rendering
+                delete_color = (255, 60, 60) if is_delete_hover else (180, 40, 40)
+                delete_pulse = pulse if is_delete_hover else 0.5
+                self.draw_neon_text(surface, "[ XOA BAN DO ]", self.font_small, delete_color, delete_rect.center, glow_radius=10, pulse=delete_pulse)
+                
+                self.draw_neon_text(surface, "SAN SANG KHOI CHAY", self.font_med, (0, 255, 128), (self.width//2, panel_rect.top + int(385 * scale)), glow_radius=15, pulse=pulse)
             
             # ── VE NUT HANH DONG ──
             # Confirm button
@@ -965,6 +1023,8 @@ class UI:
                 self.menu_view = "settings"
                 return "settings"
             elif self.hovered_btn == "start":
+                self.custom_maps = load_custom_maps()
+                self.selected_map_idx = 0
                 self.menu_view = "map_config"
                 return "map_config"
             elif self.hovered_btn == "custom_map":
@@ -978,9 +1038,9 @@ class UI:
             scale = self.scale
             
             panel_w = int(760 * scale)
-            panel_h = int(360 * scale)
+            panel_h = int(440 * scale)
             panel_x = self.width // 2 - panel_w // 2
-            panel_y = self.height // 2 - panel_h // 2 - int(40 * scale)
+            panel_y = self.height // 2 - panel_h // 2 + int(20 * scale)
             
             buttons_y = panel_y + panel_h + int(60 * scale)
             action_w = int(320 * scale)
@@ -988,6 +1048,33 @@ class UI:
             
             confirm_rect = pygame.Rect(self.width // 2 - int(180 * scale) - action_w // 2, buttons_y - action_h // 2, action_w, action_h)
             back_rect = pygame.Rect(self.width // 2 + int(180 * scale) - action_w // 2, buttons_y - action_h // 2, action_w, action_h)
+            
+            # Left & Right arrow buttons
+            map_y = panel_y + int(80 * scale)
+            left_arrow_rect = pygame.Rect(self.width // 2 - int(320 * scale) - int(20 * scale), map_y - int(20 * scale), int(40 * scale), int(40 * scale))
+            right_arrow_rect = pygame.Rect(self.width // 2 + int(320 * scale) - int(20 * scale), map_y - int(20 * scale), int(40 * scale), int(40 * scale))
+            
+            # Delete button bounds
+            delete_y = panel_y + int(330 * scale)
+            delete_w = int(280 * scale)
+            delete_h = int(36 * scale)
+            delete_rect = pygame.Rect(self.width // 2 - delete_w // 2, delete_y - delete_h // 2, delete_w, delete_h)
+            
+            if self.selected_map_idx > 0 and delete_rect.collidepoint(mouse_x, mouse_y):
+                chosen_map = self.custom_maps[self.selected_map_idx - 1]
+                delete_custom_map(chosen_map["name"])
+                self.custom_maps = load_custom_maps()
+                self.selected_map_idx = 0
+                return "delete_map"
+            
+            if left_arrow_rect.collidepoint(mouse_x, mouse_y):
+                map_options = ["NGAU NHIEN"] + [m["name"] for m in self.custom_maps]
+                self.selected_map_idx = (self.selected_map_idx - 1) % len(map_options)
+                return "change_map"
+            elif right_arrow_rect.collidepoint(mouse_x, mouse_y):
+                map_options = ["NGAU NHIEN"] + [m["name"] for m in self.custom_maps]
+                self.selected_map_idx = (self.selected_map_idx + 1) % len(map_options)
+                return "change_map"
             
             if confirm_rect.collidepoint(mouse_x, mouse_y):
                 return "start"
@@ -1150,15 +1237,18 @@ class UI:
             return False
             
         elif self.menu_view == "map_config":
+            if self.selected_map_idx > 0:
+                return False
+                
             panel_w = int(760 * scale)
-            panel_h = int(360 * scale)
+            panel_h = int(440 * scale)
             panel_x = self.width // 2 - panel_w // 2
-            panel_y = self.height // 2 - panel_h // 2 - int(40 * scale)
+            panel_y = self.height // 2 - panel_h // 2 + int(20 * scale)
             
             slider_w = int(500 * scale)
             slider_x = self.width // 2 - slider_w // 2
-            comp_y = panel_y + int(110 * scale)
-            size_y = panel_y + int(240 * scale)
+            comp_y = panel_y + int(190 * scale)
+            size_y = panel_y + int(310 * scale)
             
             # Kiem tra thanh truot Do Phuc Tap
             if comp_y - int(20 * scale) <= mouse_y <= comp_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
@@ -1192,10 +1282,13 @@ class UI:
             return mouse_x, slider_y
             
         if self.menu_view == "map_config":
+            if self.selected_map_idx > 0:
+                return None
+                
             panel_w = int(760 * scale)
-            panel_h = int(360 * scale)
+            panel_h = int(440 * scale)
             panel_x = self.width // 2 - panel_w // 2
-            panel_y = self.height // 2 - panel_h // 2 - int(40 * scale)
+            panel_y = self.height // 2 - panel_h // 2 + int(20 * scale)
             
             slider_w = int(500 * scale)
             slider_x = self.width // 2 - slider_w // 2
@@ -1203,11 +1296,11 @@ class UI:
             
             if self.dragging_slider == "complexity":
                 self.complexity = val
-                comp_y = panel_y + int(110 * scale)
+                comp_y = panel_y + int(190 * scale)
                 return mouse_x, comp_y
             elif self.dragging_slider == "map_size":
                 self.map_size = val
-                size_y = panel_y + int(240 * scale)
+                size_y = panel_y + int(310 * scale)
                 return mouse_x, size_y
             
         return None
@@ -1514,14 +1607,14 @@ class UI:
         # Hien thi cac so lieu thong ke khac
         stats_list = [
             f"THOI GIAN : {game.get_time_str()}",
-            f"BUOC DI: {game.steps}",
-            f"LUOT QUAY: {game.turns}",
-            f"DIEM VIEN: {len(game.power_pellets)}",
-            f"PHUC TAP: {int(game.complexity * 100)}%",
-            f"BAN DO  : {game.cols}x{game.rows}"
+            f"BUOC DI   : {game.steps}",
+            f"LUOT QUAY : {game.turns}",
+            f"DIEM VIEN : {len(game.power_pellets)}",
+            f"PHUC TAP  : {int(game.complexity * 100)}%",
+            f"BAN DO    : {game.cols}x{game.rows}"
         ]
         
-        line_height = self.font_sidebar.get_linesize() + 2
+        line_height = self.font_sidebar.get_linesize() + int(10 * scale)
         for i, text in enumerate(stats_list):
             y_pos = stats_start_y + max(25, int(35 * scale)) + i * line_height
             lbl = self.font_sidebar.render(text, True, TEXT_COLOR)
@@ -1529,7 +1622,7 @@ class UI:
             
         # Bo chia ngang tinh te
         divider_y = stats_start_y + max(25, int(35 * scale)) + len(stats_list) * line_height + 10
-        pygame.draw.line(surface, (40, 50, 70), (x_start + 20, divider_y), (self.width - 20, divider_y), 2)
+        pygame.draw.line(surface, (40, 50, 70), (x_start + 30, divider_y), (self.width - 30, divider_y), 2)
         
         # --- CHAN DOAN AI CUA THUC THE ---
         diag_start_y = divider_y + max(15, int(25 * scale))
@@ -1554,20 +1647,75 @@ class UI:
                 g_state = "SO HAI"
             entities_info.append((g_name, g.algo, g_state, g.color, g.get_avg_ram()))
             
-        block_height = int(line_height * 2.0)
+        block_height = int(line_height * 2.2)
         for i, (name, algo, state, color, avg_ram) in enumerate(entities_info):
             y_pos = diag_start_y + max(20, int(30 * scale)) + i * block_height
             # Dong 1: Ten thuc the & Thuat toan (trai), RAM (phai)
             lbl_name = self.font_sidebar.render(f"{name} ({algo})", True, color)
-            surface.blit(lbl_name, (x_start + 20, y_pos))
+            surface.blit(lbl_name, (x_start + 30, y_pos))
             
             lbl_ram = self.font_sidebar.render(f"{avg_ram:.1f} KB", True, color)
-            surface.blit(lbl_ram, (self.width - 20 - lbl_ram.get_width(), y_pos))
+            surface.blit(lbl_ram, (self.width - 30 - lbl_ram.get_width(), y_pos))
             
             # Dong 2: Trang thai
             state_color = (100, 100, 100) if state == "DA CHET" else TEXT_COLOR
             lbl_state = self.font_sidebar.render(f"  > {state}", True, state_color)
-            surface.blit(lbl_state, (x_start + 20, y_pos + line_height))
+            surface.blit(lbl_state, (x_start + 30, y_pos + line_height))
+
+        # --- SPEED SLIDER (Next to the map, left of the sidebar border) ---
+        slider_h = int(250 * scale)
+        slider_w = int(10 * scale)
+        slider_x = x_start - int(35 * scale)
+        slider_y = self.height // 2 - slider_h // 2
+        
+        # Draw track
+        track_rect = pygame.Rect(slider_x - slider_w // 2, slider_y, slider_w, slider_h)
+        pygame.draw.rect(surface, (10, 15, 25), track_rect, border_radius=4)
+        pygame.draw.rect(surface, (40, 50, 70), track_rect, 1, border_radius=4)
+        
+        # Current speed scale
+        current_speed = getattr(game, 'speed_scale', 1.0)
+        fraction = (current_speed - 0.2) / 2.8
+        handle_y = slider_y + slider_h - int(fraction * slider_h)
+        
+        # Draw ticks & tick labels
+        ticks = [3.0, 2.0, 1.0, 0.2]
+        for tick in ticks:
+            tick_frac = (tick - 0.2) / 2.8
+            tick_y = slider_y + slider_h - int(tick_frac * slider_h)
+            pygame.draw.line(surface, (60, 70, 90), (slider_x - int(10 * scale), tick_y), (slider_x - int(5 * scale), tick_y), 1)
+            
+            lbl_text = f"{tick}x"
+            lbl_surf = self.font_guide.render(lbl_text, True, (120, 140, 160))
+            lbl_rect = lbl_surf.get_rect(right=slider_x - int(14 * scale), centery=tick_y)
+            surface.blit(lbl_surf, lbl_rect)
+            
+        # Slider Title & Value Label
+        title_lbl = self.font_guide.render("TOC DO", True, WALL_COLOR)
+        title_rect = title_lbl.get_rect(centerx=slider_x, bottom=slider_y - int(20 * scale))
+        surface.blit(title_lbl, title_rect)
+        
+        speed_lbl = self.font_guide.render(f"{current_speed}x", True, PACMAN_COLOR)
+        speed_rect = speed_lbl.get_rect(centerx=slider_x, bottom=slider_y - int(4 * scale))
+        surface.blit(speed_lbl, speed_rect)
+        
+        # Handle (draggable knob)
+        handle_w = int(24 * scale)
+        handle_h = int(12 * scale)
+        handle_rect = pygame.Rect(slider_x - handle_w // 2, handle_y - handle_h // 2, handle_w, handle_h)
+        
+        is_hovered_handle = handle_rect.collidepoint(pygame.mouse.get_pos())
+        is_dragging = (self.dragging_slider == "speed")
+        handle_color = WALL_COLOR if (is_hovered_handle or is_dragging) else TEXT_COLOR
+        
+        if is_hovered_handle or is_dragging:
+            glow_surf = pygame.Surface((handle_w + 12, handle_h + 12), pygame.SRCALPHA)
+            pygame.draw.rect(glow_surf, (*WALL_COLOR[:3], 80), (6, 6, handle_w, handle_h), border_radius=3)
+            for j in range(1, 5):
+                pygame.draw.rect(glow_surf, (*WALL_COLOR[:3], int(40 / j)), (6 - j, 6 - j, handle_w + j*2, handle_h + j*2), 1, border_radius=3)
+            surface.blit(glow_surf, (handle_rect.x - 6, handle_rect.y - 6))
+            
+        pygame.draw.rect(surface, handle_color, handle_rect, border_radius=3)
             
         # --- CAC NUT DIEU KHIEN (O duoi cung) ---
         btn_h = 50
@@ -1630,6 +1778,22 @@ class UI:
     def handle_sidebar_click(self, mouse_pos, game):
         self.handle_sidebar_hover(mouse_pos)
         
+        # Check if Speed Slider clicked
+        scale = self.scale
+        x_start = self.width - SIDEBAR_WIDTH
+        slider_h = int(250 * scale)
+        slider_w = int(20 * scale)
+        slider_x = x_start - int(45 * scale)
+        slider_y = self.height // 2 - slider_h // 2
+        click_rect = pygame.Rect(slider_x, slider_y - 10, slider_w + 20, slider_h + 20)
+        
+        if click_rect.collidepoint(mouse_pos):
+            self.dragging_slider = "speed"
+            fraction = (slider_y + slider_h - mouse_pos[1]) / slider_h
+            fraction = max(0.0, min(1.0, fraction))
+            game.speed_scale = round(0.2 + fraction * 2.8, 1)
+            return "speed"
+        
         if self.hovered_sidebar_btn == "pause":
             game.toggle_pause()
             return "pause"
@@ -1643,6 +1807,17 @@ class UI:
             return "exit"
             
         return None
+
+    def handle_gameplay_mouse_motion(self, mouse_pos, game):
+        if self.dragging_slider == "speed":
+            scale = self.scale
+            x_start = self.width - SIDEBAR_WIDTH
+            slider_h = int(250 * scale)
+            slider_y = self.height // 2 - slider_h // 2
+            
+            fraction = (slider_y + slider_h - mouse_pos[1]) / slider_h
+            fraction = max(0.0, min(1.0, fraction))
+            game.speed_scale = round(0.2 + fraction * 2.8, 1)
 
     def draw_start_animation(self, surface, elapsed):
         """

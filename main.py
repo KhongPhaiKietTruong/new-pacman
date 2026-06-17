@@ -105,9 +105,30 @@ def main():
                             else:
                                 res = ui.handle_menu_click(mouse_pos)
                                 if res == "start":
-                                    # Di toi chon ten truoc
-                                    _from_editor = False
-                                    pending_start_args = (ui.complexity, ui.map_size, ui.mode, ui.algorithms, ui.pacman_heuristics)
+                                    if ui.selected_map_idx == 0:
+                                        # Di toi chon ten truoc
+                                        _from_editor = False
+                                        pending_start_args = (ui.complexity, ui.map_size, ui.mode, ui.algorithms, ui.pacman_heuristics)
+                                        pending_custom_args = None
+                                    else:
+                                        _from_editor = True
+                                        chosen_map = ui.custom_maps[ui.selected_map_idx - 1]
+                                        grid = [row[:] for row in chosen_map["grid"]]
+                                        rows = chosen_map["rows"]
+                                        cols = chosen_map["cols"]
+                                        pacman_pos = None
+                                        ghost_positions = []
+                                        for r in range(rows):
+                                            for c in range(cols):
+                                                if grid[r][c] == 3:
+                                                    pacman_pos = (r, c)
+                                                    grid[r][c] = 0
+                                                elif grid[r][c] == 4:
+                                                    ghost_positions.append((r, c))
+                                                    grid[r][c] = 0
+                                        pending_start_args = None
+                                        pending_custom_args = (grid, rows, cols, ui.mode, ui.algorithms,
+                                                              pacman_pos, ghost_positions, ui.pacman_heuristics)
                                     name_ui.reset(leaderboard.get_known_names())
                                     game.state = STATE_NAME_SELECT
                                 elif res == "custom_map":
@@ -147,6 +168,8 @@ def main():
                 elif event.type == pygame.MOUSEMOTION:
                     if game.state == STATE_PLAYING:
                         ui.handle_sidebar_hover(mouse_pos)
+                        if ui.dragging_slider == "speed":
+                            ui.handle_gameplay_mouse_motion(mouse_pos, game)
                     else:
                         res = ui.handle_mouse_motion(mouse_pos)
                         if res:
@@ -196,7 +219,12 @@ def main():
         elif game.state == STATE_END_ANIM:
             end_anim_timer += dt
         elif game.state == STATE_PLAYING:
-            game.update(dt)
+            if not hasattr(game, 'update_accumulator'):
+                game.update_accumulator = 0.0
+            game.update_accumulator += game.speed_scale
+            while game.update_accumulator >= 1.0:
+                game.update(dt)
+                game.update_accumulator -= 1.0
             if game.state == STATE_END_ANIM:
                 end_anim_timer = 0.0
                 end_anim_won = (game.pending_end_state == STATE_VICTORY)

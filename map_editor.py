@@ -95,6 +95,8 @@ class MapEditor:
         # Hanh dong de quay lai vong lap chinh
         self._action = None               # "play" | "back"
         self._play_data = None            # tuple ket qua khi action=="play"
+        self.input_mode = False
+        self.input_text = ""
 
         # Danh sach nut thanh cong cu duoc xay dung truoc
         self._build_toolbar()
@@ -228,6 +230,13 @@ class MapEditor:
         self.toolbar.append({
             "type": "action", "id": "fill_border",
             "label": "VIEN BIEN", "rect": pygame.Rect(px, py, bw, bh)
+        })
+        py += bh + gap
+
+        # Nut LUU BAN DO
+        self.toolbar.append({
+            "type": "action", "id": "save",
+            "label": "💾 LUU BAN DO", "rect": pygame.Rect(px, py, bw, bh)
         })
         py += bh + 24
 
@@ -373,6 +382,29 @@ class MapEditor:
         return None
 
     def handle_event(self, event, mouse_pos):
+        if self.input_mode:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    if self.input_text.strip():
+                        from custom_maps import add_custom_map_with_name
+                        map_name = add_custom_map_with_name(self.input_text.strip(), self.grid, self.rows, self.cols)
+                        if map_name:
+                            self._show_status(f"Da luu ban do: {map_name}", ok=True)
+                        else:
+                            self._show_status("Loi luu ban do!", ok=False)
+                    else:
+                        self._show_status("Ten ban do khong duoc de trong!", ok=False)
+                    self.input_mode = False
+                elif event.key == pygame.K_ESCAPE:
+                    self.input_mode = False
+                    self._show_status("Da huy luu ban do.", ok=False)
+                elif event.key == pygame.K_BACKSPACE:
+                    self.input_text = self.input_text[:-1]
+                else:
+                    if len(self.input_text) < 20 and event.unicode.isprintable():
+                        self.input_text += event.unicode
+            return
+
         mx, my = mouse_pos
 
         if event.type == pygame.MOUSEBUTTONDOWN:
@@ -481,6 +513,14 @@ class MapEditor:
                     self._action = "play"
                 else:
                     self._show_status(msg, ok=False)
+            elif aid == "save":
+                ok, msg = self._validate()
+                if ok:
+                    self.input_mode = True
+                    self.input_text = ""
+                    self._show_status("Nhap ten ban do roi an Enter...", ok=True)
+                else:
+                    self._show_status(msg, ok=False)
             elif aid == "back":
                 self._action = "back"
 
@@ -504,6 +544,26 @@ class MapEditor:
         self._draw_grid(surface)
         self._draw_panel(surface)
         self._draw_status_bar(surface)
+
+        if self.input_mode:
+            cx, cy = self.screen_w // 2, self.screen_h // 2
+            box_w, box_h = 560, 160
+            box_rect = pygame.Rect(cx - box_w // 2, cy - box_h // 2, box_w, box_h)
+            
+            overlay_surf = pygame.Surface((box_w, box_h), pygame.SRCALPHA)
+            pygame.draw.rect(overlay_surf, (8, 10, 15, 240), (0, 0, box_w, box_h), border_radius=10)
+            surface.blit(overlay_surf, box_rect.topleft)
+            
+            pygame.draw.rect(surface, COL_WALL, box_rect, 2, border_radius=10)
+            
+            title_surf = self.font_med.render("LUU BAN DO", True, COL_ACTIVE_TOOL)
+            surface.blit(title_surf, title_surf.get_rect(center=(cx, cy - 50)))
+            
+            prompt_surf = self.font_small.render("NHAP TEN: " + self.input_text + ("|" if int(pygame.time.get_ticks() / 500) % 2 == 0 else ""), True, COL_TEXT)
+            surface.blit(prompt_surf, prompt_surf.get_rect(center=(cx, cy + 10)))
+            
+            info_surf = self.font_tiny.render("An Enter de Luu - An Esc de Huy", True, (120, 130, 150))
+            surface.blit(info_surf, info_surf.get_rect(center=(cx, cy + 50)))
 
     def _draw_grid(self, surface):
         ts = self.tile_size

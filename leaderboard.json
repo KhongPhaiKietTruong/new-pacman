@@ -523,5 +523,29 @@
     "turns": 23,
     "map_size": "25x21",
     "date": "2026-06-09"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 100,
+    "result": "LOSS",
+    "ghosts": 1,
+    "time": "00:31",
+    "elapsed": 31.4,
+    "steps": 39,
+    "turns": 13,
+    "map_size": "25x21",
+    "date": "2026-06-17"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 0,
+    "result": "LOSS",
+    "ghosts": 0,
+    "time": "00:15",
+    "elapsed": 15.6,
+    "steps": 22,
+    "turns": 10,
+    "map_size": "35x25",
+    "date": "2026-06-17"
   }
 ]

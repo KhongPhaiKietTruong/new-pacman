@@ -204,6 +204,8 @@ class GameEngine:
         self.wait_start_time = 0
         
         self.start_time = 0
+        self.game_time = 0.0
+        self.speed_scale = 1.0
         self.steps = 0
         self.turns = 0
         
@@ -338,8 +340,8 @@ class GameEngine:
         # Tao Ban Do
         self.grid, self.cols, self.rows = MapGenerator.generate_map(self.complexity, self.map_size)
         
-        # Tinh toan ty le de vua man hinh (tru thanh ben)
-        available_w = self.width - SIDEBAR_WIDTH
+        # Tinh toan ty le de vua man hinh (tru thanh ben va vung thanh truot toc do)
+        available_w = self.width - SIDEBAR_WIDTH - 60
         max_tile_w = available_w // self.cols
         max_tile_h = self.height // self.rows
         self.tile_size = min(max_tile_w, max_tile_h)
@@ -390,7 +392,7 @@ class GameEngine:
             
         self.power_mode_active = False
         self.waiting_for_pellet = False
-        self.start_time = time.time()
+        self.game_time = 0.0
         self.steps = 0
         self.turns = 0
         self.pacman_trail = []
@@ -409,8 +411,8 @@ class GameEngine:
         self.rows = rows
         self.cols = cols
 
-        # Tinh toan ty le de vua man hinh (tru thanh ben)
-        available_w = self.width - SIDEBAR_WIDTH
+        # Tinh toan ty le de vua man hinh (tru thanh ben va vung thanh truot toc do)
+        available_w = self.width - SIDEBAR_WIDTH - 60
         max_tile_w  = available_w // self.cols
         max_tile_h  = self.height  // self.rows
         self.tile_size = min(max_tile_w, max_tile_h)
@@ -458,7 +460,7 @@ class GameEngine:
 
         self.power_mode_active  = False
         self.waiting_for_pellet = False
-        self.start_time         = time.time()
+        self.game_time          = 0.0
         self.steps              = 0
         self.turns              = 0
         self.pacman_trail       = []
@@ -470,6 +472,8 @@ class GameEngine:
         if self.state != STATE_PLAYING or self.paused:
             self.graphics.update(dt)
             return
+
+        self.game_time += dt
 
         if self.dying:
             self.dying_timer -= dt
@@ -484,7 +488,7 @@ class GameEngine:
             self.graphics.update(dt)
             return
 
-        current_time = time.time()
+        current_time = self.game_time
         power_time_left = 0
         
         # Quan ly Che do Suc manh
@@ -879,8 +883,8 @@ class GameEngine:
             if g.is_scared:
                 color = GHOST_SCARED_COLOR
                 # Nhap nhay neu sap het thoi gian
-                if self.power_mode_active and (time.time() - self.power_start_time) > POWER_MODE_DURATION - 2.0:
-                    if int(time.time() * 10) % 2 == 0:
+                if self.power_mode_active and (self.game_time - self.power_start_time) > POWER_MODE_DURATION - 2.0:
+                    if int(self.game_time * 10) % 2 == 0:
                         color = (255, 255, 255)
                         
             gx = g.pixel_x
@@ -941,10 +945,8 @@ class GameEngine:
             pygame.draw.rect(surface, (255, 0, 128), border_rect, 2)
 
     def get_time_str(self):
-        if self.start_time == 0: return "00:00"
-        t = int(time.time() - self.start_time)
+        t = int(self.game_time)
         return f"{t//60:02d}:{t%60:02d}"
 
     def get_elapsed_seconds(self):
-        if self.start_time == 0: return 0.0
-        return time.time() - self.start_time
+        return self.game_time

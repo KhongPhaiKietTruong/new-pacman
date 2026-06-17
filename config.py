@@ -5,7 +5,7 @@ import pygame
 # Dung ti le khung hinh HD chuan cho logic co ban, viec co gian tu dong xu ly
 BASE_WIDTH = 1920
 BASE_HEIGHT = 1080
-SIDEBAR_WIDTH = 400
+SIDEBAR_WIDTH = 460
 FPS = 60
 
 # --- Cau hinh Luoi ---
