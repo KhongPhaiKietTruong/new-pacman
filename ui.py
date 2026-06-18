@@ -2146,7 +2146,7 @@ class NameSelectUI:
 class LeaderboardUI:
     """Full-screen leaderboard display with cyberpunk styling."""
 
-    ROWS_VISIBLE = 12
+    ROWS_VISIBLE = 17
 
     def __init__(self, screen_w, screen_h):
         self.w = screen_w
