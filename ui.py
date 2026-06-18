@@ -1213,7 +1213,7 @@ class UI:
         # Nen tieu de dep mat tuy chinh theo ket qua game
         if won:
             title_x = self.width // 2
-            title_y = self.height // 4
+            title_y = self.height // 4 - int(50 * self.scale)
             banner_rect = pygame.Rect(title_x - banner_w // 2, title_y - banner_h // 2, banner_w, banner_h)
             
             banner_bg = pygame.Surface((banner_w, banner_h), pygame.SRCALPHA)
@@ -1263,7 +1263,7 @@ class UI:
         else:
             # Nen tieu de KET THUC GAME u uat voi anh sang quet do loi va den LED nhap nhay cham (glitchy)
             title_x = self.width // 2
-            title_y = self.height // 4
+            title_y = self.height // 4 - int(50 * self.scale)
             banner_rect = pygame.Rect(title_x - banner_w // 2, title_y - banner_h // 2, banner_w, banner_h)
             
             banner_bg = pygame.Surface((banner_w, banner_h), pygame.SRCALPHA)
@@ -1312,7 +1312,7 @@ class UI:
                     
                 pygame.draw.circle(surface, led_color, (lx, ly), led_radius)
                 
-        self.draw_neon_text(surface, title, self.font_large, color, (self.width//2, self.height//4), glow_radius=30, pulse=pulse)
+        self.draw_neon_text(surface, title, self.font_large, color, (self.width//2, title_y), glow_radius=30, pulse=pulse)
         
         # Vien theo chu de nhap nhay (vang cho chien thang, do cho that bai)
         pygame.draw.rect(surface, color, (40, 40, self.width - 80, self.height - 80), 2 + int(pulse * 3), border_radius=0)
@@ -1357,7 +1357,7 @@ class UI:
             
         # Neu chien thang, hien thi bang xep hang leaderboard ben phai (side text)
         if won and getattr(self, 'current_rank', None) is not None:
-            rank_x = self.width // 2 + int(420 * self.scale)
+            rank_x = self.width // 2 + int(480 * self.scale)
             rank_y = self.height // 2 - int(50 * self.scale)
             
             box_w = int(400 * self.scale)
