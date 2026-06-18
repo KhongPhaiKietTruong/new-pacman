@@ -1101,12 +1101,24 @@ class UI:
     def handle_mouse_up(self):
         self.dragging_slider = None
 
-    def set_stats(self, time_str, steps, turns):
+    def set_stats(self, time_str, steps, turns, ghosts_eaten=None, map_size=None, mode=None, search_count=None, total_explored_nodes=None, ghost_explored=None):
         self.stats = {
             "THOI GIAN": time_str,
             "SO BUOC DI": str(steps),
             "SO LUOT QUAY": str(turns)
         }
+        if ghosts_eaten is not None:
+            self.stats["MA AN DUOC"] = f"{ghosts_eaten} / 4"
+        if map_size is not None:
+            self.stats["BAN DO"] = map_size
+        if mode is not None:
+            display_mode = "NGUOI CHOI VS AI" if mode == "Player vs AI" else "AI VS AI"
+            self.stats["CHE DO"] = display_mode
+        if total_explored_nodes is not None:
+            self.stats["TONG NUT DUYET"] = f"{total_explored_nodes} NUT"
+        if ghost_explored is not None:
+            for name, val in ghost_explored.items():
+                self.stats[f"TONG NUT {name.upper()}"] = f"{val} NUT"
 
     def draw_end_screen(self, surface, won):
         # Lop phu trong suot dep hon
@@ -1307,16 +1319,41 @@ class UI:
         
         # Bang so lieu thong ke
         title_y = self.height // 4
-        panel_y = max(title_y + banner_h // 2 + int(45 * self.scale), self.height // 2 - int(130 * self.scale))
+        panel_y = max(title_y + banner_h // 2 + int(40 * self.scale), self.height // 2 - int(240 * self.scale))
         keys = list(self.stats.keys())
+        
+        # Tinh toan do rong lon nhat cua key de thiet lap cot thang hang tuyet doi
+        max_key_w = 0
+        for key in keys:
+            w, h = self.font_med.size(key)
+            if w > max_key_w:
+                max_key_w = w
+                
         for i, key in enumerate(keys):
             val = self.stats[key]
-            text = f"{key.ljust(15)} : {val}"
+            cy = panel_y + i * int(40 * self.scale)
+            
             # Dich chuyen nhe sang trai khi thang de can bang voi bang xep hang o ben phai
             x_pos = self.width // 2
             if won and getattr(self, 'current_rank', None) is not None:
-                x_pos = self.width // 2 - int(230 * self.scale)
-            self.draw_neon_text(surface, text, self.font_med, TEXT_COLOR, (x_pos, panel_y + i * int(80 * self.scale)), glow_radius=5, pulse=0.5)
+                x_pos = self.width // 2 - int(250 * self.scale)
+                
+            x_label_start = x_pos - max_key_w - int(15 * self.scale)
+            x_colon = x_pos
+            x_val_start = x_pos + int(15 * self.scale)
+            
+            # Draw label (left aligned)
+            lbl_w, lbl_h = self.font_med.size(key)
+            lbl_center = (x_label_start + lbl_w // 2, cy)
+            self.draw_neon_text(surface, key, self.font_med, TEXT_COLOR, lbl_center, glow_radius=5, pulse=0.5)
+            
+            # Draw colon (centered)
+            self.draw_neon_text(surface, ":", self.font_med, TEXT_COLOR, (x_colon, cy), glow_radius=5, pulse=0.5)
+            
+            # Draw value (left aligned)
+            val_w, val_h = self.font_med.size(val)
+            val_center = (x_val_start + val_w // 2, cy)
+            self.draw_neon_text(surface, val, self.font_med, TEXT_COLOR, val_center, glow_radius=5, pulse=0.5)
             
         # Neu chien thang, hien thi bang xep hang leaderboard ben phai (side text)
         if won and getattr(self, 'current_rank', None) is not None:
@@ -1428,7 +1465,7 @@ class UI:
             p_state_str = "SAN MOI"
         elif game.pacman.state == 3:
             p_state_str = "DANG CHO"
-        entities_info.append(("PACMAN", game.pacman.algo, p_state_str, PACMAN_COLOR, game.pacman.get_avg_ram()))
+        entities_info.append(("PACMAN", game.pacman.algo, p_state_str, PACMAN_COLOR, game.pacman.get_avg_ram(), game.pacman.total_explored_nodes))
         
         # Cac con ma
         for g in game.ghosts:
@@ -1438,10 +1475,10 @@ class UI:
                 g_state = "DA CHET"
             elif g.is_scared:
                 g_state = "SO HAI"
-            entities_info.append((g_name, g.algo, g_state, g.color, g.get_avg_ram()))
+            entities_info.append((g_name, g.algo, g_state, g.color, g.get_avg_ram(), g.total_explored_nodes))
             
         block_height = int(line_height * 2.2)
-        for i, (name, algo, state, color, avg_ram) in enumerate(entities_info):
+        for i, (name, algo, state, color, avg_ram, total_nodes) in enumerate(entities_info):
             y_pos = diag_start_y + max(20, int(30 * scale)) + i * block_height
             # Dong 1: Ten thuc the & Thuat toan (trai), RAM (phai)
             lbl_name = self.font_sidebar.render(f"{name} ({algo})", True, color)
@@ -1450,10 +1487,13 @@ class UI:
             lbl_ram = self.font_sidebar.render(f"{avg_ram:.1f} KB", True, color)
             surface.blit(lbl_ram, (self.width - 30 - lbl_ram.get_width(), y_pos))
             
-            # Dong 2: Trang thai
+            # Dong 2: Trang thai (trai), Nut duyet (phai)
             state_color = (100, 100, 100) if state == "DA CHET" else TEXT_COLOR
             lbl_state = self.font_sidebar.render(f"  > {state}", True, state_color)
             surface.blit(lbl_state, (x_start + 30, y_pos + line_height))
+            
+            lbl_nodes = self.font_sidebar.render(f"{total_nodes} NUT", True, color)
+            surface.blit(lbl_nodes, (self.width - 30 - lbl_nodes.get_width(), y_pos + line_height))
 
         # --- SPEED SLIDER (Next to the map, left of the sidebar border) ---
         slider_h = int(250 * scale)

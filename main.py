@@ -230,7 +230,8 @@ def main():
                 end_anim_timer = 0.0
                 end_anim_won = (game.pending_end_state == STATE_VICTORY)
                 ui.reset_end_anim()
-                ui.set_stats(game.get_time_str(), game.steps, game.turns)
+                ghost_explored = {type(g).__name__: g.total_explored_nodes for g in game.ghosts}
+                ui.set_stats(game.get_time_str(), game.steps, game.turns, game.ghosts_eaten, f"{game.cols}x{game.rows}", game.mode, game.pacman.search_count, game.pacman.total_explored_nodes, ghost_explored)
                 # Luu thong tin bang xep hang
                 score = leaderboard.add_entry(
                     name           = current_player,

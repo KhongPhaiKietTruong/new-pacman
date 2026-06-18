@@ -137,6 +137,8 @@ class Pacman(Entity):
             2: "d",
             3: "-g if g != 999 else d"
         }
+        self.search_count = 0
+        self.total_explored_nodes = 0
 
     def get_pacman_heuristic(self, node, goal, ghosts, power_mode_active):
         d = manhattan_distance(node, goal)
@@ -222,6 +224,8 @@ class Pacman(Entity):
         self.path = path
         self.last_explored_nodes = explored
         self.explored_nodes_updated = True
+        self.search_count = getattr(self, 'search_count', 0) + 1
+        self.total_explored_nodes = getattr(self, 'total_explored_nodes', 0) + len(explored)
 
     def get_target(self, power_pellets, ghosts, rows, cols):
         if self.state == 1:
@@ -284,20 +288,24 @@ class Ghost(Entity):
         self.is_dead = False
         self.allowed_180 = False # Co duoc dat thanh True chinh xac khi vien thuoc nang luong bi an
         self.algo = "A*"
+        self.total_explored_nodes = 0
 
     def get_path_by_algo(self, grid, rows, cols, target, start=None):
         if start is None:
             start = (self.r, self.c)
         algo = getattr(self, 'algo', 'A*')
         if algo == 'A*':
-            return Pathfinding.a_star_search(start, target, grid, rows, cols)
+            path, explored = Pathfinding.a_star_search(start, target, grid, rows, cols, return_explored=True)
         elif algo == 'Greedy':
-            return Pathfinding.greedy_bfs(start, target, grid, rows, cols)
+            path, explored = Pathfinding.greedy_bfs(start, target, grid, rows, cols, return_explored=True)
         elif algo == 'DFS':
-            return Pathfinding.dfs(start, target, grid, rows, cols, depth_limit=15)
+            path, explored = Pathfinding.dfs(start, target, grid, rows, cols, depth_limit=15, return_explored=True)
         elif algo == 'BFS':
-            return Pathfinding.bfs(start, target, grid, rows, cols)
-        return Pathfinding.a_star_search(start, target, grid, rows, cols)
+            path, explored = Pathfinding.bfs(start, target, grid, rows, cols, return_explored=True)
+        else:
+            path, explored = Pathfinding.a_star_search(start, target, grid, rows, cols, return_explored=True)
+        self.total_explored_nodes = getattr(self, 'total_explored_nodes', 0) + len(explored)
+        return path
 
     def update_ai(self, grid, rows, cols, pacman_pos, pacman_dir, ghosts, blinky_pos):
         if self.is_dead:
@@ -323,10 +331,12 @@ class Ghost(Entity):
                 return -manhattan_distance(node, pacman_pos)
 
             # Generate full path using A* search and the flee heuristic
-            self.path = Pathfinding.a_star_search(
+            path, explored = Pathfinding.a_star_search(
                 (self.r, self.c), flee_goal, grid, rows, cols,
-                heuristic=flee_heuristic
+                heuristic=flee_heuristic, return_explored=True
             )
+            self.path = path
+            self.total_explored_nodes = getattr(self, 'total_explored_nodes', 0) + len(explored)
             self._prevent_180(grid, rows, cols, flee_goal)
 
         else:
