@@ -547,5 +547,77 @@
     "turns": 10,
     "map_size": "35x25",
     "date": "2026-06-17"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2052,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "01:29",
+    "elapsed": 89.4,
+    "steps": 181,
+    "turns": 0,
+    "map_size": "25x21",
+    "date": "2026-06-17"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2253,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "00:49",
+    "elapsed": 49.2,
+    "steps": 102,
+    "turns": 0,
+    "map_size": "25x21",
+    "date": "2026-06-17"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2246,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "00:50",
+    "elapsed": 50.7,
+    "steps": 83,
+    "turns": 31,
+    "map_size": "27x21",
+    "date": "2026-06-18"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2298,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "00:40",
+    "elapsed": 40.3,
+    "steps": 76,
+    "turns": 26,
+    "map_size": "27x21",
+    "date": "2026-06-18"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2350,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "00:29",
+    "elapsed": 30.0,
+    "steps": 65,
+    "turns": 0,
+    "map_size": "27x21",
+    "date": "2026-06-18"
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2221,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "00:55",
+    "elapsed": 55.6,
+    "steps": 68,
+    "turns": 23,
+    "map_size": "27x21",
+    "date": "2026-06-18"
   }
 ]

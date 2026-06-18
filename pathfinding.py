@@ -15,7 +15,7 @@ def get_neighbors(node, grid, rows, cols):
 
 class Pathfinding:
     @staticmethod
-    def a_star_search(start, goal, grid, rows, cols, heuristic=None, cost_fn=None):
+    def a_star_search(start, goal, grid, rows, cols, heuristic=None, cost_fn=None, return_explored=False):
         if heuristic is None:
             heuristic = manhattan_distance
             
@@ -27,11 +27,19 @@ class Pathfinding:
         came_from[start] = None
         cost_so_far[start] = 0
         
+        explored = []
+        explored_set = set()
+        
         while frontier:
             _, current = heapq.heappop(frontier)
             
             if current == goal:
                 break
+                
+            if current in explored_set:
+                continue
+            explored_set.add(current)
+            explored.append(current)
                 
             for next_node in get_neighbors(current, grid, rows, cols):
                 step_cost = 1
@@ -44,10 +52,14 @@ class Pathfinding:
                     heapq.heappush(frontier, (priority, next_node))
                     came_from[next_node] = current
                     
-        return Pathfinding.reconstruct_path(start, goal, came_from)
+        path = Pathfinding.reconstruct_path(start, goal, came_from)
+        if return_explored:
+            return path, explored
+        return path
+
 
     @staticmethod
-    def greedy_bfs(start, goal, grid, rows, cols, heuristic=None):
+    def greedy_bfs(start, goal, grid, rows, cols, heuristic=None, return_explored=False):
         if heuristic is None:
             heuristic = manhattan_distance
             
@@ -56,11 +68,19 @@ class Pathfinding:
         came_from = {}
         came_from[start] = None
         
+        explored = []
+        explored_set = set()
+        
         while frontier:
             _, current = heapq.heappop(frontier)
             
             if current == goal:
                 break
+                
+            if current in explored_set:
+                continue
+            explored_set.add(current)
+            explored.append(current)
                 
             for next_node in get_neighbors(current, grid, rows, cols):
                 if next_node not in came_from:
@@ -68,20 +88,32 @@ class Pathfinding:
                     heapq.heappush(frontier, (priority, next_node))
                     came_from[next_node] = current
                     
-        return Pathfinding.reconstruct_path(start, goal, came_from)
+        path = Pathfinding.reconstruct_path(start, goal, came_from)
+        if return_explored:
+            return path, explored
+        return path
+
 
     @staticmethod
-    def dfs(start, goal, grid, rows, cols, depth_limit=15):
+    def dfs(start, goal, grid, rows, cols, depth_limit=15, return_explored=False):
         stack = [(start, [start])]
         visited = set()
         
         best_path = [start]
         min_dist = float('inf')
+        
+        explored = []
+        explored_set = set()
 
         while stack:
             current, path = stack.pop()
+            if current not in explored_set:
+                explored_set.add(current)
+                explored.append(current)
             
             if current == goal:
+                if return_explored:
+                    return path[1:], explored
                 return path[1:]
                 
             if len(path) > depth_limit:
@@ -98,14 +130,20 @@ class Pathfinding:
                     if next_node not in visited:
                         stack.append((next_node, path + [next_node]))
                         
+        if return_explored:
+            return best_path[1:], explored
         return best_path[1:]
 
+
     @staticmethod
-    def bfs(start, goal, grid, rows, cols):
+    def bfs(start, goal, grid, rows, cols, return_explored=False):
         frontier = deque()
         frontier.append(start)
         came_from = {}
         came_from[start] = None
+        
+        explored = []
+        explored_set = set()
         
         while frontier:
             current = frontier.popleft()
@@ -113,12 +151,21 @@ class Pathfinding:
             if current == goal:
                 break
                 
+            if current in explored_set:
+                continue
+            explored_set.add(current)
+            explored.append(current)
+                
             for next_node in get_neighbors(current, grid, rows, cols):
                 if next_node not in came_from:
                     frontier.append(next_node)
                     came_from[next_node] = current
                     
-        return Pathfinding.reconstruct_path(start, goal, came_from)
+        path = Pathfinding.reconstruct_path(start, goal, came_from)
+        if return_explored:
+            return path, explored
+        return path
+
 
     @staticmethod
     def reconstruct_path(start, goal, came_from):

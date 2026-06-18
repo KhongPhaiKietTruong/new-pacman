@@ -153,3 +153,45 @@ class Graphics:
         
         # Nhan
         pygame.draw.circle(surface, POWER_PELLET_COLOR, center, radius)
+
+    @staticmethod
+    def draw_path_spread(surface, nodes, age, duration, color, tile_size):
+        """Draws a noticeable propagating spread of pathfinding search space."""
+        if not nodes:
+            return
+            
+        node_lifetime = 0.35  # lifetime of each explored tile visual
+        num_nodes = len(nodes)
+        
+        # Draw each explored node if it has been activated by the propagation wave
+        for i, (r, c) in enumerate(nodes):
+            # The entire search space propagates within the duration
+            t_activate = (i / num_nodes) * duration
+            
+            if age >= t_activate:
+                t_active = age - t_activate
+                if t_active < node_lifetime:
+                    progress = t_active / node_lifetime
+                    
+                    # Noticeable fading alpha (max 95 for clear visibility)
+                    alpha = int(95 * (1.0 - progress))
+                    
+                    # Constant size to avoid pop up / scale animation
+                    cell_size = tile_size - 6
+                    cx = c * tile_size + tile_size // 2
+                    cy = r * tile_size + tile_size // 2
+                    x = cx - cell_size // 2
+                    y = cy - cell_size // 2
+                    
+                    if cell_size > 0:
+                        cell_surf = pygame.Surface((cell_size, cell_size), pygame.SRCALPHA)
+                        
+                        # Soft filled rect
+                        fill_color = (*color[:3], int(alpha * 0.35))
+                        pygame.draw.rect(cell_surf, fill_color, (0, 0, cell_size, cell_size), border_radius=4)
+                        
+                        # Glowing border
+                        border_color = (*color[:3], alpha)
+                        pygame.draw.rect(cell_surf, border_color, (0, 0, cell_size, cell_size), 2, border_radius=4)
+                        
+                        surface.blit(cell_surf, (x, y))

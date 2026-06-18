@@ -212,6 +212,7 @@ class GameEngine:
         self.screen_shake_time = 0.0
         self.screen_shake_intensity = 0
         self.pacman_trail = []
+        self.path_spreads = []
         self.dying = False
         self.dying_timer = 0.0
         self.ghosts_eaten = 0
@@ -475,6 +476,12 @@ class GameEngine:
 
         self.game_time += dt
 
+        # Cap nhat hieu ung lan toa tim duong
+        for spread in self.path_spreads[:]:
+            spread['age'] += dt
+            if spread['age'] > spread['duration'] + 0.4:
+                self.path_spreads.remove(spread)
+
         if self.dying:
             self.dying_timer -= dt
             if self.dying_timer <= 0:
@@ -572,6 +579,21 @@ class GameEngine:
                         self.pacman.update_ai(self.grid, self.rows, self.cols, self.power_pellets, self.ghosts, self.power_mode_active, power_time_left)
                 else:
                     e.update_ai(self.grid, self.rows, self.cols, pacman_pos, self.pacman.dir, self.ghosts, blinky_pos)
+
+        # Check if Pacman calculated a new pathfinding spread
+        if getattr(self.pacman, 'explored_nodes_updated', False):
+            self.pacman.explored_nodes_updated = False
+            explored_nodes = getattr(self.pacman, 'last_explored_nodes', [])
+            if explored_nodes:
+                duration = max(0.15, min(0.5, 0.005 * len(explored_nodes)))
+                self.path_spreads.append({
+                    'nodes': list(explored_nodes),
+                    'age': 0.0,
+                    'duration': duration,
+                    'color': PACMAN_COLOR
+                })
+                if len(self.path_spreads) > 2:
+                    self.path_spreads.pop(0)
 
         # Kiem tra quay dau 180 do lap tuc cho Pacman (ca che do choi bang tay va AI)
         if self.pacman.dir != DIR_NONE and not self.pacman.is_centered(self.tile_size):
@@ -800,6 +822,10 @@ class GameEngine:
         if self.power_mode_active:
             # Mau neon tim/hong sam dep cho ve ngoai cong nghe cao diu
             wall_color = (255, 0, 128)
+
+        # Ve hieu ung lan toa tim duong cua Pacman
+        for spread in self.path_spreads:
+            Graphics.draw_path_spread(grid_surface, spread['nodes'], spread['age'], spread['duration'], spread['color'], self.tile_size)
 
         for r in range(self.rows):
             for c in range(self.cols):

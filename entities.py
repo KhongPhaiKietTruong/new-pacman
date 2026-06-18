@@ -217,7 +217,10 @@ class Pacman(Entity):
             return cost
 
         # Pacman luon luon su dung thuat toan A* de duong di toi uu nhat theo heuristic
-        self.path = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn)
+        path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
+        self.path = path
+        self.last_explored_nodes = explored
+        self.explored_nodes_updated = True
 
     def get_target(self, power_pellets, ghosts, rows, cols):
         if self.state == 1:
