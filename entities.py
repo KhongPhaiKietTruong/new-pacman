@@ -304,7 +304,8 @@ class Ghost(Entity):
             path, explored = Pathfinding.bfs(start, target, grid, rows, cols, return_explored=True)
         else:
             path, explored = Pathfinding.a_star_search(start, target, grid, rows, cols, return_explored=True)
-        self.total_explored_nodes = getattr(self, 'total_explored_nodes', 0) + len(explored)
+        if not getattr(self, 'is_scared', False):
+            self.total_explored_nodes = getattr(self, 'total_explored_nodes', 0) + len(explored)
         return path
 
     def update_ai(self, grid, rows, cols, pacman_pos, pacman_dir, ghosts, blinky_pos):
@@ -336,7 +337,6 @@ class Ghost(Entity):
                 heuristic=flee_heuristic, return_explored=True
             )
             self.path = path
-            self.total_explored_nodes = getattr(self, 'total_explored_nodes', 0) + len(explored)
             self._prevent_180(grid, rows, cols, flee_goal)
 
         else:

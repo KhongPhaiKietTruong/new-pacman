@@ -1002,5 +1002,43 @@
       "Inky": 53232,
       "Clyde": 3171
     }
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2284,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "00:43",
+    "elapsed": 43.1,
+    "steps": 83,
+    "turns": 20,
+    "map_size": "35x25",
+    "date": "2026-06-18",
+    "pacman_explored": 11352,
+    "ghost_explored": {
+      "Blinky": 10578,
+      "Pinky": 28784,
+      "Inky": 135154,
+      "Clyde": 115446
+    }
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2124,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "01:15",
+    "elapsed": 75.1,
+    "steps": 128,
+    "turns": 48,
+    "map_size": "35x25",
+    "date": "2026-06-18",
+    "pacman_explored": 55376,
+    "ghost_explored": {
+      "Blinky": 4150,
+      "Pinky": 2336,
+      "Inky": 18302,
+      "Clyde": 2846
+    }
   }
 ]

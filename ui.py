@@ -1487,13 +1487,13 @@ class UI:
             lbl_ram = self.font_sidebar.render(f"{avg_ram:.1f} KB", True, color)
             surface.blit(lbl_ram, (self.width - 30 - lbl_ram.get_width(), y_pos))
             
-            # Dong 2: Trang thai (trai), Nut duyet (phai)
+            # Dong 2: Trang thai (trai), Nut duyet (ngay sat sau do de tranh chong cheo)
             state_color = (100, 100, 100) if state == "DA CHET" else TEXT_COLOR
-            lbl_state = self.font_sidebar.render(f"  > {state}", True, state_color)
+            lbl_state = self.font_sidebar.render(f"  > {state} ", True, state_color)
             surface.blit(lbl_state, (x_start + 30, y_pos + line_height))
             
-            lbl_nodes = self.font_sidebar.render(f"{total_nodes} NUT", True, color)
-            surface.blit(lbl_nodes, (self.width - 30 - lbl_nodes.get_width(), y_pos + line_height))
+            lbl_nodes = self.font_sidebar.render(f"({total_nodes} NUT)", True, color)
+            surface.blit(lbl_nodes, (x_start + 30 + lbl_state.get_width(), y_pos + line_height))
 
         # --- SPEED SLIDER (Next to the map, left of the sidebar border) ---
         slider_h = int(250 * scale)
