@@ -802,7 +802,7 @@ class UI:
                 self.draw_neon_text(surface, text, self.font_small, border_color, rect.center, glow_radius=10, pulse=btn_pulse)
                 
             # ── VE LEGEN HANH VI CUA GHOSTS BEN DUOI ALGO ──
-            self.draw_neon_text(surface, "HANH VI CHUYEN BIET CUA GHOSTS", self.font_small, PACMAN_COLOR, (panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
+            self.draw_neon_text(surface, "HANH VI DI CHUYEN CUA GHOSTS", self.font_small, PACMAN_COLOR, (panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
             
             pygame.draw.rect(surface, (5, 8, 12), legend_rect, border_radius=6)
             pygame.draw.rect(surface, (30, 50, 70), legend_rect, 1, border_radius=6)
@@ -1213,7 +1213,7 @@ class UI:
         # Nen tieu de dep mat tuy chinh theo ket qua game
         if won:
             title_x = self.width // 2
-            title_y = self.height // 4 - int(50 * self.scale)
+            title_y = self.height // 4
             banner_rect = pygame.Rect(title_x - banner_w // 2, title_y - banner_h // 2, banner_w, banner_h)
             
             banner_bg = pygame.Surface((banner_w, banner_h), pygame.SRCALPHA)
@@ -1263,7 +1263,7 @@ class UI:
         else:
             # Nen tieu de KET THUC GAME u uat voi anh sang quet do loi va den LED nhap nhay cham (glitchy)
             title_x = self.width // 2
-            title_y = self.height // 4 - int(50 * self.scale)
+            title_y = self.height // 4
             banner_rect = pygame.Rect(title_x - banner_w // 2, title_y - banner_h // 2, banner_w, banner_h)
             
             banner_bg = pygame.Surface((banner_w, banner_h), pygame.SRCALPHA)
@@ -1312,7 +1312,7 @@ class UI:
                     
                 pygame.draw.circle(surface, led_color, (lx, ly), led_radius)
                 
-        self.draw_neon_text(surface, title, self.font_large, color, (self.width//2, title_y), glow_radius=30, pulse=pulse)
+        self.draw_neon_text(surface, title, self.font_large, color, (self.width//2, self.height//4), glow_radius=30, pulse=pulse)
         
         # Vien theo chu de nhap nhay (vang cho chien thang, do cho that bai)
         pygame.draw.rect(surface, color, (40, 40, self.width - 80, self.height - 80), 2 + int(pulse * 3), border_radius=0)
@@ -1357,7 +1357,7 @@ class UI:
             
         # Neu chien thang, hien thi bang xep hang leaderboard ben phai (side text)
         if won and getattr(self, 'current_rank', None) is not None:
-            rank_x = self.width // 2 + int(480 * self.scale)
+            rank_x = self.width // 2 + int(420 * self.scale)
             rank_y = self.height // 2 - int(50 * self.scale)
             
             box_w = int(400 * self.scale)
@@ -1439,7 +1439,7 @@ class UI:
             f"THOI GIAN : {game.get_time_str()}",
             f"BUOC DI   : {game.steps}",
             f"LUOT QUAY : {game.turns}",
-            f"DIEM VIEN : {len(game.power_pellets)}",
+            f"VIEN SUC MANH : {len(game.power_pellets)}",
             f"PHUC TAP  : {int(game.complexity * 100)}%",
             f"BAN DO    : {game.cols}x{game.rows}"
         ]
@@ -1487,13 +1487,13 @@ class UI:
             lbl_ram = self.font_sidebar.render(f"{avg_ram:.1f} KB", True, color)
             surface.blit(lbl_ram, (self.width - 30 - lbl_ram.get_width(), y_pos))
             
-            # Dong 2: Trang thai (trai), Nut duyet (ngay sat sau do de tranh chong cheo)
+            # Dong 2: Trang thai (trai), Nut duyet (phai)
             state_color = (100, 100, 100) if state == "DA CHET" else TEXT_COLOR
-            lbl_state = self.font_sidebar.render(f"  > {state} ", True, state_color)
+            lbl_state = self.font_sidebar.render(f"  > {state}", True, state_color)
             surface.blit(lbl_state, (x_start + 30, y_pos + line_height))
             
-            lbl_nodes = self.font_sidebar.render(f"({total_nodes} NUT)", True, color)
-            surface.blit(lbl_nodes, (x_start + 30 + lbl_state.get_width(), y_pos + line_height))
+            lbl_nodes = self.font_sidebar.render(f"{total_nodes} NUT", True, color)
+            surface.blit(lbl_nodes, (self.width - 30 - lbl_nodes.get_width(), y_pos + line_height))
 
         # --- SPEED SLIDER (Next to the map, left of the sidebar border) ---
         slider_h = int(250 * scale)
