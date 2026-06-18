@@ -9,6 +9,7 @@ from leaderboard import Leaderboard
 
 def main():
     pygame.init()
+    pygame.key.set_repeat(400, 50)
     
     # Thu man hinh rong, quay lai cua so neu that bai hoac de thu nghiem
     try:

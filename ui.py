@@ -469,7 +469,7 @@ class UI:
             mouse_pos = pygame.mouse.get_pos()
             
             banner_bottom = self.height // 5 + title_h // 2 + 37
-            start_y = banner_bottom + int(85 * self.scale)
+            start_y = banner_bottom + int(110 * self.scale)
             display_mode = "NGUOI CHOI VS AI" if self.mode == "Player vs AI" else "AI VS AI"
             btns = [
                 ("BAT DAU GAME", "start"),
@@ -689,43 +689,28 @@ class UI:
             # Available height for cards
             panel_h = self.height - start_y - int(85 * scale)
             
-            # Left Panel (Pacman Heuristics & Instructions)
-            left_panel_x = int(30 * scale)
-            left_panel_w = self.width // 2 - int(50 * scale)
-            left_panel_rect = pygame.Rect(left_panel_x, start_y - int(75 * scale), left_panel_w, panel_h)
-            
-            box_w = left_panel_w - int(40 * scale)
-            box_h = int(60 * scale)
-            box_x = left_panel_x + int(20 * scale)
-            
-            # Right Panel (Ghosts AI & Personality Profile)
-            right_panel_x = self.width // 2 + int(20 * scale)
-            right_panel_w = self.width // 2 - int(50 * scale)
-            right_panel_rect = pygame.Rect(right_panel_x, start_y - int(75 * scale), right_panel_w, panel_h)
+            # Single Center Panel (Ghosts AI & Personality Profile)
+            panel_w = int(720 * scale)
+            panel_x = self.width // 2 - panel_w // 2
+            panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
             
             # Ghost buttons
-            Center_R = right_panel_x + right_panel_w // 2
+            Center_R = self.width // 2
             ghost_w = int(220 * scale)
             btn_h = int(50 * scale)
             
             ghost_btns = [
-                ("Blinky", Center_R - int(120 * scale), right_panel_rect.top + int(90 * scale)),
-                ("Pinky", Center_R + int(120 * scale), right_panel_rect.top + int(90 * scale)),
-                ("Inky", Center_R - int(120 * scale), right_panel_rect.top + int(155 * scale)),
-                ("Clyde", Center_R + int(120 * scale), right_panel_rect.top + int(155 * scale))
+                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(90 * scale)),
+                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(90 * scale)),
+                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
+                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(155 * scale))
             ]
             
-            # Left Guide coordinates
-            guide_y = left_panel_rect.top + int(365 * scale)
-            guide_w = box_w
-            guide_h = panel_h - int(375 * scale)
-            guide_rect = pygame.Rect(box_x, guide_y, guide_w, guide_h)
-            
-            # Right Legend coordinates
-            legend_y = right_panel_rect.top + int(215 * scale)
-            legend_w = right_panel_w - int(40 * scale)
+            # Legend coordinates
+            legend_y = panel_rect.top + int(215 * scale)
+            legend_w = panel_w - int(40 * scale)
             legend_h = panel_h - int(265 * scale)
-            legend_rect = pygame.Rect(right_panel_rect.centerx - legend_w // 2, right_panel_rect.top + int(255 * scale), legend_w, legend_h)
+            legend_rect = pygame.Rect(panel_rect.centerx - legend_w // 2, panel_rect.top + int(255 * scale), legend_w, legend_h)
             
             # Bottom buttons
             buttons_y = self.height - int(50 * scale)
@@ -736,7 +721,7 @@ class UI:
             back_rect = pygame.Rect(self.width // 2 + int(200 * scale) - action_w // 2, buttons_y - action_h // 2, action_w, action_h)
             
             # Tieu de settings screen
-            title_text = "CAI DAT CAU HINH HEURISTIC & ALGO"
+            title_text = "CAI DAT CAU HINH THUAT TOAN GHOST"
             title_font = self.font_large
             if title_font.size(title_text)[0] > self.width - 80:
                 title_font = self.font_med
@@ -747,11 +732,6 @@ class UI:
             mouse_x, mouse_y = mouse_pos
             
             self.hovered_btn = None
-            for i in [1, 2, 3]:
-                y = left_panel_rect.top + int(95 * scale) + (i - 1) * int(90 * scale)
-                rect = pygame.Rect(box_x, y - box_h // 2, box_w, box_h)
-                if rect.collidepoint(mouse_x, mouse_y):
-                    self.hovered_btn = f"input_{i}"
                     
             for name, gx, gy in ghost_btns:
                 rect = pygame.Rect(gx - ghost_w // 2, gy - btn_h // 2, ghost_w, btn_h)
@@ -769,7 +749,7 @@ class UI:
                 if slider_y - int(20 * scale) <= mouse_y <= slider_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
                     self.hovered_btn = "volume"
                 
-            # ── VE HAI KHUNG PANEL (GLASSMORPHISM) ──
+            # ── VE KHUNG PANEL (GLASSMORPHISM) ──
             def draw_glass_panel(surf, rect, border_color, tag_text):
                 # Background trong suot
                 temp_surf = pygame.Surface((rect.width, rect.height), pygame.SRCALPHA)
@@ -790,127 +770,10 @@ class UI:
                 pygame.draw.line(surf, border_color, (rect.right, rect.bottom), (rect.right - dec*2, rect.bottom), 4)
                 pygame.draw.line(surf, border_color, (rect.right, rect.bottom), (rect.right, rect.bottom - dec*2), 4)
             
-            draw_glass_panel(surface, left_panel_rect, (0, 229, 255), "[SYS.AI.PAC]")
-            draw_glass_panel(surface, right_panel_rect, (255, 0, 128), "[SYS.AI.GHO]")
+            draw_glass_panel(surface, panel_rect, (255, 0, 128), "[SYS.AI.GHO]")
             
-            # ── VE COT TRAI: PACMAN HEURISTICS ──
-            labels = {
-                1: "TRANG THAI 1: BINH THUONG",
-                2: "TRANG THAI 2: SAN MOI",
-                3: "TRANG THAI 3: CHO DOI",
-            }
-            
-            self.draw_neon_text(surface, "PACMAN AI HEURISTICS", self.font_small, (0, 229, 255), (left_panel_rect.centerx, left_panel_rect.top + int(26 * scale)), glow_radius=8, pulse=pulse)
-            
-            for i in [1, 2, 3]:
-                y = left_panel_rect.top + int(95 * scale) + (i - 1) * int(90 * scale)
-                
-                # Label phu
-                lbl_surf = self.font_sidebar.render(labels[i], True, (160, 190, 220))
-                surface.blit(lbl_surf, (box_x, y - box_h // 2 - int(14 * scale)))
-                
-                # Rect hop nhap lieu
-                rect = pygame.Rect(box_x, y - box_h // 2, box_w, box_h)
-                pygame.draw.rect(surface, (5, 7, 12), rect, border_radius=6)
-                
-                is_focused = (self.focused_heuristic_idx == i)
-                is_hovered = (self.hovered_btn == f"input_{i}")
-                
-                if is_focused:
-                    border_color = PACMAN_COLOR
-                    border_thickness = 2
-                elif is_hovered:
-                    border_color = (0, 229, 255)
-                    border_thickness = 1.5
-                else:
-                    border_color = (35, 45, 60)
-                    border_thickness = 1
-                    
-                pygame.draw.rect(surface, border_color, rect, int(border_thickness), border_radius=6)
-                
-                # Custom text rendering with scrolling/clipping
-                display_text = self.pacman_heuristics[i]
-                
-                # Ensure we have cursor index and scroll values initialized
-                if not hasattr(self, 'heuristic_cursor_indices'):
-                    self.heuristic_cursor_indices = {1: len(self.pacman_heuristics[1]), 2: len(self.pacman_heuristics[2]), 3: len(self.pacman_heuristics[3])}
-                if not hasattr(self, 'heuristic_scrolls'):
-                    self.heuristic_scrolls = {1: 0, 2: 0, 3: 0}
-                    
-                cursor_pos = self.heuristic_cursor_indices.get(i, len(display_text))
-                cursor_pos = max(0, min(len(display_text), cursor_pos))
-                
-                text_clip_w = rect.width - int(40 * scale)
-                text_surf = pygame.Surface((text_clip_w, rect.height), pygame.SRCALPHA)
-                
-                lbl_text = self.font_small.render(display_text, True, (255, 255, 255) if is_focused else (180, 200, 240))
-                text_width = lbl_text.get_width()
-                
-                # Measure cursor X position relative to start of text
-                prefix_text = display_text[:cursor_pos]
-                cursor_offset_x = self.font_small.size(prefix_text)[0]
-                
-                # Adjust scroll_x to keep cursor in view
-                margin = int(20 * scale)
-                if text_width <= text_clip_w:
-                    self.heuristic_scrolls[i] = 0
-                else:
-                    cx = cursor_offset_x + self.heuristic_scrolls[i]
-                    if cx < margin:
-                        self.heuristic_scrolls[i] = margin - cursor_offset_x
-                    elif cx > text_clip_w - margin:
-                        self.heuristic_scrolls[i] = text_clip_w - margin - cursor_offset_x
-                        
-                    # Clamp scroll_x
-                    max_scroll = 0
-                    min_scroll = text_clip_w - text_width - int(10 * scale)
-                    self.heuristic_scrolls[i] = max(min_scroll, min(max_scroll, self.heuristic_scrolls[i]))
-                    
-                text_x = self.heuristic_scrolls[i]
-                text_surf.blit(lbl_text, (text_x, (rect.height - lbl_text.get_height())//2))
-                
-                cursor_visible = is_focused and int(time_passed * 3.5) % 2 == 0
-                if cursor_visible:
-                    cursor_x = text_x + cursor_offset_x
-                    cursor_x = min(text_clip_w - 3, max(2, cursor_x))
-                    cursor_y1 = (rect.height - lbl_text.get_height())//2
-                    cursor_y2 = cursor_y1 + lbl_text.get_height()
-                    pygame.draw.line(text_surf, PACMAN_COLOR, (cursor_x, cursor_y1), (cursor_x, cursor_y2), 3)
-                    
-                surface.blit(text_surf, (rect.x + int(20 * scale), rect.y))
-                
-            # ── VE HUONG DAN HEURISTIC BEN DUOI NHAP LIEU ──
-            self.draw_neon_text(surface, "HUONG DAN THIET KE HEURISTIC", self.font_small, PACMAN_COLOR, (left_panel_rect.centerx, guide_y - int(25 * scale)), glow_radius=5, pulse=0.5)
-            
-            pygame.draw.rect(surface, (5, 8, 12), guide_rect, border_radius=6)
-            pygame.draw.rect(surface, (30, 50, 70), guide_rect, 1, border_radius=6)
-            
-            guide_lines = [
-                "d: Khoang cach Manhattan tu Pacman toi Target",
-                "g: Khoang cach den Ghost gan nhat dang song",
-                "ghosts: Danh sach khoang cach den 4 con Ghost",
-                "Ham ho tro: sum(), min(), max(), abs(), inf (999)",
-                "VD: d + sum(50.0 / max(0.5, gd) for gd in ghosts if gd < 4)"
-            ]
-            
-            line_spacing = int(22 * scale)
-            for idx, line in enumerate(guide_lines):
-                if ":" in line:
-                    parts = line.split(":", 1)
-                    prefix = parts[0] + ":"
-                    suffix = parts[1]
-                    
-                    lbl_prefix = self.font_guide.render(prefix, True, (0, 229, 255))
-                    lbl_suffix = self.font_guide.render(suffix, True, (180, 200, 220))
-                    
-                    surface.blit(lbl_prefix, (guide_rect.left + int(15 * scale), guide_rect.top + int(15 * scale) + idx * line_spacing))
-                    surface.blit(lbl_suffix, (guide_rect.left + int(15 * scale) + lbl_prefix.get_width(), guide_rect.top + int(15 * scale) + idx * line_spacing))
-                else:
-                    lbl = self.font_guide.render(line, True, (180, 200, 220))
-                    surface.blit(lbl, (guide_rect.left + int(15 * scale), guide_rect.top + int(15 * scale) + idx * line_spacing))
-                
-            # ── VE COT PHAI: GHOST ALGORITHMS ──
-            self.draw_neon_text(surface, "ALGO CHO GHOSTS", self.font_small, (255, 0, 128), (right_panel_rect.centerx, right_panel_rect.top + int(26 * scale)), glow_radius=8, pulse=pulse)
+            # ── VE GHOST ALGORITHMS ──
+            self.draw_neon_text(surface, "ALGO CHO GHOSTS", self.font_small, (255, 0, 128), (panel_rect.centerx, panel_rect.top + int(26 * scale)), glow_radius=8, pulse=pulse)
             
             ghost_colors = {
                 "Blinky": BLINKY_COLOR,
@@ -939,7 +802,7 @@ class UI:
                 self.draw_neon_text(surface, text, self.font_small, border_color, rect.center, glow_radius=10, pulse=btn_pulse)
                 
             # ── VE LEGEN HANH VI CUA GHOSTS BEN DUOI ALGO ──
-            self.draw_neon_text(surface, "HANH VI CHUYEN BIET CUA GHOSTS", self.font_small, PACMAN_COLOR, (right_panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
+            self.draw_neon_text(surface, "HANH VI CHUYEN BIET CUA GHOSTS", self.font_small, PACMAN_COLOR, (panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
             
             pygame.draw.rect(surface, (5, 8, 12), legend_rect, border_radius=6)
             pygame.draw.rect(surface, (30, 50, 70), legend_rect, 1, border_radius=6)
@@ -951,6 +814,7 @@ class UI:
                 "Clyde (Cam): Vay bat, ep Pacman vao giua Clyde va Blinky"
             ]
             
+            line_spacing = int(22 * scale)
             for idx, line in enumerate(legend_lines):
                 if "(" in line and ")" in line:
                     parts = line.split(")", 1)
@@ -1091,41 +955,25 @@ class UI:
             # Available height for cards
             panel_h = self.height - start_y - int(60 * scale)
             
-            # Left Panel (Pacman Heuristics & Instructions)
-            left_panel_x = int(30 * scale)
-            left_panel_w = self.width // 2 - int(50 * scale)
-            left_panel_rect = pygame.Rect(left_panel_x, start_y - int(75 * scale), left_panel_w, panel_h)
-            
-            box_w = left_panel_w - int(40 * scale)
-            box_h = int(60 * scale)
-            box_x = left_panel_x + int(20 * scale)
-            
-            # Right Panel (Ghosts AI & Personality Profile)
-            right_panel_x = self.width // 2 + int(20 * scale)
-            right_panel_w = self.width // 2 - int(50 * scale)
-            right_panel_rect = pygame.Rect(right_panel_x, start_y - int(75 * scale), right_panel_w, panel_h)
+            # Center Panel coordinates
+            panel_w = int(720 * scale)
+            panel_x = self.width // 2 - panel_w // 2
+            panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
             
             # Ghost buttons
-            Center_R = right_panel_x + right_panel_w // 2
+            Center_R = self.width // 2
             ghost_w = int(220 * scale)
             btn_h = int(50 * scale)
             
             ghost_btns = [
-                ("Blinky", Center_R - int(120 * scale), right_panel_rect.top + int(90 * scale)),
-                ("Pinky", Center_R + int(120 * scale), right_panel_rect.top + int(90 * scale)),
-                ("Inky", Center_R - int(120 * scale), right_panel_rect.top + int(155 * scale)),
-                ("Clyde", Center_R + int(120 * scale), right_panel_rect.top + int(155 * scale))
+                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(90 * scale)),
+                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(90 * scale)),
+                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
+                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(155 * scale))
             ]
             
             # Check if any input box is clicked
             self.focused_heuristic_idx = None
-            for i in [1, 2, 3]:
-                y = left_panel_rect.top + int(95 * scale) + (i - 1) * int(90 * scale)
-                rect = pygame.Rect(box_x, y - box_h // 2, box_w, box_h)
-                if rect.collidepoint(mouse_x, mouse_y):
-                    self.focused_heuristic_idx = i
-                    self.heuristic_cursor_indices[i] = len(self.pacman_heuristics[i])
-                    return f"focus_{i}"
                     
             # Check ghost buttons
             for name, gx, gy in ghost_btns:
@@ -1144,13 +992,6 @@ class UI:
             
             reset_rect = pygame.Rect(self.width // 2 - int(200 * scale) - action_w // 2, buttons_y - action_h // 2, action_w, action_h)
             if reset_rect.collidepoint(mouse_x, mouse_y):
-                self.pacman_heuristics = self.default_heuristics.copy()
-                self.heuristic_cursor_indices = {
-                    1: len(self.pacman_heuristics[1]),
-                    2: len(self.pacman_heuristics[2]),
-                    3: len(self.pacman_heuristics[3])
-                }
-                self.heuristic_scrolls = {1: 0, 2: 0, 3: 0}
                 self.sound_volume = 0.8
                 self.algorithms = {
                     "Blinky": "A*",
@@ -1169,54 +1010,6 @@ class UI:
             return None
 
     def handle_settings_keydown(self, event):
-        if self.menu_view != "settings" or self.focused_heuristic_idx is None:
-            return False
-            
-        i = self.focused_heuristic_idx
-        text = self.pacman_heuristics[i]
-        
-        # Ensure we have cursor tracking initialized for this index
-        if not hasattr(self, 'heuristic_cursor_indices'):
-            self.heuristic_cursor_indices = {1: len(self.pacman_heuristics[1]), 2: len(self.pacman_heuristics[2]), 3: len(self.pacman_heuristics[3])}
-        cursor_pos = self.heuristic_cursor_indices.get(i, len(text))
-        cursor_pos = max(0, min(len(text), cursor_pos))
-        
-        if event.key == pygame.K_LEFT:
-            if cursor_pos > 0:
-                self.heuristic_cursor_indices[i] = cursor_pos - 1
-            return True
-        elif event.key == pygame.K_RIGHT:
-            if cursor_pos < len(text):
-                self.heuristic_cursor_indices[i] = cursor_pos + 1
-            return True
-        elif event.key == pygame.K_HOME:
-            self.heuristic_cursor_indices[i] = 0
-            return True
-        elif event.key == pygame.K_END:
-            self.heuristic_cursor_indices[i] = len(text)
-            return True
-        elif event.key == pygame.K_BACKSPACE:
-            if cursor_pos > 0:
-                new_text = text[:cursor_pos - 1] + text[cursor_pos:]
-                self.pacman_heuristics[i] = new_text
-                self.heuristic_cursor_indices[i] = cursor_pos - 1
-            return True
-        elif event.key == pygame.K_DELETE:
-            if cursor_pos < len(text):
-                new_text = text[:cursor_pos] + text[cursor_pos + 1:]
-                self.pacman_heuristics[i] = new_text
-            return True
-        elif event.key == pygame.K_RETURN or event.key == pygame.K_ESCAPE:
-            self.focused_heuristic_idx = None
-            return True
-        else:
-            ch = event.unicode
-            if ch and ch.isprintable():
-                if len(text) < 70:
-                    new_text = text[:cursor_pos] + ch + text[cursor_pos:]
-                    self.pacman_heuristics[i] = new_text
-                    self.heuristic_cursor_indices[i] = cursor_pos + 1
-                    return True
         return False
 
 
@@ -2375,17 +2168,54 @@ class LeaderboardUI:
         self.scroll = 0
         self.back_pressed = False
         self.last_entry_name = None   # lam noi bat hang cua nguoi choi gan day nhat
+        self.selected_detail = None
+        self.selected_detail_rank = None
 
     def reset(self, entries, last_name=None):
         self.entries = entries
         self.scroll = 0
         self.back_pressed = False
         self.last_entry_name = last_name
+        self.selected_detail = None
+        self.selected_detail_rank = None
 
     def _back_rect(self):
         return pygame.Rect(self.w // 2 - int(140 * self.scale), self.h - int(80 * self.scale), int(280 * self.scale), int(50 * self.scale))
 
+    def _modal_rect(self):
+        w = int(700 * self.scale)
+        h = int(500 * self.scale)
+        return pygame.Rect(self.w // 2 - w // 2, self.h // 2 - h // 2, w, h)
+
+    def _modal_close_rect(self):
+        mr = self._modal_rect()
+        btn_w = int(220 * self.scale)
+        btn_h = int(45 * self.scale)
+        return pygame.Rect(mr.centerx - btn_w // 2, mr.bottom - int(60 * self.scale), btn_w, btn_h)
+
+    def draw_neon_text(self, surface, text, font, color, center_pos, glow_radius=10, pulse=1.0):
+        text_surf = font.render(text, True, color)
+        text_rect = text_surf.get_rect(center=center_pos)
+        glow_color = (min(255, color[0] + 50), min(255, color[1] + 50), min(255, color[2] + 50))
+        max_glow = int(glow_radius * pulse)
+        for i in range(max_glow, 0, -2):
+            glow_surf = font.render(text, True, glow_color)
+            glow_surf.set_alpha(int(200 / max_glow) if max_glow > 0 else 0)
+            surface.blit(glow_surf, (text_rect.x - i//2, text_rect.y - i//2))
+        surface.blit(text_surf, text_rect)
+
     def handle_event(self, event, mouse_pos):
+        if self.selected_detail is not None:
+            if event.type == pygame.KEYDOWN:
+                if event.key in (pygame.K_ESCAPE, pygame.K_RETURN, pygame.K_SPACE):
+                    self.selected_detail = None
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if self._modal_close_rect().collidepoint(*mouse_pos):
+                    self.selected_detail = None
+                elif not self._modal_rect().collidepoint(*mouse_pos):
+                    self.selected_detail = None
+            return
+
         if event.type == pygame.MOUSEWHEEL:
             self.scroll = max(0, min(len(self.entries) - self.ROWS_VISIBLE, self.scroll - event.y))
         elif event.type == pygame.KEYDOWN:
@@ -2394,6 +2224,17 @@ class LeaderboardUI:
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self._back_rect().collidepoint(*mouse_pos):
                 self.back_pressed = True
+            else:
+                row_y0 = int(150 * self.scale)
+                row_h = int(46 * self.scale)
+                visible = self.entries[self.scroll : self.scroll + self.ROWS_VISIBLE]
+                for i, entry in enumerate(visible):
+                    y = row_y0 + i * row_h
+                    row_rect = pygame.Rect(50, y, self.w - 100, row_h - 4)
+                    if row_rect.collidepoint(*mouse_pos):
+                        self.selected_detail = entry
+                        self.selected_detail_rank = self.scroll + i + 1
+                        break
 
     def draw(self, surface):
         import math, colorsys
@@ -2534,3 +2375,76 @@ class LeaderboardUI:
         pygame.draw.rect(surface, (200, 80, 80) if is_h else (50, 30, 40), br, 2)
         back_lbl = self.font_small.render("← QUAY LAI MENU", True, (200, 80, 80) if is_h else (120, 80, 100))
         surface.blit(back_lbl, back_lbl.get_rect(center=br.center))
+
+        # ── VE CHI TIET TRAN DAU MODAL (NEU DUOC CHON) ──
+        if self.selected_detail is not None:
+            # Dim screen
+            overlay = pygame.Surface((self.w, self.h), pygame.SRCALPHA)
+            overlay.fill((5, 7, 12, 210))
+            surface.blit(overlay, (0, 0))
+
+            mr = self._modal_rect()
+            res = self.selected_detail.get("result", "LOSS")
+            border_color = (0, 229, 255) if res == "WIN" else (255, 0, 128)
+            tag_text = "[GAME.WIN]" if res == "WIN" else "[GAME.LOSS]"
+
+            # Glass background
+            temp_surf = pygame.Surface((mr.width, mr.height), pygame.SRCALPHA)
+            pygame.draw.rect(temp_surf, (8, 12, 20, 240), (0, 0, mr.width, mr.height), border_radius=12)
+            surface.blit(temp_surf, (mr.x, mr.y))
+
+            # Neon border
+            pygame.draw.rect(surface, border_color, mr, 3, border_radius=12)
+
+            # Cyber corners
+            dec = int(10 * self.scale)
+            pygame.draw.line(surface, border_color, (mr.x, mr.y), (mr.x + dec*2, mr.y), 4)
+            pygame.draw.line(surface, border_color, (mr.x, mr.y), (mr.x, mr.y + dec*2), 4)
+            pygame.draw.line(surface, border_color, (mr.right, mr.bottom), (mr.right - dec*2, mr.bottom), 4)
+            pygame.draw.line(surface, border_color, (mr.right, mr.bottom), (mr.right, mr.bottom - dec*2), 4)
+
+            # Header
+            header_y = mr.top + int(35 * self.scale)
+            self.draw_neon_text(surface, "CHI TIET TRAN DAU", self.font_med, (255, 235, 59), (mr.centerx, header_y), glow_radius=10, pulse=pulse)
+
+            # Tag
+            lbl_tag = self.font_tiny.render(tag_text, True, border_color)
+            surface.blit(lbl_tag, (mr.right - lbl_tag.get_width() - int(20 * self.scale), mr.top + int(15 * self.scale)))
+
+            # Divider
+            pygame.draw.line(surface, (40, 50, 70), (mr.x + 30, mr.top + int(70 * self.scale)), (mr.right - 30, mr.top + int(70 * self.scale)), 1)
+
+            # Metrics
+            res_text = "THANG (VICTORY)" if res == "WIN" else "THUA (DEFEATED)"
+            res_col = (0, 220, 120) if res == "WIN" else (255, 60, 60)
+            details = [
+                ("HANG (RANK):", f"#{self.selected_detail_rank}", (255, 215, 0) if self.selected_detail_rank <= 3 else (180, 200, 220)),
+                ("TEN (NAME):", self.selected_detail.get("name", "ANON"), (220, 230, 255)),
+                ("KET QUA (RESULT):", res_text, res_col),
+                ("DIEM SO (SCORE):", f"{self.selected_detail.get('score', 0)} PTS", (255, 235, 59)),
+                ("SO MA AN (GHOSTS):", f"{self.selected_detail.get('ghosts', 0)} / 4", (200, 200, 240)),
+                ("THOI GIAN (TIME):", f"{self.selected_detail.get('time', '--')} ({self.selected_detail.get('elapsed', 0.0)}s)", (180, 200, 220)),
+                ("BUOC DI (STEPS):", str(self.selected_detail.get("steps", 0)), (200, 220, 200)),
+                ("SO LAN CUA (TURNS):", str(self.selected_detail.get("turns", 0)), (200, 220, 200)),
+                ("BAN DO (MAP SIZE):", str(self.selected_detail.get("map_size", "N/A")), (160, 190, 220)),
+                ("NGAY CHOI (DATE):", self.selected_detail.get("date", ""), (100, 120, 150))
+            ]
+
+            item_spacing = int(28 * self.scale)
+            start_content_y = mr.top + int(90 * self.scale)
+            for idx, (label, val, val_col) in enumerate(details):
+                cy = start_content_y + idx * item_spacing
+                # Draw label
+                lbl_surf = self.font_small.render(label, True, (0, 229, 255))
+                surface.blit(lbl_surf, (mr.left + int(50 * self.scale), cy))
+                # Draw value
+                val_surf = self.font_small.render(val, True, val_col)
+                surface.blit(val_surf, (mr.right - int(50 * self.scale) - val_surf.get_width(), cy))
+
+            # Close button
+            cbr = self._modal_close_rect()
+            is_cb_hover = cbr.collidepoint(pygame.mouse.get_pos())
+            pygame.draw.rect(surface, (20, 10, 10) if is_cb_hover else (10, 8, 12), cbr, border_radius=6)
+            pygame.draw.rect(surface, (200, 80, 80) if is_cb_hover else (80, 50, 60), cbr, 2, border_radius=6)
+            close_lbl = self.font_small.render("← QUAY LAI", True, (200, 80, 80) if is_cb_hover else (140, 90, 100))
+            surface.blit(close_lbl, close_lbl.get_rect(center=cbr.center))
