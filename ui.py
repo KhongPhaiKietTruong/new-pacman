@@ -1898,7 +1898,7 @@ class UI:
                                 WALL_COLOR, (cx, cy), glow_radius=20, pulse=pulse)
 
             # Nhan phu
-            self.draw_neon_text(surface, "DANG TAI LUOI THAN KINH", self.font_small,
+            self.draw_neon_text(surface, "DANG TAI BAN DO", self.font_small,
                                 (100, 200, 255), (cx, cy + 60), glow_radius=8, pulse=0.5)
 
         # --- Hoan thanh ---
@@ -2428,16 +2428,18 @@ class LeaderboardUI:
         # Tieu de cot
         # Tieu de cot
         col_x = [
-            int(self.w * 0.05),
-            int(self.w * 0.10),
-            int(self.w * 0.28),
-            int(self.w * 0.42),
-            int(self.w * 0.53),
-            int(self.w * 0.62),
-            int(self.w * 0.74),
+            int(self.w * 0.04),
+            int(self.w * 0.08),
+            int(self.w * 0.23),
+            int(self.w * 0.34),
+            int(self.w * 0.43),
+            int(self.w * 0.49),
+            int(self.w * 0.59),
+            int(self.w * 0.67),
+            int(self.w * 0.75),
             int(self.w * 0.85)
         ]
-        headers = ["#", "TEN", "DIEM SO", "KET QUA", "MA", "THOI GIAN", "BAN DO", "NGAY"]
+        headers = ["#", "TEN", "DIEM SO", "KET QUA", "MA", "THOI GIAN", "BUOC", "SO CUA", "BAN DO", "NGAY"]
         header_col = (0, 229, 255)
         header_y = int(120 * self.scale)
         for i, (hdr, x) in enumerate(zip(headers, col_x)):
@@ -2500,14 +2502,22 @@ class LeaderboardUI:
             tm_lbl = self.font_small.render(entry.get("time", "--"), True, (180, 200, 220))
             surface.blit(tm_lbl, (col_x[5], y + int(12 * self.scale)))
 
+            # Buoc
+            steps_lbl = self.font_small.render(str(entry.get("steps", 0)), True, (200, 220, 200))
+            surface.blit(steps_lbl, (col_x[6], y + int(12 * self.scale)))
+
+            # So cua
+            turns_lbl = self.font_small.render(str(entry.get("turns", 0)), True, (200, 220, 200))
+            surface.blit(turns_lbl, (col_x[7], y + int(12 * self.scale)))
+
             # Ban do (Map Size)
             map_sz = entry.get("map_size", "N/A")
             map_lbl = self.font_small.render(str(map_sz), True, (160, 190, 220))
-            surface.blit(map_lbl, (col_x[6], y + int(12 * self.scale)))
+            surface.blit(map_lbl, (col_x[8], y + int(12 * self.scale)))
 
             # Ngay
             dt_lbl = self.font_tiny.render(entry.get("date", ""), True, (80, 95, 120))
-            surface.blit(dt_lbl, (col_x[7], y + int(15 * self.scale)))
+            surface.blit(dt_lbl, (col_x[9], y + int(15 * self.scale)))
 
         # Goi y cuon
         if len(self.entries) > self.ROWS_VISIBLE:
