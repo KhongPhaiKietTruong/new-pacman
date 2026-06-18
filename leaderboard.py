@@ -47,7 +47,8 @@ class Leaderboard:
 
     def add_entry(self, name: str, won: bool, ghosts_eaten: int,
                   elapsed_seconds: float, time_str: str,
-                  steps: int, turns: int, map_size: str = "N/A") -> int:
+                  steps: int, turns: int, map_size: str = "N/A",
+                  pacman_explored: int = None, ghost_explored: dict = None) -> int:
         """Add a new entry and return the achieved score."""
         score = self.calc_score(won, ghosts_eaten, elapsed_seconds)
         entry = {
@@ -62,6 +63,10 @@ class Leaderboard:
             "map_size":     map_size,
             "date":         datetime.now().strftime("%Y-%m-%d"),
         }
+        if pacman_explored is not None:
+            entry["pacman_explored"] = pacman_explored
+        if ghost_explored is not None:
+            entry["ghost_explored"] = ghost_explored
         self._data.append(entry)
         self._save()
         return score

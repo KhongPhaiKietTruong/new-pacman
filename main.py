@@ -242,6 +242,8 @@ def main():
                     steps          = game.steps,
                     turns          = game.turns,
                     map_size       = f"{game.cols}x{game.rows}",
+                    pacman_explored= game.pacman.total_explored_nodes,
+                    ghost_explored = ghost_explored,
                 )
                 ui.current_rank = leaderboard.get_last_entry_rank()
                 ui.current_score = score

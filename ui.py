@@ -2224,7 +2224,7 @@ class LeaderboardUI:
 
     def _modal_rect(self):
         w = int(700 * self.scale)
-        h = int(500 * self.scale)
+        h = int(640 * self.scale)
         return pygame.Rect(self.w // 2 - w // 2, self.h // 2 - h // 2, w, h)
 
     def _modal_close_rect(self):
@@ -2470,7 +2470,21 @@ class LeaderboardUI:
                 ("NGAY CHOI (DATE):", self.selected_detail.get("date", ""), (100, 120, 150))
             ]
 
-            item_spacing = int(28 * self.scale)
+            pacman_nodes = self.selected_detail.get("pacman_explored")
+            pacman_nodes_str = f"{pacman_nodes} NUT" if pacman_nodes is not None else "N/A"
+            details.append(("NUT DUYET PACMAN:", pacman_nodes_str, PACMAN_COLOR))
+            
+            ghost_explored = self.selected_detail.get("ghost_explored", {})
+            if ghost_explored:
+                for g_name, col in [("Blinky", BLINKY_COLOR), ("Pinky", PINKY_COLOR), ("Inky", INKY_COLOR), ("Clyde", CLYDE_COLOR)]:
+                    val = ghost_explored.get(g_name)
+                    val_str = f"{val} NUT" if val is not None else "N/A"
+                    details.append((f"NUT DUYET {g_name.upper()}:", val_str, col))
+            else:
+                for g_name, col in [("Blinky", BLINKY_COLOR), ("Pinky", PINKY_COLOR), ("Inky", INKY_COLOR), ("Clyde", CLYDE_COLOR)]:
+                    details.append((f"NUT DUYET {g_name.upper()}:", "N/A", col))
+
+            item_spacing = int(26 * self.scale)
             start_content_y = mr.top + int(90 * self.scale)
             for idx, (label, val, val_col) in enumerate(details):
                 cy = start_content_y + idx * item_spacing

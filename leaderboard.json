@@ -907,5 +907,100 @@
     "turns": 32,
     "map_size": "35x25",
     "date": "2026-06-18"
+  },
+  {
+    "name": "ANON",
+    "score": 100,
+    "result": "LOSS",
+    "ghosts": 1,
+    "time": "00:29",
+    "elapsed": 30.0,
+    "steps": 44,
+    "turns": 11,
+    "map_size": "35x25",
+    "date": "2026-06-18",
+    "pacman_explored": 17184,
+    "ghost_explored": {
+      "Blinky": 11833,
+      "Pinky": 19656,
+      "Inky": 14016,
+      "Clyde": 20885
+    }
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 100,
+    "result": "LOSS",
+    "ghosts": 1,
+    "time": "00:38",
+    "elapsed": 38.1,
+    "steps": 57,
+    "turns": 16,
+    "map_size": "35x25",
+    "date": "2026-06-18",
+    "pacman_explored": 20601,
+    "ghost_explored": {
+      "Blinky": 17954,
+      "Pinky": 23928,
+      "Inky": 14316,
+      "Clyde": 21002
+    }
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 100,
+    "result": "LOSS",
+    "ghosts": 1,
+    "time": "00:56",
+    "elapsed": 56.6,
+    "steps": 84,
+    "turns": 31,
+    "map_size": "35x25",
+    "date": "2026-06-18",
+    "pacman_explored": 40618,
+    "ghost_explored": {
+      "Blinky": 11164,
+      "Pinky": 11571,
+      "Inky": 19531,
+      "Clyde": 115525
+    }
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 0,
+    "result": "LOSS",
+    "ghosts": 0,
+    "time": "00:40",
+    "elapsed": 40.6,
+    "steps": 59,
+    "turns": 26,
+    "map_size": "35x25",
+    "date": "2026-06-18",
+    "pacman_explored": 9813,
+    "ghost_explored": {
+      "Blinky": 39068,
+      "Pinky": 41535,
+      "Inky": 41392,
+      "Clyde": 131315
+    }
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 2224,
+    "result": "WIN",
+    "ghosts": 4,
+    "time": "00:55",
+    "elapsed": 55.1,
+    "steps": 83,
+    "turns": 28,
+    "map_size": "35x25",
+    "date": "2026-06-18",
+    "pacman_explored": 53192,
+    "ghost_explored": {
+      "Blinky": 3463,
+      "Pinky": 6760,
+      "Inky": 53232,
+      "Clyde": 3171
+    }
   }
 ]
