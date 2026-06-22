@@ -242,9 +242,9 @@ class Pacman(Entity):
                 if not path:  # Fallback if no safe path exists
                     path, explored = Pathfinding.bfs((self.r, self.c), goal, grid, rows, cols, return_explored=True)
             else:  # DFS
-                path, explored = Pathfinding.dfs((self.r, self.c), goal, temp_grid, rows, cols, depth_limit=15, return_explored=True)
+                path, explored = Pathfinding.dfs((self.r, self.c), goal, temp_grid, rows, cols, depth_limit=float('inf'), return_explored=True)
                 if not path:  # Fallback if no safe path exists
-                    path, explored = Pathfinding.dfs((self.r, self.c), goal, grid, rows, cols, depth_limit=15, return_explored=True)
+                    path, explored = Pathfinding.dfs((self.r, self.c), goal, grid, rows, cols, depth_limit=float('inf'), return_explored=True)
         else:
             path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
 

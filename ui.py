@@ -2878,8 +2878,11 @@ class LeaderboardUI:
                     tx = mx + int(15 * self.scale)
                     ty = my - int(25 * self.scale)
                     
-                    tw = int(90 * self.scale)
-                    th = int(24 * self.scale)
+                    tip_lbl = self.font_tiny.render("CLICK ME FOR MORE INFO", True, (0, 229, 255))
+                    tip_pad_x = int(12 * self.scale)
+                    tip_pad_y = int(6 * self.scale)
+                    tw = tip_lbl.get_width() + tip_pad_x * 2
+                    th = tip_lbl.get_height() + tip_pad_y * 2
                     if tx + tw > self.w:
                         tx = mx - tw - int(10 * self.scale)
                     if ty < 0:
@@ -2894,6 +2897,5 @@ class LeaderboardUI:
                     
                     # Vien neon cyan va chu render
                     pygame.draw.rect(surface, (0, 229, 255), tip_rect, 1, border_radius=4)
-                    tip_lbl = self.font_tiny.render("CLICK ME FOR MORE INFO", True, (0, 229, 255))
                     surface.blit(tip_lbl, tip_lbl.get_rect(center=tip_rect.center))
                     break
