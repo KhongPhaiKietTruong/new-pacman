@@ -1,1462 +1,737 @@
-[
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:32",
-    "elapsed": 32.1,
-    "steps": 4362,
-    "turns": 29,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:12",
-    "elapsed": 12.2,
-    "steps": 1410,
-    "turns": 4,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2369,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:26",
-    "elapsed": 26.0,
-    "steps": 4219,
-    "turns": 26,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2340,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:31",
-    "elapsed": 31.8,
-    "steps": 6210,
-    "turns": 34,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2270,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:45",
-    "elapsed": 45.9,
-    "steps": 8425,
-    "turns": 0,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:12",
-    "elapsed": 12.4,
-    "steps": 27,
-    "turns": 9,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2364,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:27",
-    "elapsed": 27.1,
-    "steps": 51,
-    "turns": 25,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:10",
-    "elapsed": 10.9,
-    "steps": 24,
-    "turns": 0,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 300,
-    "result": "LOSS",
-    "ghosts": 3,
-    "time": "01:02",
-    "elapsed": 62.5,
-    "steps": 112,
-    "turns": 42,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2312,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:37",
-    "elapsed": 37.4,
-    "steps": 66,
-    "turns": 24,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:21",
-    "elapsed": 21.4,
-    "steps": 29,
-    "turns": 16,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:16",
-    "elapsed": 16.3,
-    "steps": 21,
-    "turns": 9,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:15",
-    "elapsed": 15.4,
-    "steps": 21,
-    "turns": 10,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:10",
-    "elapsed": 10.3,
-    "steps": 13,
-    "turns": 3,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:05",
-    "elapsed": 5.3,
-    "steps": 5,
-    "turns": 3,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2441,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:11",
-    "elapsed": 11.7,
-    "steps": 18,
-    "turns": 6,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2411,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:17",
-    "elapsed": 17.6,
-    "steps": 30,
-    "turns": 13,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2296,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:40",
-    "elapsed": 40.7,
-    "steps": 71,
-    "turns": 28,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2346,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:30",
-    "elapsed": 30.7,
-    "steps": 56,
-    "turns": 19,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:05",
-    "elapsed": 5.2,
-    "steps": 4,
-    "turns": 0,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:11",
-    "elapsed": 11.9,
-    "steps": 16,
-    "turns": 8,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2453,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:09",
-    "elapsed": 9.3,
-    "steps": 16,
-    "turns": 8,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:06",
-    "elapsed": 6.2,
-    "steps": 7,
-    "turns": 0,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:06",
-    "elapsed": 6.5,
-    "steps": 7,
-    "turns": 5,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "ANON",
-    "score": 2380,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:23",
-    "elapsed": 23.8,
-    "steps": 40,
-    "turns": 16,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:07",
-    "elapsed": 8.0,
-    "steps": 10,
-    "turns": 0,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:07",
-    "elapsed": 7.0,
-    "steps": 7,
-    "turns": 0,
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2170,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:05",
-    "elapsed": 65.9,
-    "steps": 139,
-    "turns": 45,
-    "map_size": "35x25",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2315,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:36",
-    "elapsed": 36.9,
-    "steps": 81,
-    "turns": 32,
-    "map_size": "35x25",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 300,
-    "result": "LOSS",
-    "ghosts": 3,
-    "time": "00:31",
-    "elapsed": 31.6,
-    "steps": 51,
-    "turns": 21,
-    "map_size": "15x15",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2326,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:34",
-    "elapsed": 34.7,
-    "steps": 62,
-    "turns": 24,
-    "map_size": "15x15",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2246,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:50",
-    "elapsed": 50.7,
-    "steps": 117,
-    "turns": 31,
-    "map_size": "35x25",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:05",
-    "elapsed": 5.3,
-    "steps": 5,
-    "turns": 4,
-    "map_size": "15x15",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:06",
-    "elapsed": 6.1,
-    "steps": 7,
-    "turns": 4,
-    "map_size": "15x15",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:11",
-    "elapsed": 11.6,
-    "steps": 13,
-    "turns": 8,
-    "map_size": "15x15",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 300,
-    "result": "LOSS",
-    "ghosts": 3,
-    "time": "01:10",
-    "elapsed": 70.0,
-    "steps": 133,
-    "turns": 47,
-    "map_size": "35x25",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2152,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:09",
-    "elapsed": 69.5,
-    "steps": 155,
-    "turns": 35,
-    "map_size": "35x25",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:31",
-    "elapsed": 31.8,
-    "steps": 47,
-    "turns": 18,
-    "map_size": "35x25",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:11",
-    "elapsed": 11.4,
-    "steps": 16,
-    "turns": 3,
-    "map_size": "35x25",
-    "date": "2026-06-08"
-  },
-  {
-    "name": "ANON",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:29",
-    "elapsed": 29.4,
-    "steps": 47,
-    "turns": 15,
-    "map_size": "29x23",
-    "date": "2026-06-09"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:33",
-    "elapsed": 33.4,
-    "steps": 57,
-    "turns": 0,
-    "map_size": "29x23",
-    "date": "2026-06-09"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:27",
-    "elapsed": 27.4,
-    "steps": 34,
-    "turns": 14,
-    "map_size": "15x15",
-    "date": "2026-06-09"
-  },
-  {
-    "name": "ANON",
-    "score": 2292,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:41",
-    "elapsed": 41.5,
-    "steps": 67,
-    "turns": 28,
-    "map_size": "15x15",
-    "date": "2026-06-09"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2266,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:46",
-    "elapsed": 46.8,
-    "steps": 87,
-    "turns": 26,
-    "map_size": "23x19",
-    "date": "2026-06-09"
-  },
-  {
-    "name": "ANON",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:10",
-    "elapsed": 10.5,
-    "steps": 14,
-    "turns": 0,
-    "map_size": "23x19",
-    "date": "2026-06-09"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2324,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:35",
-    "elapsed": 35.2,
-    "steps": 64,
-    "turns": 23,
-    "map_size": "25x21",
-    "date": "2026-06-09"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:31",
-    "elapsed": 31.4,
-    "steps": 39,
-    "turns": 13,
-    "map_size": "25x21",
-    "date": "2026-06-17"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:15",
-    "elapsed": 15.6,
-    "steps": 22,
-    "turns": 10,
-    "map_size": "35x25",
-    "date": "2026-06-17"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2052,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:29",
-    "elapsed": 89.4,
-    "steps": 181,
-    "turns": 0,
-    "map_size": "25x21",
-    "date": "2026-06-17"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2253,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:49",
-    "elapsed": 49.2,
-    "steps": 102,
-    "turns": 0,
-    "map_size": "25x21",
-    "date": "2026-06-17"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2246,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:50",
-    "elapsed": 50.7,
-    "steps": 83,
-    "turns": 31,
-    "map_size": "27x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2298,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:40",
-    "elapsed": 40.3,
-    "steps": 76,
-    "turns": 26,
-    "map_size": "27x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2350,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:29",
-    "elapsed": 30.0,
-    "steps": 65,
-    "turns": 0,
-    "map_size": "27x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2221,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:55",
-    "elapsed": 55.6,
-    "steps": 68,
-    "turns": 23,
-    "map_size": "27x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:22",
-    "elapsed": 22.4,
-    "steps": 34,
-    "turns": 7,
-    "map_size": "27x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:21",
-    "elapsed": 21.9,
-    "steps": 29,
-    "turns": 11,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2335,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:32",
-    "elapsed": 32.9,
-    "steps": 49,
-    "turns": 20,
-    "map_size": "21x17",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:14",
-    "elapsed": 14.0,
-    "steps": 15,
-    "turns": 7,
-    "map_size": "21x17",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "ANON",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:25",
-    "elapsed": 25.5,
-    "steps": 35,
-    "turns": 7,
-    "map_size": "21x17",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:08",
-    "elapsed": 8.6,
-    "steps": 10,
-    "turns": 4,
-    "map_size": "25x19",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2313,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:37",
-    "elapsed": 37.4,
-    "steps": 62,
-    "turns": 25,
-    "map_size": "25x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:30",
-    "elapsed": 30.7,
-    "steps": 42,
-    "turns": 14,
-    "map_size": "25x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "ANON",
-    "score": 2318,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:36",
-    "elapsed": 36.3,
-    "steps": 68,
-    "turns": 19,
-    "map_size": "25x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2320,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:35",
-    "elapsed": 36.0,
-    "steps": 61,
-    "turns": 18,
-    "map_size": "15x15",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2197,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:00",
-    "elapsed": 60.5,
-    "steps": 109,
-    "turns": 32,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:33",
-    "elapsed": 33.3,
-    "steps": 51,
-    "turns": 15,
-    "map_size": "27x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:41",
-    "elapsed": 41.9,
-    "steps": 59,
-    "turns": 23,
-    "map_size": "29x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:22",
-    "elapsed": 22.2,
-    "steps": 29,
-    "turns": 13,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2305,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:38",
-    "elapsed": 38.9,
-    "steps": 75,
-    "turns": 31,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 300,
-    "result": "LOSS",
-    "ghosts": 3,
-    "time": "01:02",
-    "elapsed": 62.1,
-    "steps": 106,
-    "turns": 33,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "ANON",
-    "score": 2181,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:03",
-    "elapsed": 63.7,
-    "steps": 126,
-    "turns": 35,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2203,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:59",
-    "elapsed": 59.2,
-    "steps": 112,
-    "turns": 28,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2177,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:04",
-    "elapsed": 64.4,
-    "steps": 104,
-    "turns": 35,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2127,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:14",
-    "elapsed": 74.6,
-    "steps": 121,
-    "turns": 49,
-    "map_size": "27x21",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:36",
-    "elapsed": 36.6,
-    "steps": 55,
-    "turns": 20,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "ANON",
-    "score": 2233,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:53",
-    "elapsed": 53.4,
-    "steps": 110,
-    "turns": 29,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:37",
-    "elapsed": 37.3,
-    "steps": 60,
-    "turns": 20,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2152,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:09",
-    "elapsed": 69.6,
-    "steps": 130,
-    "turns": 32,
-    "map_size": "35x25",
-    "date": "2026-06-18"
-  },
-  {
-    "name": "ANON",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:29",
-    "elapsed": 30.0,
-    "steps": 44,
-    "turns": 11,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 17184,
-    "ghost_explored": {
-      "Blinky": 11833,
-      "Pinky": 19656,
-      "Inky": 14016,
-      "Clyde": 20885
+{
+  "entries": [
+    {
+      "name": "KIETTRUONG",
+      "score": 2381,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:23",
+      "elapsed": 23.7,
+      "steps": 55,
+      "turns": 10,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 1476,
+      "ghost_explored": {
+        "Blinky": 436,
+        "Pinky": 1074,
+        "Inky": 2107,
+        "Clyde": 3386
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 300,
+      "result": "LOSS",
+      "ghosts": 3,
+      "time": "00:57",
+      "elapsed": 57.3,
+      "steps": 139,
+      "turns": 33,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 4477,
+      "ghost_explored": {
+        "Blinky": 490,
+        "Pinky": 2143,
+        "Inky": 1589,
+        "Clyde": 23462
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 300,
+      "result": "LOSS",
+      "ghosts": 3,
+      "time": "00:35",
+      "elapsed": 35.4,
+      "steps": 77,
+      "turns": 23,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 28062,
+      "ghost_explored": {
+        "Blinky": 1735,
+        "Pinky": 1923,
+        "Inky": 1810,
+        "Clyde": 11535
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:10",
+      "elapsed": 10.7,
+      "steps": 21,
+      "turns": 15,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "DFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 5189,
+      "ghost_explored": {
+        "Blinky": 433,
+        "Pinky": 780,
+        "Inky": 3053,
+        "Clyde": 2884
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:12",
+      "elapsed": 12.7,
+      "steps": 26,
+      "turns": 14,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "DFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 14618,
+      "ghost_explored": {
+        "Blinky": 358,
+        "Pinky": 3599,
+        "Inky": 2684,
+        "Clyde": 4533
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:11",
+      "elapsed": 11.4,
+      "steps": 23,
+      "turns": 8,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "DFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 10209,
+      "ghost_explored": {
+        "Blinky": 518,
+        "Pinky": 560,
+        "Inky": 2339,
+        "Clyde": 3112
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:13",
+      "elapsed": 13.5,
+      "steps": 27,
+      "turns": 12,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "DFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 5509,
+      "ghost_explored": {
+        "Blinky": 737,
+        "Pinky": 661,
+        "Inky": 2164,
+        "Clyde": 1368
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:09",
+      "elapsed": 9.9,
+      "steps": 19,
+      "turns": 8,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "DFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 8518,
+      "ghost_explored": {
+        "Blinky": 376,
+        "Pinky": 557,
+        "Inky": 1822,
+        "Clyde": 3319
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2336,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:32",
+      "elapsed": 32.8,
+      "steps": 83,
+      "turns": 21,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 7492,
+      "ghost_explored": {
+        "Blinky": 1344,
+        "Pinky": 1545,
+        "Inky": 6097,
+        "Clyde": 398
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2294,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:41",
+      "elapsed": 41.1,
+      "steps": 83,
+      "turns": 29,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 41490,
+      "ghost_explored": {
+        "Blinky": 429,
+        "Pinky": 2661,
+        "Inky": 7739,
+        "Clyde": 13864
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2371,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:25",
+      "elapsed": 25.7,
+      "steps": 64,
+      "turns": 17,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 5075,
+      "ghost_explored": {
+        "Blinky": 833,
+        "Pinky": 474,
+        "Inky": 6688,
+        "Clyde": 847
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:09",
+      "elapsed": 9.5,
+      "steps": 12,
+      "turns": 3,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 14691,
+      "ghost_explored": {
+        "Blinky": 369,
+        "Pinky": 481,
+        "Inky": 1653,
+        "Clyde": 693
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 200,
+      "result": "LOSS",
+      "ghosts": 2,
+      "time": "00:34",
+      "elapsed": 34.2,
+      "steps": 80,
+      "turns": 26,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 3288,
+      "ghost_explored": {
+        "Blinky": 1833,
+        "Pinky": 6116,
+        "Inky": 10454,
+        "Clyde": 412
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2340,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:31",
+      "elapsed": 31.8,
+      "steps": 86,
+      "turns": 23,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 3137,
+      "ghost_explored": {
+        "Blinky": 697,
+        "Pinky": 787,
+        "Inky": 5606,
+        "Clyde": 1066
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2366,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:26",
+      "elapsed": 26.6,
+      "steps": 69,
+      "turns": 19,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 1781,
+      "ghost_explored": {
+        "Blinky": 385,
+        "Pinky": 1552,
+        "Inky": 1399,
+        "Clyde": 5900
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 100,
+      "result": "LOSS",
+      "ghosts": 1,
+      "time": "00:24",
+      "elapsed": 24.9,
+      "steps": 55,
+      "turns": 18,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 1408,
+      "ghost_explored": {
+        "Blinky": 1350,
+        "Pinky": 1801,
+        "Inky": 3689,
+        "Clyde": 387
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2311,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:37",
+      "elapsed": 37.8,
+      "steps": 95,
+      "turns": 31,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 24859,
+      "ghost_explored": {
+        "Blinky": 1556,
+        "Pinky": 2487,
+        "Inky": 11185,
+        "Clyde": 302
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2392,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:21",
+      "elapsed": 21.6,
+      "steps": 54,
+      "turns": 18,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 13736,
+      "ghost_explored": {
+        "Blinky": 1311,
+        "Pinky": 1674,
+        "Inky": 2051,
+        "Clyde": 368
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 300,
+      "result": "LOSS",
+      "ghosts": 3,
+      "time": "00:31",
+      "elapsed": 31.8,
+      "steps": 75,
+      "turns": 24,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 28151,
+      "ghost_explored": {
+        "Blinky": 622,
+        "Pinky": 541,
+        "Inky": 5163,
+        "Clyde": 770
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 200,
+      "result": "LOSS",
+      "ghosts": 2,
+      "time": "00:31",
+      "elapsed": 31.1,
+      "steps": 74,
+      "turns": 24,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 32406,
+      "ghost_explored": {
+        "Blinky": 1763,
+        "Pinky": 1088,
+        "Inky": 6144,
+        "Clyde": 543
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2366,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:26",
+      "elapsed": 26.6,
+      "steps": 68,
+      "turns": 20,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 16747,
+      "ghost_explored": {
+        "Blinky": 1488,
+        "Pinky": 1456,
+        "Inky": 1629,
+        "Clyde": 596
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 100,
+      "result": "LOSS",
+      "ghosts": 1,
+      "time": "00:29",
+      "elapsed": 29.7,
+      "steps": 66,
+      "turns": 44,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "DFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 19560,
+      "ghost_explored": {
+        "Blinky": 917,
+        "Pinky": 2624,
+        "Inky": 2383,
+        "Clyde": 5875
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2315,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:36",
+      "elapsed": 36.9,
+      "steps": 101,
+      "turns": 29,
+      "map_size": "27x21",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 2850,
+      "ghost_explored": {
+        "Blinky": 257,
+        "Pinky": 5831,
+        "Inky": 1403,
+        "Clyde": 4265
+      }
+    },
+    {
+      "name": "KIETTRUONG",
+      "score": 2251,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:49",
+      "elapsed": 49.6,
+      "steps": 142,
+      "turns": 34,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 20588,
+      "ghost_explored": {
+        "Blinky": 4532,
+        "Pinky": 2703,
+        "Inky": 11634,
+        "Clyde": 224
+      }
+    },
+    {
+      "name": "PHUONGTHUY",
+      "score": 2332,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:33",
+      "elapsed": 33.6,
+      "steps": 96,
+      "turns": 19,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 17054,
+      "ghost_explored": {
+        "Blinky": 2555,
+        "Pinky": 2007,
+        "Inky": 11119,
+        "Clyde": 639
+      }
+    },
+    {
+      "name": "PHUONGTHUY",
+      "score": 2327,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:34",
+      "elapsed": 34.5,
+      "steps": 108,
+      "turns": 24,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 8751,
+      "ghost_explored": {
+        "Blinky": 998,
+        "Pinky": 4295,
+        "Inky": 1936,
+        "Clyde": 15876
+      }
+    },
+    {
+      "name": "TIENDAT",
+      "score": 2309,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:38",
+      "elapsed": 38.0,
+      "steps": 131,
+      "turns": 46,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 11811,
+      "ghost_explored": {
+        "Blinky": 3294,
+        "Pinky": 2609,
+        "Inky": 5647,
+        "Clyde": 790
+      }
+    },
+    {
+      "name": "TIENDAT",
+      "score": 2366,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:26",
+      "elapsed": 26.7,
+      "steps": 90,
+      "turns": 19,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "A*",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 13424,
+      "ghost_explored": {
+        "Blinky": 1279,
+        "Pinky": 325,
+        "Inky": 4623,
+        "Clyde": 852
+      }
     }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:38",
-    "elapsed": 38.1,
-    "steps": 57,
-    "turns": 16,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 20601,
-    "ghost_explored": {
-      "Blinky": 17954,
-      "Pinky": 23928,
-      "Inky": 14316,
-      "Clyde": 21002
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:56",
-    "elapsed": 56.6,
-    "steps": 84,
-    "turns": 31,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 40618,
-    "ghost_explored": {
-      "Blinky": 11164,
-      "Pinky": 11571,
-      "Inky": 19531,
-      "Clyde": 115525
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:40",
-    "elapsed": 40.6,
-    "steps": 59,
-    "turns": 26,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 9813,
-    "ghost_explored": {
-      "Blinky": 39068,
-      "Pinky": 41535,
-      "Inky": 41392,
-      "Clyde": 131315
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2224,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:55",
-    "elapsed": 55.1,
-    "steps": 83,
-    "turns": 28,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 53192,
-    "ghost_explored": {
-      "Blinky": 3463,
-      "Pinky": 6760,
-      "Inky": 53232,
-      "Clyde": 3171
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2284,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:43",
-    "elapsed": 43.1,
-    "steps": 83,
-    "turns": 20,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 11352,
-    "ghost_explored": {
-      "Blinky": 10578,
-      "Pinky": 28784,
-      "Inky": 135154,
-      "Clyde": 115446
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2124,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:15",
-    "elapsed": 75.1,
-    "steps": 128,
-    "turns": 48,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 55376,
-    "ghost_explored": {
-      "Blinky": 4150,
-      "Pinky": 2336,
-      "Inky": 18302,
-      "Clyde": 2846
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:31",
-    "elapsed": 31.8,
-    "steps": 51,
-    "turns": 0,
-    "map_size": "31x23",
-    "date": "2026-06-18",
-    "pacman_explored": 0,
-    "ghost_explored": {
-      "Blinky": 1194,
-      "Pinky": 1991,
-      "Inky": 10123,
-      "Clyde": 17674
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:13",
-    "elapsed": 13.6,
-    "steps": 20,
-    "turns": 0,
-    "map_size": "31x23",
-    "date": "2026-06-18",
-    "pacman_explored": 0,
-    "ghost_explored": {
-      "Blinky": 2135,
-      "Pinky": 5840,
-      "Inky": 8938,
-      "Clyde": 2040
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2267,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:46",
-    "elapsed": 46.5,
-    "steps": 86,
-    "turns": 0,
-    "map_size": "31x23",
-    "date": "2026-06-18",
-    "pacman_explored": 0,
-    "ghost_explored": {
-      "Blinky": 1476,
-      "Pinky": 8275,
-      "Inky": 4418,
-      "Clyde": 12713
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2271,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:45",
-    "elapsed": 45.6,
-    "steps": 85,
-    "turns": 28,
-    "map_size": "31x23",
-    "date": "2026-06-18",
-    "pacman_explored": 54923,
-    "ghost_explored": {
-      "Blinky": 517,
-      "Pinky": 2608,
-      "Inky": 4627,
-      "Clyde": 11351
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:13",
-    "elapsed": 13.8,
-    "steps": 21,
-    "turns": 11,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 1823,
-    "ghost_explored": {
-      "Blinky": 1024,
-      "Pinky": 1756,
-      "Inky": 2834,
-      "Clyde": 1426
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:42",
-    "elapsed": 42.6,
-    "steps": 40,
-    "turns": 14,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 96325,
-    "ghost_explored": {
-      "Blinky": 801,
-      "Pinky": 3015,
-      "Inky": 3448,
-      "Clyde": 6954
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2170,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:05",
-    "elapsed": 65.9,
-    "steps": 121,
-    "turns": 41,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 35527,
-    "ghost_explored": {
-      "Blinky": 415,
-      "Pinky": 3200,
-      "Inky": 6032,
-      "Clyde": 17084
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:42",
-    "elapsed": 42.2,
-    "steps": 55,
-    "turns": 22,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 38702,
-    "ghost_explored": {
-      "Blinky": 3497,
-      "Pinky": 2089,
-      "Inky": 17288,
-      "Clyde": 821
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2291,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:41",
-    "elapsed": 41.8,
-    "steps": 69,
-    "turns": 22,
-    "map_size": "15x15",
-    "date": "2026-06-18",
-    "pacman_explored": 6269,
-    "ghost_explored": {
-      "Blinky": 105,
-      "Pinky": 650,
-      "Inky": 4855,
-      "Clyde": 164
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2261,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:47",
-    "elapsed": 47.7,
-    "steps": 89,
-    "turns": 42,
-    "map_size": "25x21",
-    "date": "2026-06-18",
-    "pacman_explored": 13452,
-    "ghost_explored": {
-      "Blinky": 1995,
-      "Pinky": 2346,
-      "Inky": 1274,
-      "Clyde": 2467
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:41",
-    "elapsed": 41.7,
-    "steps": 62,
-    "turns": 12,
-    "map_size": "35x25",
-    "date": "2026-06-18",
-    "pacman_explored": 27213,
-    "ghost_explored": {
-      "Blinky": 1902,
-      "Pinky": 2743,
-      "Inky": 3796,
-      "Clyde": 27847
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 100,
-    "result": "LOSS",
-    "ghosts": 1,
-    "time": "00:15",
-    "elapsed": 15.1,
-    "steps": 16,
-    "turns": 5,
-    "map_size": "15x15",
-    "date": "2026-06-18",
-    "pacman_explored": 6185,
-    "ghost_explored": {
-      "Blinky": 159,
-      "Pinky": 238,
-      "Inky": 235,
-      "Clyde": 918
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2000,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "01:41",
-    "elapsed": 101.4,
-    "steps": 158,
-    "turns": 56,
-    "map_size": "15x15",
-    "date": "2026-06-18",
-    "pacman_explored": 35433,
-    "ghost_explored": {
-      "Blinky": 118,
-      "Pinky": 490,
-      "Inky": 18187,
-      "Clyde": 1877
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2404,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:19",
-    "elapsed": 19.1,
-    "steps": 45,
-    "turns": 21,
-    "map_size": "25x19",
-    "date": "2026-06-22",
-    "pacman_explored": 10089,
-    "ghost_explored": {
-      "Blinky": 243,
-      "Pinky": 828,
-      "Inky": 2894,
-      "Clyde": 1767
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 200,
-    "result": "LOSS",
-    "ghosts": 2,
-    "time": "00:20",
-    "elapsed": 21.0,
-    "steps": 44,
-    "turns": 14,
-    "map_size": "25x19",
-    "date": "2026-06-22",
-    "pacman_explored": 23017,
-    "ghost_explored": {
-      "Blinky": 303,
-      "Pinky": 1311,
-      "Inky": 6583,
-      "Clyde": 4615
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:06",
-    "elapsed": 6.2,
-    "steps": 10,
-    "turns": 4,
-    "map_size": "25x19",
-    "date": "2026-06-22",
-    "pacman_explored": 6538,
-    "ghost_explored": {
-      "Blinky": 233,
-      "Pinky": 1031,
-      "Inky": 846,
-      "Clyde": 1531
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2349,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:30",
-    "elapsed": 30.2,
-    "steps": 107,
-    "turns": 31,
-    "map_size": "35x25",
-    "date": "2026-06-22",
-    "pacman_explored": 7766,
-    "ghost_explored": {
-      "Blinky": 965,
-      "Pinky": 2769,
-      "Inky": 2135,
-      "Clyde": 14321
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 2322,
-    "result": "WIN",
-    "ghosts": 4,
-    "time": "00:35",
-    "elapsed": 35.5,
-    "steps": 134,
-    "turns": 45,
-    "map_size": "35x25",
-    "date": "2026-06-22",
-    "pacman_explored": 8286,
-    "ghost_explored": {
-      "Blinky": 1703,
-      "Pinky": 9370,
-      "Inky": 2020,
-      "Clyde": 27232
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:05",
-    "elapsed": 5.1,
-    "steps": 12,
-    "turns": 3,
-    "map_size": "35x25",
-    "date": "2026-06-22",
-    "pacman_explored": 241,
-    "ghost_explored": {
-      "Blinky": 1387,
-      "Pinky": 2314,
-      "Inky": 1624,
-      "Clyde": 817
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:05",
-    "elapsed": 5.6,
-    "steps": 11,
-    "turns": 2,
-    "map_size": "25x21",
-    "date": "2026-06-22",
-    "pacman_explored": 271,
-    "ghost_explored": {
-      "Blinky": 459,
-      "Pinky": 561,
-      "Inky": 1744,
-      "Clyde": 156
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:13",
-    "elapsed": 13.6,
-    "steps": 31,
-    "turns": 22,
-    "map_size": "25x21",
-    "date": "2026-06-22",
-    "pacman_explored": 9528,
-    "ghost_explored": {
-      "Blinky": 624,
-      "Pinky": 889,
-      "Inky": 3147,
-      "Clyde": 1309
-    }
-  },
-  {
-    "name": "KIETTRUONG",
-    "score": 0,
-    "result": "LOSS",
-    "ghosts": 0,
-    "time": "00:05",
-    "elapsed": 5.7,
-    "steps": 13,
-    "turns": 6,
-    "map_size": "35x25",
-    "date": "2026-06-22",
-    "pacman_explored": 538,
-    "ghost_explored": {
-      "Blinky": 833,
-      "Pinky": 2672,
-      "Inky": 1582,
-      "Clyde": 1408
-    }
-  }
-]
+  ],
+  "usernames": [
+    "TIENDAT",
+    "PHUONGTHUY",
+    "KIETTRUONG"
+  ]
+}

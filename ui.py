@@ -20,6 +20,7 @@ class UI:
             self.font_med = pygame.font.Font(font_path, int(28 * self.scale))
             self.font_small = pygame.font.Font(font_path, int(18 * self.scale))
             self.font_sidebar = pygame.font.Font(font_path, max(10, int(13 * self.scale)))
+            self.font_tiny = pygame.font.Font(font_path, max(8, int(10 * self.scale)))
             self.using_pixel_font = True
         except Exception as e:
             fonts = pygame.font.get_fonts()
@@ -34,6 +35,7 @@ class UI:
             self.font_med = pygame.font.SysFont(chosen_font, int(42 * self.scale), bold=True)
             self.font_small = pygame.font.SysFont(chosen_font, int(28 * self.scale), bold=True)
             self.font_sidebar = pygame.font.SysFont(chosen_font, max(14, int(20 * self.scale)), bold=True)
+            self.font_tiny = pygame.font.SysFont(chosen_font, max(9, int(12 * self.scale)))
             self.using_pixel_font = False
         
         # Trang thai menu
@@ -689,34 +691,34 @@ class UI:
             start_y = self.height // 3 - int(45 * scale)
             
             # Available height for cards
-            panel_h = self.height - start_y - int(85 * scale)
+            panel_h = self.height - start_y - int(135 * scale)
             
             # Single Center Panel (Ghosts AI & Personality Profile)
-            panel_w = int(720 * scale)
+            panel_w = int(820 * scale)
             panel_x = self.width // 2 - panel_w // 2
             panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
             
             # Ghost / Pacman buttons
             Center_R = self.width // 2
-            ghost_w = int(220 * scale)
+            ghost_w = int(270 * scale)
             btn_h = int(50 * scale)
             
             ghost_btns = [
-                ("Pacman", Center_R, panel_rect.top + int(90 * scale)),
-                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
-                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(155 * scale)),
-                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(220 * scale)),
-                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(220 * scale))
+                ("Pacman", Center_R, panel_rect.top + int(85 * scale)),
+                ("Blinky", Center_R - int(150 * scale), panel_rect.top + int(145 * scale)),
+                ("Pinky", Center_R + int(150 * scale), panel_rect.top + int(145 * scale)),
+                ("Inky", Center_R - int(150 * scale), panel_rect.top + int(205 * scale)),
+                ("Clyde", Center_R + int(150 * scale), panel_rect.top + int(205 * scale))
             ]
             
             # Legend coordinates
-            legend_y = panel_rect.top + int(280 * scale)
-            legend_w = panel_w - int(40 * scale)
-            legend_h = panel_h - int(340 * scale)
-            legend_rect = pygame.Rect(panel_rect.centerx - legend_w // 2, panel_rect.top + int(320 * scale), legend_w, legend_h)
+            legend_y = panel_rect.top + int(255 * scale)
+            legend_w = int(640 * scale)
+            legend_h = panel_h - int(320 * scale)
+            legend_rect = pygame.Rect(panel_rect.left + int(35 * scale), panel_rect.top + int(285 * scale), legend_w, legend_h)
             
             # Bottom buttons
-            buttons_y = self.height - int(50 * scale)
+            buttons_y = self.height - int(75 * scale)
             action_w = int(350 * scale)
             action_h = int(60 * scale)
             
@@ -746,11 +748,13 @@ class UI:
             elif back_rect.collidepoint(mouse_x, mouse_y):
                 self.hovered_btn = "back"
             else:
-                slider_w = int(400 * scale)
-                slider_x = self.width // 2 - slider_w // 2
-                slider_y = buttons_y - int(45 * scale)
-                if slider_y - int(20 * scale) <= mouse_y <= slider_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
-                    self.hovered_btn = "volume"
+                slider_w = int(16 * scale)
+                slider_h = legend_h
+                slider_x = panel_rect.left + int(747 * scale) - slider_w // 2
+                slider_y = legend_rect.top
+                if slider_y - 10 <= mouse_y <= slider_y + slider_h + 10:
+                    if slider_x - int(15 * scale) <= mouse_x <= slider_x + slider_w + int(15 * scale):
+                        self.hovered_btn = "volume"
                 
             # ── VE KHUNG PANEL (GLASSMORPHISM) ──
             def draw_glass_panel(surf, rect, border_color, tag_text):
@@ -812,7 +816,7 @@ class UI:
                     p_color = PACMAN_COLOR
                         
                     for side in (-1, 1):
-                        px = Center_R + side * int(185 * scale)
+                        px = Center_R + side * int(210 * scale)
                         float_y = math.sin(time_passed * 4 + (side * 0.5)) * int(4 * scale)
                         py = gy + float_y
                         prad = int(22 * scale)
@@ -834,7 +838,7 @@ class UI:
                             pygame.draw.polygon(surface, p_color, points)
                 
             # ── VE LEGEN HANH VI CUA CAC THUC THE BEN DUOI ALGO ──
-            self.draw_neon_text(surface, "HANH VI DI CHUYEN CUA CAC THUC THE", self.font_small, PACMAN_COLOR, (panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
+            self.draw_neon_text(surface, "HANH VI DI CHUYEN CUA CAC THUC THE", self.font_small, PACMAN_COLOR, (legend_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
             
             pygame.draw.rect(surface, (5, 8, 12), legend_rect, border_radius=6)
             pygame.draw.rect(surface, (30, 50, 70), legend_rect, 1, border_radius=6)
@@ -866,33 +870,34 @@ class UI:
                     lbl = self.font_guide.render(line, True, (180, 200, 220))
                     surface.blit(lbl, (legend_rect.left + int(15 * scale), legend_rect.top + int(15 * scale) + idx * line_spacing))
                 
-            slider_w = int(400 * scale)
-            slider_h = int(10 * scale)
-            slider_x = self.width // 2 - slider_w // 2
-            slider_y = buttons_y - int(45 * scale)
+            slider_w = int(16 * scale)
+            slider_h = legend_h
+            slider_x = panel_rect.left + int(747 * scale) - slider_w // 2
+            slider_y = legend_rect.top
             
             # Label
-            vol_text = f"AM LUONG HE THONG: {int(self.sound_volume * 100)}%"
-            self.draw_neon_text(surface, vol_text, self.font_small, (0, 229, 255), (self.width // 2, slider_y - int(18 * scale)), glow_radius=5, pulse=pulse)
+            vol_text = f"VOL: {int(self.sound_volume * 100)}%"
+            self.draw_neon_text(surface, vol_text, self.font_tiny, (0, 229, 255), (slider_x + slider_w // 2, slider_y - int(20 * scale)), glow_radius=5, pulse=pulse)
             
             # Slider track
-            track_rect = pygame.Rect(slider_x, slider_y - slider_h // 2, slider_w, slider_h)
+            track_rect = pygame.Rect(slider_x, slider_y, slider_w, slider_h)
             pygame.draw.rect(surface, (15, 20, 30), track_rect, border_radius=4)
             pygame.draw.rect(surface, (30, 50, 70), track_rect, 1, border_radius=4)
             
             # Fill track
-            fill_w = int(self.sound_volume * slider_w)
-            if fill_w > 0:
-                fill_rect = pygame.Rect(slider_x, slider_y - slider_h // 2, fill_w, slider_h)
+            fill_h = int(self.sound_volume * slider_h)
+            if fill_h > 0:
+                fill_rect = pygame.Rect(slider_x, slider_y + slider_h - fill_h, slider_w, fill_h)
                 pygame.draw.rect(surface, (0, 229, 255), fill_rect, border_radius=4)
                 
             # Slider thumb (handle)
-            thumb_x = slider_x + fill_w
+            thumb_y = slider_y + slider_h - fill_h
+            thumb_x = slider_x + slider_w // 2
             thumb_r = int(10 * scale)
             is_volume_hovered = (self.hovered_btn == "volume")
             thumb_color = (255, 235, 59) if is_volume_hovered else (255, 255, 255)
-            pygame.draw.circle(surface, thumb_color, (thumb_x, slider_y), thumb_r)
-            pygame.draw.circle(surface, (0, 229, 255), (thumb_x, slider_y), thumb_r + 2, 1)
+            pygame.draw.circle(surface, thumb_color, (thumb_x, thumb_y), thumb_r)
+            pygame.draw.circle(surface, (0, 229, 255), (thumb_x, thumb_y), thumb_r + 2, 1)
 
             # ── VE NUT HANH DONG DONG BO PHIA DUOI ──
             # Reset button
@@ -986,24 +991,24 @@ class UI:
             start_y = self.height // 3 - int(45 * scale)
             
             # Available height for cards
-            panel_h = self.height - start_y - int(60 * scale)
+            panel_h = self.height - start_y - int(135 * scale)
             
             # Center Panel coordinates
-            panel_w = int(720 * scale)
+            panel_w = int(820 * scale)
             panel_x = self.width // 2 - panel_w // 2
             panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
             
             # Ghost / Pacman buttons
             Center_R = self.width // 2
-            ghost_w = int(220 * scale)
+            ghost_w = int(270 * scale)
             btn_h = int(50 * scale)
             
             ghost_btns = [
-                ("Pacman", Center_R, panel_rect.top + int(90 * scale)),
-                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
-                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(155 * scale)),
-                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(220 * scale)),
-                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(220 * scale))
+                ("Pacman", Center_R, panel_rect.top + int(85 * scale)),
+                ("Blinky", Center_R - int(150 * scale), panel_rect.top + int(145 * scale)),
+                ("Pinky", Center_R + int(150 * scale), panel_rect.top + int(145 * scale)),
+                ("Inky", Center_R - int(150 * scale), panel_rect.top + int(205 * scale)),
+                ("Clyde", Center_R + int(150 * scale), panel_rect.top + int(205 * scale))
             ]
             
             # Check if any input box is clicked
@@ -1020,7 +1025,7 @@ class UI:
                     return f"algo_{name}"
                     
             # Check bottom buttons
-            buttons_y = self.height - int(50 * scale)
+            buttons_y = self.height - int(75 * scale)
             action_w = int(350 * scale)
             action_h = int(60 * scale)
             
@@ -1053,15 +1058,24 @@ class UI:
         scale = self.scale
         
         if self.menu_view == "settings":
-            buttons_y = self.height - int(50 * scale)
-            slider_w = int(400 * scale)
-            slider_x = self.width // 2 - slider_w // 2
-            slider_y = buttons_y - int(45 * scale)
+            panel_w = int(820 * scale)
+            panel_x = self.width // 2 - panel_w // 2
+            start_y = self.height // 3 - int(45 * scale)
+            panel_h = self.height - start_y - int(135 * scale)
+            panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
+            legend_h = panel_h - int(320 * scale)
+            legend_rect = pygame.Rect(panel_rect.left + int(35 * scale), panel_rect.top + int(285 * scale), int(640 * scale), legend_h)
             
-            if slider_y - int(20 * scale) <= mouse_y <= slider_y + int(20 * scale) and slider_x - 10 <= mouse_x <= slider_x + slider_w + 10:
-                self.dragging_slider = "volume"
-                self.sound_volume = max(0.0, min(1.0, (mouse_x - slider_x) / slider_w))
-                return True
+            slider_w = int(16 * scale)
+            slider_h = legend_h
+            slider_x = panel_rect.left + int(747 * scale) - slider_w // 2
+            slider_y = legend_rect.top
+            
+            if slider_y - 10 <= mouse_y <= slider_y + slider_h + 10:
+                if slider_x - int(15 * scale) <= mouse_x <= slider_x + slider_w + int(15 * scale):
+                    self.dragging_slider = "volume"
+                    self.sound_volume = max(0.0, min(1.0, (slider_y + slider_h - mouse_y) / slider_h))
+                    return True
             return False
             
         elif self.menu_view == "map_config":
@@ -1101,13 +1115,21 @@ class UI:
         scale = self.scale
         
         if self.menu_view == "settings" and self.dragging_slider == "volume":
-            buttons_y = self.height - int(50 * scale)
-            slider_w = int(400 * scale)
-            slider_x = self.width // 2 - slider_w // 2
-            slider_y = buttons_y - int(45 * scale)
+            panel_w = int(820 * scale)
+            panel_x = self.width // 2 - panel_w // 2
+            start_y = self.height // 3 - int(45 * scale)
+            panel_h = self.height - start_y - int(135 * scale)
+            panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
+            legend_h = panel_h - int(320 * scale)
+            legend_rect = pygame.Rect(panel_rect.left + int(35 * scale), panel_rect.top + int(285 * scale), int(640 * scale), legend_h)
             
-            self.sound_volume = max(0.0, min(1.0, (mouse_x - slider_x) / slider_w))
-            return mouse_x, slider_y
+            slider_w = int(16 * scale)
+            slider_h = legend_h
+            slider_x = panel_rect.left + int(747 * scale) - slider_w // 2
+            slider_y = legend_rect.top
+            
+            self.sound_volume = max(0.0, min(1.0, (slider_y + slider_h - mouse_y) / slider_h))
+            return slider_x + slider_w // 2, mouse_y
             
         if self.menu_view == "map_config":
             if self.selected_map_idx > 0:
@@ -2239,15 +2261,15 @@ class LeaderboardUI:
         self.scale = max(0.5, min(self.w / 1920.0, self.h / 1080.0))
         font_path = "assets/PressStart2P-Regular.ttf"
         try:
-            self.font_title = pygame.font.Font(font_path, int(32 * self.scale))
-            self.font_med   = pygame.font.Font(font_path, int(14 * self.scale))
-            self.font_small = pygame.font.Font(font_path, int(11 * self.scale))
-            self.font_tiny  = pygame.font.Font(font_path, int(9 * self.scale))
+            self.font_title = pygame.font.Font(font_path, max(20, int(32 * self.scale)))
+            self.font_med   = pygame.font.Font(font_path, max(12, int(14 * self.scale)))
+            self.font_small = pygame.font.Font(font_path, max(10, int(11 * self.scale)))
+            self.font_tiny  = pygame.font.Font(font_path, max(8, int(9 * self.scale)))
         except Exception:
-            self.font_title = pygame.font.SysFont("monospace", int(40 * self.scale), bold=True)
-            self.font_med   = pygame.font.SysFont("monospace", int(18 * self.scale), bold=True)
-            self.font_small = pygame.font.SysFont("monospace", int(14 * self.scale), bold=True)
-            self.font_tiny  = pygame.font.SysFont("monospace", int(11 * self.scale))
+            self.font_title = pygame.font.SysFont("monospace", max(24, int(40 * self.scale)), bold=True)
+            self.font_med   = pygame.font.SysFont("monospace", max(14, int(18 * self.scale)), bold=True)
+            self.font_small = pygame.font.SysFont("monospace", max(11, int(14 * self.scale)), bold=True)
+            self.font_tiny  = pygame.font.SysFont("monospace", max(9, int(11 * self.scale)))
 
         self.entries = []         # danh sach dict tu Leaderboard.get_sorted()
         self.scroll = 0
@@ -2255,6 +2277,7 @@ class LeaderboardUI:
         self.last_entry_name = None   # lam noi bat hang cua nguoi choi gan day nhat
         self.selected_detail = None
         self.selected_detail_rank = None
+        self.confirm_clear_active = False
 
     def reset(self, entries, last_name=None):
         self.entries = entries
@@ -2263,12 +2286,41 @@ class LeaderboardUI:
         self.last_entry_name = last_name
         self.selected_detail = None
         self.selected_detail_rank = None
+        self.confirm_clear_active = False
+
+    def _confirm_clear_rect(self):
+        w = int(500 * self.scale)
+        h = int(250 * self.scale)
+        return pygame.Rect(self.w // 2 - w // 2, self.h // 2 - h // 2, w, h)
+
+    def _confirm_clear_yes_rect(self):
+        cr = self._confirm_clear_rect()
+        btn_w = int(180 * self.scale)
+        btn_h = int(45 * self.scale)
+        return pygame.Rect(cr.right - btn_w - int(40 * self.scale), cr.bottom - int(70 * self.scale), btn_w, btn_h)
+
+    def _confirm_clear_no_rect(self):
+        cr = self._confirm_clear_rect()
+        btn_w = int(180 * self.scale)
+        btn_h = int(45 * self.scale)
+        return pygame.Rect(cr.left + int(40 * self.scale), cr.bottom - int(70 * self.scale), btn_w, btn_h)
 
     def _back_rect(self):
-        return pygame.Rect(self.w // 2 - int(140 * self.scale), self.h - int(80 * self.scale), int(280 * self.scale), int(50 * self.scale))
+        w = int(280 * self.scale)
+        h = int(50 * self.scale)
+        x = self.w // 2 - w - int(20 * self.scale)
+        y = self.h - int(80 * self.scale)
+        return pygame.Rect(x, y, w, h)
+
+    def _clear_rect(self):
+        w = int(280 * self.scale)
+        h = int(50 * self.scale)
+        x = self.w // 2 + int(20 * self.scale)
+        y = self.h - int(80 * self.scale)
+        return pygame.Rect(x, y, w, h)
 
     def _modal_rect(self):
-        w = int(700 * self.scale)
+        w = int(840 * self.scale)
         h = int(640 * self.scale)
         return pygame.Rect(self.w // 2 - w // 2, self.h // 2 - h // 2, w, h)
 
@@ -2276,7 +2328,17 @@ class LeaderboardUI:
         mr = self._modal_rect()
         btn_w = int(220 * self.scale)
         btn_h = int(45 * self.scale)
-        return pygame.Rect(mr.centerx - btn_w // 2, mr.bottom - int(60 * self.scale), btn_w, btn_h)
+        x = mr.centerx - btn_w - int(15 * self.scale)
+        y = mr.bottom - int(60 * self.scale)
+        return pygame.Rect(x, y, btn_w, btn_h)
+
+    def _modal_delete_rect(self):
+        mr = self._modal_rect()
+        btn_w = int(220 * self.scale)
+        btn_h = int(45 * self.scale)
+        x = mr.centerx + int(15 * self.scale)
+        y = mr.bottom - int(60 * self.scale)
+        return pygame.Rect(x, y, btn_w, btn_h)
 
     def draw_neon_text(self, surface, text, font, color, center_pos, glow_radius=10, pulse=1.0):
         text_surf = font.render(text, True, color)
@@ -2293,6 +2355,20 @@ class LeaderboardUI:
         surface.blit(text_surf, text_rect)
 
     def handle_event(self, event, mouse_pos):
+        if self.confirm_clear_active:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_ESCAPE:
+                    self.confirm_clear_active = False
+            elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
+                if self._confirm_clear_yes_rect().collidepoint(*mouse_pos):
+                    self.confirm_clear_active = False
+                    return "clear_all"
+                elif self._confirm_clear_no_rect().collidepoint(*mouse_pos):
+                    self.confirm_clear_active = False
+                elif not self._confirm_clear_rect().collidepoint(*mouse_pos):
+                    self.confirm_clear_active = False
+            return
+
         if self.selected_detail is not None:
             if event.type == pygame.KEYDOWN:
                 if event.key in (pygame.K_ESCAPE, pygame.K_RETURN, pygame.K_SPACE):
@@ -2300,6 +2376,10 @@ class LeaderboardUI:
             elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
                 if self._modal_close_rect().collidepoint(*mouse_pos):
                     self.selected_detail = None
+                elif self._modal_delete_rect().collidepoint(*mouse_pos):
+                    entry_to_delete = self.selected_detail
+                    self.selected_detail = None
+                    return ("delete_entry", entry_to_delete)
                 elif not self._modal_rect().collidepoint(*mouse_pos):
                     self.selected_detail = None
             return
@@ -2312,13 +2392,17 @@ class LeaderboardUI:
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == 1:
             if self._back_rect().collidepoint(*mouse_pos):
                 self.back_pressed = True
+            elif self._clear_rect().collidepoint(*mouse_pos):
+                self.confirm_clear_active = True
             else:
                 row_y0 = int(150 * self.scale)
                 row_h = int(46 * self.scale)
+                x_offset = int(self.w * 0.03)
+                table_w = int(self.w * 0.65)
                 visible = self.entries[self.scroll : self.scroll + self.ROWS_VISIBLE]
                 for i, entry in enumerate(visible):
                     y = row_y0 + i * row_h
-                    row_rect = pygame.Rect(50, y, self.w - 100, row_h - 4)
+                    row_rect = pygame.Rect(x_offset, y, table_w, row_h - 4)
                     if row_rect.collidepoint(*mouse_pos):
                         self.selected_detail = entry
                         self.selected_detail_rank = self.scroll + i + 1
@@ -2355,28 +2439,30 @@ class LeaderboardUI:
         surface.blit(title, title.get_rect(center=(self.w//2, title_y)))
 
         # Tieu de cot
-        # Tieu de cot
+        x_offset = int(self.w * 0.03)
+        table_w = int(self.w * 0.65)
         col_x = [
-            int(self.w * 0.04),
-            int(self.w * 0.08),
-            int(self.w * 0.23),
-            int(self.w * 0.34),
-            int(self.w * 0.43),
-            int(self.w * 0.49),
-            int(self.w * 0.59),
-            int(self.w * 0.67),
-            int(self.w * 0.75),
-            int(self.w * 0.85)
+            x_offset + int(table_w * 0.00),
+            x_offset + int(table_w * 0.04),
+            x_offset + int(table_w * 0.16),
+            x_offset + int(table_w * 0.27),
+            x_offset + int(table_w * 0.37),
+            x_offset + int(table_w * 0.48),
+            x_offset + int(table_w * 0.54),
+            x_offset + int(table_w * 0.66),
+            x_offset + int(table_w * 0.73),
+            x_offset + int(table_w * 0.81),
+            x_offset + int(table_w * 0.89)
         ]
-        headers = ["#", "TEN", "DIEM SO", "KET QUA", "MA", "THOI GIAN", "BUOC", "SO CUA", "BAN DO", "NGAY"]
+        headers = ["#", "TEN", "DIEM SO", "KET QUA", "PACMAN", "MA", "THOI GIAN", "BUOC", "SO CUA", "BAN DO", "NGAY"]
         header_col = (0, 229, 255)
         header_y = int(120 * self.scale)
         for i, (hdr, x) in enumerate(zip(headers, col_x)):
-            lbl = self.font_small.render(hdr, True, header_col)
+            lbl = self.font_tiny.render(hdr, True, header_col)
             surface.blit(lbl, (x, header_y))
         
         divider_y = int(140 * self.scale)
-        pygame.draw.line(surface, (0, 160, 200), (50, divider_y), (self.w - 50, divider_y), 1)
+        pygame.draw.line(surface, (0, 160, 200), (x_offset, divider_y), (x_offset + table_w, divider_y), 1)
 
         # Cac hang
         row_h = int(46 * self.scale)
@@ -2387,13 +2473,23 @@ class LeaderboardUI:
         for i, entry in enumerate(visible):
             rank = self.scroll + i + 1
             y = y0 + i * row_h
-            row_rect = pygame.Rect(50, y, self.w - 100, row_h - 4)
+            row_rect = pygame.Rect(x_offset, y, table_w, row_h - 4)
 
             is_highlighted = (entry.get("name") == self.last_entry_name)
             is_win = entry.get("result", "LOSS") == "WIN"
 
-            # Nen hang
-            if is_highlighted:
+            # Nen hang va hoat anh hover
+            mouse_pos = pygame.mouse.get_pos()
+            is_hovered = row_rect.collidepoint(*mouse_pos) and self.selected_detail is None and not self.confirm_clear_active
+            shift_x = int(12 * self.scale) if is_hovered else 0
+
+            if is_hovered:
+                pygame.draw.rect(surface, (10, 25, 40), row_rect)
+                pygame.draw.rect(surface, (0, 229, 255), row_rect, 1)
+                pygame.draw.rect(surface, (0, 229, 255), (row_rect.left, row_rect.top, 3, row_rect.height))
+                arrow_lbl = self.font_tiny.render(">", True, (0, 229, 255))
+                surface.blit(arrow_lbl, (col_x[0] - int(14 * self.scale), y + int(14 * self.scale)))
+            elif is_highlighted:
                 bg = (15, 30, 15)
                 pygame.draw.rect(surface, bg, row_rect)
                 pygame.draw.rect(surface, (0, 220, 120), row_rect, 1)
@@ -2404,49 +2500,174 @@ class LeaderboardUI:
             # Cot hang
             rank_col = rank_colors[rank-1] if rank <= 3 else (100, 110, 140)
             rank_lbl = self.font_small.render(str(rank), True, rank_col)
-            surface.blit(rank_lbl, (col_x[0], y + int(12 * self.scale)))
+            surface.blit(rank_lbl, (col_x[0] + shift_x, y + int(12 * self.scale)))
 
             # Ten
             name_col = (0, 220, 120) if is_highlighted else (220, 230, 255)
             name_lbl = self.font_small.render(entry.get("name", "?"), True, name_col)
-            surface.blit(name_lbl, (col_x[1], y + int(12 * self.scale)))
+            surface.blit(name_lbl, (col_x[1] + shift_x, y + int(12 * self.scale)))
 
             # Diem so
             score_col = (255, 235, 59) if rank <= 3 else (200, 210, 255)
             score_lbl = self.font_med.render(str(entry.get("score", 0)), True, score_col)
-            surface.blit(score_lbl, (col_x[2], y + int(10 * self.scale)))
+            surface.blit(score_lbl, (col_x[2] + shift_x, y + int(10 * self.scale)))
 
             # Ket qua
             res = entry.get("result", "LOSS")
             res_display = "THANG" if res == "WIN" else "THUA"
             res_col = (0, 220, 120) if res == "WIN" else (255, 60, 60)
             res_lbl = self.font_small.render(res_display, True, res_col)
-            surface.blit(res_lbl, (col_x[3], y + int(12 * self.scale)))
+            surface.blit(res_lbl, (col_x[3] + shift_x, y + int(12 * self.scale)))
+
+            # Pacman Algo
+            p_algo = entry.get("pacman_algo", "A*")
+            p_algo_lbl = self.font_small.render(p_algo, True, PACMAN_COLOR)
+            surface.blit(p_algo_lbl, (col_x[4] + shift_x, y + int(12 * self.scale)))
 
             # Ma
             gh_lbl = self.font_small.render(str(entry.get("ghosts", 0)), True, (200, 200, 240))
-            surface.blit(gh_lbl, (col_x[4], y + int(12 * self.scale)))
+            surface.blit(gh_lbl, (col_x[5] + shift_x, y + int(12 * self.scale)))
 
             # Thoi gian
             tm_lbl = self.font_small.render(entry.get("time", "--"), True, (180, 200, 220))
-            surface.blit(tm_lbl, (col_x[5], y + int(12 * self.scale)))
+            surface.blit(tm_lbl, (col_x[6] + shift_x, y + int(12 * self.scale)))
 
             # Buoc
             steps_lbl = self.font_small.render(str(entry.get("steps", 0)), True, (200, 220, 200))
-            surface.blit(steps_lbl, (col_x[6], y + int(12 * self.scale)))
+            surface.blit(steps_lbl, (col_x[7] + shift_x, y + int(12 * self.scale)))
 
             # So cua
             turns_lbl = self.font_small.render(str(entry.get("turns", 0)), True, (200, 220, 200))
-            surface.blit(turns_lbl, (col_x[7], y + int(12 * self.scale)))
+            surface.blit(turns_lbl, (col_x[8] + shift_x, y + int(12 * self.scale)))
 
             # Ban do (Map Size)
             map_sz = entry.get("map_size", "N/A")
             map_lbl = self.font_small.render(str(map_sz), True, (160, 190, 220))
-            surface.blit(map_lbl, (col_x[8], y + int(12 * self.scale)))
+            surface.blit(map_lbl, (col_x[9] + shift_x, y + int(12 * self.scale)))
 
             # Ngay
             dt_lbl = self.font_tiny.render(entry.get("date", ""), True, (80, 95, 120))
-            surface.blit(dt_lbl, (col_x[9], y + int(15 * self.scale)))
+            surface.blit(dt_lbl, (col_x[10] + shift_x, y + int(15 * self.scale)))
+
+        # ── VE BANG PHAN TICH THUAT TOAN BÊN PHẢI ──
+        panel_x = x_offset + table_w + int(30 * self.scale)
+        panel_w = self.w - panel_x - int(30 * self.scale)
+        panel_rect = pygame.Rect(panel_x, y0, panel_w, self.ROWS_VISIBLE * row_h - 4)
+
+        # Glass panel background
+        temp_surf = pygame.Surface((panel_rect.width, panel_rect.height), pygame.SRCALPHA)
+        pygame.draw.rect(temp_surf, (8, 12, 20, 200), (0, 0, panel_rect.width, panel_rect.height), border_radius=8)
+        surface.blit(temp_surf, (panel_rect.x, panel_rect.y))
+
+        # Neon border
+        pygame.draw.rect(surface, (0, 229, 255), panel_rect, 1, border_radius=8)
+
+        # Compute win rates
+        algo_stats = {
+            "A*": {"wins": 0, "total": 0},
+            "Greedy": {"wins": 0, "total": 0},
+            "BFS": {"wins": 0, "total": 0},
+            "DFS": {"wins": 0, "total": 0}
+        }
+        for entry in self.entries:
+            algo = entry.get("pacman_algo", "A*")
+            if algo in algo_stats:
+                algo_stats[algo]["total"] += 1
+                if entry.get("result") == "WIN":
+                    algo_stats[algo]["wins"] += 1
+
+        # Title of the stats panel
+        stats_title_y = panel_rect.top + int(30 * self.scale)
+        self.draw_neon_text(surface, "HIEU SUAT THUAT TOAN", self.font_small, (255, 235, 59), (panel_rect.centerx, stats_title_y), glow_radius=6, pulse=pulse)
+        
+        # Divider line inside panel
+        pygame.draw.line(surface, (30, 50, 70), (panel_rect.left + 20, panel_rect.top + int(60 * self.scale)), (panel_rect.right - 20, panel_rect.top + int(60 * self.scale)), 1)
+        
+        # Start drawing algos
+        start_y = panel_rect.top + int(85 * self.scale)
+        box_spacing = int(125 * self.scale)
+        
+        algos_to_draw = ["A*", "Greedy", "BFS", "DFS"]
+        algo_colors = {
+            "A*": PACMAN_COLOR,
+            "Greedy": (255, 64, 128),
+            "BFS": (0, 229, 255),
+            "DFS": (128, 0, 255)
+        }
+        
+        for idx, algo in enumerate(algos_to_draw):
+            y = start_y + idx * box_spacing
+            
+            stats = algo_stats[algo]
+            wins = stats["wins"]
+            total = stats["total"]
+            win_rate = (wins / total * 100.0) if total > 0 else 0.0
+            
+            # Label
+            algo_lbl = self.font_small.render(f"PACMAN ({algo})", True, algo_colors[algo])
+            surface.blit(algo_lbl, (panel_rect.left + int(25 * self.scale), y))
+            
+            # Stats numbers
+            stats_str = f"{wins}/{total} THANG"
+            stats_lbl = self.font_tiny.render(stats_str, True, (160, 180, 200))
+            surface.blit(stats_lbl, (panel_rect.right - int(25 * self.scale) - stats_lbl.get_width(), y + int(2 * self.scale)))
+            
+            # Progress bar background
+            bar_y = y + int(22 * self.scale)
+            bar_w = panel_rect.width - int(50 * self.scale)
+            bar_h = int(16 * self.scale)
+            bar_rect = pygame.Rect(panel_rect.left + int(25 * self.scale), bar_y, bar_w, bar_h)
+            pygame.draw.rect(surface, (10, 15, 25), bar_rect, border_radius=4)
+            pygame.draw.rect(surface, (30, 45, 60), bar_rect, 1, border_radius=4)
+            
+            # Progress bar fill
+            if win_rate > 0:
+                fill_w = int(bar_w * (win_rate / 100.0))
+                fill_rect = pygame.Rect(panel_rect.left + int(25 * self.scale) + 1, bar_y + 1, fill_w - 2, bar_h - 2)
+                pygame.draw.rect(surface, algo_colors[algo], fill_rect, border_radius=3)
+            
+            # Win rate text overlay
+            rate_str = f"{win_rate:.1f}%"
+            rate_lbl = self.font_tiny.render(rate_str, True, (255, 255, 255))
+            surface.blit(rate_lbl, rate_lbl.get_rect(center=bar_rect.center))
+
+        # Aggregate statistics
+        total_games = len(self.entries)
+        best_algo = "N/A"
+        max_rate = -1.0
+        for algo in algos_to_draw:
+            t = algo_stats[algo]["total"]
+            if t > 0:
+                w_r = algo_stats[algo]["wins"] / t
+                if w_r > max_rate:
+                    max_rate = w_r
+                    best_algo = algo
+        
+        # Best rate display
+        best_rate_str = f"{max_rate*100:.1f}%" if max_rate >= 0 else "N/A"
+        
+        # Insights Box
+        insight_y = panel_rect.top + int(615 * self.scale)
+        pygame.draw.line(surface, (30, 50, 70), (panel_rect.left + 20, insight_y - int(15 * self.scale)), (panel_rect.right - 20, insight_y - int(15 * self.scale)), 1)
+        
+        # Insights title
+        self.draw_neon_text(surface, "KET LUAN AI SHIELD", self.font_tiny, (0, 229, 255), (panel_rect.centerx, insight_y), glow_radius=4, pulse=pulse)
+        
+        # Stat rows
+        stat_row1_y = insight_y + int(25 * self.scale)
+        stat_row2_y = insight_y + int(55 * self.scale)
+        
+        # Row 1: Total games
+        lbl_tg = self.font_tiny.render("TONG SO TRAN DAU:", True, (120, 140, 160))
+        val_tg = self.font_small.render(str(total_games), True, (255, 255, 255))
+        surface.blit(lbl_tg, (panel_rect.left + int(25 * self.scale), stat_row1_y))
+        surface.blit(val_tg, (panel_rect.right - int(25 * self.scale) - val_tg.get_width(), stat_row1_y))
+        
+        # Row 2: Best performing algorithm
+        lbl_ba = self.font_tiny.render("THUAT TOAN TOT NHAT:", True, (120, 140, 160))
+        val_ba = self.font_small.render(f"{best_algo} ({best_rate_str})", True, algo_colors.get(best_algo, (255, 255, 255)))
+        surface.blit(lbl_ba, (panel_rect.left + int(25 * self.scale), stat_row2_y))
+        surface.blit(val_ba, (panel_rect.right - int(25 * self.scale) - val_ba.get_width(), stat_row2_y))
 
         # Goi y cuon
         if len(self.entries) > self.ROWS_VISIBLE:
@@ -2454,15 +2675,28 @@ class LeaderboardUI:
                 f"MUC {self.scroll+1}-{min(self.scroll+self.ROWS_VISIBLE,len(self.entries))} / {len(self.entries)}   CUON DE XEM THEM",
                 True, (60, 80, 110)
             )
-            surface.blit(hint, hint.get_rect(center=(self.w//2, y0 + self.ROWS_VISIBLE * row_h + int(10 * self.scale))))
+            surface.blit(hint, hint.get_rect(center=(x_offset + table_w // 2, y0 + self.ROWS_VISIBLE * row_h + int(10 * self.scale))))
+
+        # Huong dan click xem chi tiet
+        guide_note = "CLICK VAO TRAN DAU TREN LEADERBOARD DE XEM THONG SO CHI TIET"
+        guide_lbl = self.font_tiny.render(guide_note, True, (0, 180, 210))
+        surface.blit(guide_lbl, guide_lbl.get_rect(center=(x_offset + table_w // 2, y0 + self.ROWS_VISIBLE * row_h + int(26 * self.scale))))
 
         # Nut quay lai
         br = self._back_rect()
         is_h = br.collidepoint(pygame.mouse.get_pos())
         pygame.draw.rect(surface, (20, 10, 10) if is_h else (10, 8, 12), br)
-        pygame.draw.rect(surface, (200, 80, 80) if is_h else (50, 30, 40), br, 2)
-        back_lbl = self.font_small.render("← QUAY LAI MENU", True, (200, 80, 80) if is_h else (120, 80, 100))
+        pygame.draw.rect(surface, (0, 229, 255) if is_h else (0, 100, 120), br, 2)
+        back_lbl = self.font_small.render("← QUAY LAI MENU", True, (0, 229, 255) if is_h else (0, 160, 200))
         surface.blit(back_lbl, back_lbl.get_rect(center=br.center))
+
+        # Nut xoa tat ca
+        cr = self._clear_rect()
+        is_cr_h = cr.collidepoint(pygame.mouse.get_pos())
+        pygame.draw.rect(surface, (20, 10, 10) if is_cr_h else (10, 8, 12), cr)
+        pygame.draw.rect(surface, (255, 0, 128) if is_cr_h else (120, 0, 64), cr, 2)
+        clear_lbl = self.font_small.render("XOA TAT CA BAN GHI", True, (255, 0, 128) if is_cr_h else (180, 0, 96))
+        surface.blit(clear_lbl, clear_lbl.get_rect(center=cr.center))
 
         # ── VE CHI TIET TRAN DAU MODAL (NEU DUOC CHON) ──
         if self.selected_detail is not None:
@@ -2505,48 +2739,161 @@ class LeaderboardUI:
             # Metrics
             res_text = "THANG (VICTORY)" if res == "WIN" else "THUA (DEFEATED)"
             res_col = (0, 220, 120) if res == "WIN" else (255, 60, 60)
-            details = [
+            
+            left_details = [
                 ("HANG (RANK):", f"#{self.selected_detail_rank}", (255, 215, 0) if self.selected_detail_rank <= 3 else (180, 200, 220)),
                 ("TEN (NAME):", self.selected_detail.get("name", "ANON"), (220, 230, 255)),
-                ("KET QUA (RESULT):", res_text, res_col),
-                ("DIEM SO (SCORE):", f"{self.selected_detail.get('score', 0)} PTS", (255, 235, 59)),
-                ("SO MA AN (GHOSTS):", f"{self.selected_detail.get('ghosts', 0)} / 4", (200, 200, 240)),
-                ("THOI GIAN (TIME):", f"{self.selected_detail.get('time', '--')} ({self.selected_detail.get('elapsed', 0.0)}s)", (180, 200, 220)),
-                ("BUOC DI (STEPS):", str(self.selected_detail.get("steps", 0)), (200, 220, 200)),
-                ("SO LAN CUA (TURNS):", str(self.selected_detail.get("turns", 0)), (200, 220, 200)),
-                ("BAN DO (MAP SIZE):", str(self.selected_detail.get("map_size", "N/A")), (160, 190, 220)),
-                ("NGAY CHOI (DATE):", self.selected_detail.get("date", ""), (100, 120, 150))
+                ("KET QUA:", res_text, res_col),
+                ("DIEM SO:", f"{self.selected_detail.get('score', 0)} PTS", (255, 235, 59)),
+                ("MA DA AN:", f"{self.selected_detail.get('ghosts', 0)} / 4", (200, 200, 240)),
+                ("THOI GIAN:", f"{self.selected_detail.get('time', '--')} ({self.selected_detail.get('elapsed', 0.0)}s)", (180, 200, 220)),
+                ("BUOC DI:", str(self.selected_detail.get("steps", 0)), (200, 220, 200)),
+                ("SO LAN QUAY DAU:", str(self.selected_detail.get("turns", 0)), (200, 220, 200)),
+                ("BAN DO:", str(self.selected_detail.get("map_size", "N/A")), (160, 190, 220)),
+                ("NGAY CHOI:", self.selected_detail.get("date", ""), (100, 120, 150))
             ]
 
+            p_algo = self.selected_detail.get("pacman_algo", "A*")
             pacman_nodes = self.selected_detail.get("pacman_explored")
             pacman_nodes_str = f"{pacman_nodes} NUT" if pacman_nodes is not None else "N/A"
-            details.append(("NUT DUYET PACMAN:", pacman_nodes_str, PACMAN_COLOR))
             
             ghost_explored = self.selected_detail.get("ghost_explored", {})
-            if ghost_explored:
-                for g_name, col in [("Blinky", BLINKY_COLOR), ("Pinky", PINKY_COLOR), ("Inky", INKY_COLOR), ("Clyde", CLYDE_COLOR)]:
-                    val = ghost_explored.get(g_name)
-                    val_str = f"{val} NUT" if val is not None else "N/A"
-                    details.append((f"NUT DUYET {g_name.upper()}:", val_str, col))
-            else:
-                for g_name, col in [("Blinky", BLINKY_COLOR), ("Pinky", PINKY_COLOR), ("Inky", INKY_COLOR), ("Clyde", CLYDE_COLOR)]:
-                    details.append((f"NUT DUYET {g_name.upper()}:", "N/A", col))
+            ghost_algos = self.selected_detail.get("ghost_algos", {})
+            fallback_ghost_algos = {
+                "Blinky": "A*",
+                "Pinky": "Greedy",
+                "Inky": "DFS",
+                "Clyde": "BFS"
+            }
+            
+            right_details = [
+                ("ALGO PACMAN:", p_algo, PACMAN_COLOR),
+                ("NUT PACMAN:", pacman_nodes_str, PACMAN_COLOR)
+            ]
+            
+            for g_name, col in [("Blinky", BLINKY_COLOR), ("Pinky", PINKY_COLOR), ("Inky", INKY_COLOR), ("Clyde", CLYDE_COLOR)]:
+                g_algo = ghost_algos.get(g_name) if ghost_algos else None
+                if not g_algo:
+                    g_algo = fallback_ghost_algos[g_name]
+                val = ghost_explored.get(g_name) if ghost_explored else None
+                val_str = f"{val} NUT" if val is not None else "N/A"
+                
+                right_details.append((f"ALGO {g_name.upper()}:", g_algo, col))
+                right_details.append((f"NUT {g_name.upper()}:", val_str, col))
 
-            item_spacing = int(26 * self.scale)
-            start_content_y = mr.top + int(90 * self.scale)
-            for idx, (label, val, val_col) in enumerate(details):
+            # Draw vertical divider line down the middle of the modal
+            pygame.draw.line(surface, (40, 50, 70), (mr.centerx, mr.top + int(80 * self.scale)), (mr.centerx, mr.bottom - int(80 * self.scale)), 1)
+
+            item_spacing = int(45 * self.scale)
+            start_content_y = mr.top + int(100 * self.scale)
+            
+            # Draw left column
+            for idx, (label, val, val_col) in enumerate(left_details):
                 cy = start_content_y + idx * item_spacing
-                # Draw label
-                lbl_surf = self.font_small.render(label, True, (0, 229, 255))
-                surface.blit(lbl_surf, (mr.left + int(50 * self.scale), cy))
-                # Draw value
-                val_surf = self.font_small.render(val, True, val_col)
-                surface.blit(val_surf, (mr.right - int(50 * self.scale) - val_surf.get_width(), cy))
+                lbl_surf = self.font_tiny.render(label, True, (0, 229, 255))
+                surface.blit(lbl_surf, (mr.left + int(30 * self.scale), cy))
+                val_surf = self.font_tiny.render(val, True, val_col)
+                surface.blit(val_surf, (mr.centerx - int(30 * self.scale) - val_surf.get_width(), cy))
+
+            # Draw right column
+            for idx, (label, val, val_col) in enumerate(right_details):
+                cy = start_content_y + idx * item_spacing
+                lbl_surf = self.font_tiny.render(label, True, (0, 229, 255))
+                surface.blit(lbl_surf, (mr.centerx + int(30 * self.scale), cy))
+                val_surf = self.font_tiny.render(val, True, val_col)
+                surface.blit(val_surf, (mr.right - int(30 * self.scale) - val_surf.get_width(), cy))
 
             # Close button
             cbr = self._modal_close_rect()
             is_cb_hover = cbr.collidepoint(pygame.mouse.get_pos())
             pygame.draw.rect(surface, (20, 10, 10) if is_cb_hover else (10, 8, 12), cbr, border_radius=6)
-            pygame.draw.rect(surface, (200, 80, 80) if is_cb_hover else (80, 50, 60), cbr, 2, border_radius=6)
-            close_lbl = self.font_small.render("← QUAY LAI", True, (200, 80, 80) if is_cb_hover else (140, 90, 100))
+            pygame.draw.rect(surface, (0, 229, 255) if is_cb_hover else (0, 100, 120), cbr, 2, border_radius=6)
+            close_lbl = self.font_small.render("← QUAY LAI", True, (0, 229, 255) if is_cb_hover else (0, 160, 200))
             surface.blit(close_lbl, close_lbl.get_rect(center=cbr.center))
+
+            # Delete button
+            dbr = self._modal_delete_rect()
+            is_db_hover = dbr.collidepoint(pygame.mouse.get_pos())
+            pygame.draw.rect(surface, (20, 10, 10) if is_db_hover else (10, 8, 12), dbr, border_radius=6)
+            pygame.draw.rect(surface, (255, 0, 128) if is_db_hover else (120, 0, 64), dbr, 2, border_radius=6)
+            delete_lbl = self.font_small.render("XOA TRAN NAY", True, (255, 0, 128) if is_db_hover else (180, 0, 96))
+            surface.blit(delete_lbl, delete_lbl.get_rect(center=dbr.center))
+
+        # ── VE POPUP XAC NHAN XOA LICH SU (NEU KICH HOAT) ──
+        if self.confirm_clear_active:
+            # Dim screen
+            overlay = pygame.Surface((self.w, self.h), pygame.SRCALPHA)
+            overlay.fill((5, 7, 12, 220))
+            surface.blit(overlay, (0, 0))
+
+            cr = self._confirm_clear_rect()
+            border_color = (255, 0, 128)
+
+            # Glass background
+            temp_surf = pygame.Surface((cr.width, cr.height), pygame.SRCALPHA)
+            pygame.draw.rect(temp_surf, (15, 10, 15, 245), (0, 0, cr.width, cr.height), border_radius=12)
+            surface.blit(temp_surf, (cr.x, cr.y))
+
+            # Neon border
+            pygame.draw.rect(surface, border_color, cr, 3, border_radius=12)
+
+            # Header
+            header_y = cr.top + int(45 * self.scale)
+            self.draw_neon_text(surface, "CANH BAO CYBER", self.font_med, border_color, (cr.centerx, header_y), glow_radius=10, pulse=pulse)
+
+            # Warning text
+            warn_lbl1 = self.font_small.render("XAC NHAN XOA TOAN BO", True, (220, 230, 255))
+            warn_lbl2 = self.font_small.render("LICH SU DAU TRAN?", True, (220, 230, 255))
+            surface.blit(warn_lbl1, warn_lbl1.get_rect(center=(cr.centerx, cr.top + int(105 * self.scale))))
+            surface.blit(warn_lbl2, warn_lbl2.get_rect(center=(cr.centerx, cr.top + int(135 * self.scale))))
+
+            # Cancel button (HUY BO)
+            no_rect = self._confirm_clear_no_rect()
+            is_no_hover = no_rect.collidepoint(pygame.mouse.get_pos())
+            pygame.draw.rect(surface, (20, 10, 10) if is_no_hover else (10, 8, 12), no_rect, border_radius=6)
+            pygame.draw.rect(surface, (0, 229, 255) if is_no_hover else (0, 100, 120), no_rect, 2, border_radius=6)
+            no_lbl = self.font_small.render("HUY BO", True, (0, 229, 255) if is_no_hover else (0, 160, 200))
+            surface.blit(no_lbl, no_lbl.get_rect(center=no_rect.center))
+
+            # Yes button (XOA HET)
+            yes_rect = self._confirm_clear_yes_rect()
+            is_yes_hover = yes_rect.collidepoint(pygame.mouse.get_pos())
+            pygame.draw.rect(surface, (20, 10, 10) if is_yes_hover else (10, 8, 12), yes_rect, border_radius=6)
+            pygame.draw.rect(surface, (255, 0, 128) if is_yes_hover else (120, 0, 64), yes_rect, 2, border_radius=6)
+            yes_lbl = self.font_small.render("XOA HET", True, (255, 0, 128) if is_yes_hover else (180, 0, 96))
+            surface.blit(yes_lbl, yes_lbl.get_rect(center=yes_rect.center))
+
+        # ── VE TOOLTIP "CLICK ME" TREN CON TRO CHUOT TUNG HANG (NEU HOVER) ──
+        if self.selected_detail is None and not self.confirm_clear_active:
+            mouse_pos = pygame.mouse.get_pos()
+            row_h = int(46 * self.scale)
+            y0 = int(150 * self.scale)
+            visible = self.entries[self.scroll : self.scroll + self.ROWS_VISIBLE]
+            for i, entry in enumerate(visible):
+                y = y0 + i * row_h
+                row_rect = pygame.Rect(x_offset, y, table_w, row_h - 4)
+                if row_rect.collidepoint(mouse_pos):
+                    # Vi tri tooltip
+                    mx, my = mouse_pos
+                    tx = mx + int(15 * self.scale)
+                    ty = my - int(25 * self.scale)
+                    
+                    tw = int(90 * self.scale)
+                    th = int(24 * self.scale)
+                    if tx + tw > self.w:
+                        tx = mx - tw - int(10 * self.scale)
+                    if ty < 0:
+                        ty = my + int(15 * self.scale)
+                        
+                    tip_rect = pygame.Rect(tx, ty, tw, th)
+                    
+                    # Nen kinh mo glassmorphism
+                    temp_surf = pygame.Surface((tw, th), pygame.SRCALPHA)
+                    pygame.draw.rect(temp_surf, (8, 12, 20, 240), (0, 0, tw, th), border_radius=4)
+                    surface.blit(temp_surf, (tx, ty))
+                    
+                    # Vien neon cyan va chu render
+                    pygame.draw.rect(surface, (0, 229, 255), tip_rect, 1, border_radius=4)
+                    tip_lbl = self.font_tiny.render("CLICK ME FOR MORE INFO", True, (0, 229, 255))
+                    surface.blit(tip_lbl, tip_lbl.get_rect(center=tip_rect.center))
+                    break

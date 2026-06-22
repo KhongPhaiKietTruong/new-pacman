@@ -66,7 +66,13 @@ def main():
 
             # ── Bang Xep Hang ────────────────────────────────────────────────
             elif game.state == STATE_LEADERBOARD:
-                lb_ui.handle_event(event, mouse_pos)
+                res = lb_ui.handle_event(event, mouse_pos)
+                if res == "clear_all":
+                    leaderboard.clear()
+                    lb_ui.reset(leaderboard.get_sorted())
+                elif isinstance(res, tuple) and res[0] == "delete_entry":
+                    leaderboard.delete_entry(res[1])
+                    lb_ui.reset(leaderboard.get_sorted())
 
             # ── Trinh Bien Tap Ban Do ─────────────────────────────────────────────────
             elif game.state == STATE_MAP_EDITOR:
@@ -215,7 +221,9 @@ def main():
             game.state = STATE_MENU
 
         # ── Cap nhat ─────────────────────────────────────────────────────────
-        if game.state == STATE_STARTING:
+        if game.state == STATE_MENU:
+            game.graphics.update(dt)
+        elif game.state == STATE_STARTING:
             start_anim_timer += dt
         elif game.state == STATE_END_ANIM:
             end_anim_timer += dt
@@ -233,6 +241,7 @@ def main():
                 ghost_explored = {type(g).__name__: g.total_explored_nodes for g in game.ghosts}
                 ui.set_stats(game.get_time_str(), game.steps, game.turns, game.ghosts_eaten, f"{game.cols}x{game.rows}", game.mode, game.pacman.search_count, game.pacman.total_explored_nodes, ghost_explored)
                 # Luu thong tin bang xep hang
+                ghost_algos = {type(g).__name__: g.algo for g in game.ghosts}
                 score = leaderboard.add_entry(
                     name           = current_player,
                     won            = end_anim_won,
@@ -244,6 +253,8 @@ def main():
                     map_size       = f"{game.cols}x{game.rows}",
                     pacman_explored= game.pacman.total_explored_nodes,
                     ghost_explored = ghost_explored,
+                    pacman_algo    = game.pacman.algo,
+                    ghost_algos    = ghost_algos,
                 )
                 ui.current_rank = leaderboard.get_last_entry_rank()
                 ui.current_score = score
