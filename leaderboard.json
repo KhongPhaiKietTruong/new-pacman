@@ -727,11 +727,219 @@
         "Inky": 4623,
         "Clyde": 852
       }
+    },
+    {
+      "name": "TIENDAT",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:06",
+      "elapsed": 6.7,
+      "steps": 16,
+      "turns": 5,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 583,
+      "ghost_explored": {
+        "Blinky": 1295,
+        "Pinky": 2761,
+        "Inky": 1574,
+        "Clyde": 343
+      }
+    },
+    {
+      "name": "TIENDAT",
+      "score": 2298,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:40",
+      "elapsed": 40.2,
+      "steps": 126,
+      "turns": 38,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 5737,
+      "ghost_explored": {
+        "Blinky": 685,
+        "Pinky": 1833,
+        "Inky": 5861,
+        "Clyde": 39104
+      }
+    },
+    {
+      "name": "TIENDAT",
+      "score": 2320,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:35",
+      "elapsed": 36.0,
+      "steps": 115,
+      "turns": 41,
+      "map_size": "35x25",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 5337,
+      "ghost_explored": {
+        "Blinky": 1265,
+        "Pinky": 14570,
+        "Inky": 1878,
+        "Clyde": 29012
+      }
+    },
+    {
+      "name": "TIENDAT",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:04",
+      "elapsed": 4.1,
+      "steps": 5,
+      "turns": 1,
+      "map_size": "15x15",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 164,
+      "ghost_explored": {
+        "Blinky": 84,
+        "Pinky": 31,
+        "Inky": 530,
+        "Clyde": 222
+      }
+    },
+    {
+      "name": "TIENDAT",
+      "score": 0,
+      "result": "LOSS",
+      "ghosts": 0,
+      "time": "00:04",
+      "elapsed": 4.1,
+      "steps": 5,
+      "turns": 2,
+      "map_size": "15x15",
+      "date": "2026-06-22",
+      "pacman_algo": "Greedy",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 107,
+      "ghost_explored": {
+        "Blinky": 153,
+        "Pinky": 90,
+        "Inky": 660,
+        "Clyde": 184
+      }
+    },
+    {
+      "name": "PHUONGTHUY",
+      "score": 2407,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:18",
+      "elapsed": 18.5,
+      "steps": 52,
+      "turns": 18,
+      "map_size": "21x19",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 13089,
+      "ghost_explored": {
+        "Blinky": 476,
+        "Pinky": 795,
+        "Inky": 2863,
+        "Clyde": 312
+      }
+    },
+    {
+      "name": "PHUONGTHUY",
+      "score": 2332,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:33",
+      "elapsed": 33.4,
+      "steps": 90,
+      "turns": 22,
+      "map_size": "21x19",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 16169,
+      "ghost_explored": {
+        "Blinky": 627,
+        "Pinky": 1108,
+        "Inky": 897,
+        "Clyde": 5230
+      }
+    },
+    {
+      "name": "PHUONGTHUY",
+      "score": 2418,
+      "result": "WIN",
+      "ghosts": 4,
+      "time": "00:16",
+      "elapsed": 16.3,
+      "steps": 41,
+      "turns": 13,
+      "map_size": "21x19",
+      "date": "2026-06-22",
+      "pacman_algo": "BFS",
+      "ghost_algos": {
+        "Blinky": "A*",
+        "Pinky": "Greedy",
+        "Inky": "DFS",
+        "Clyde": "BFS"
+      },
+      "pacman_explored": 5416,
+      "ghost_explored": {
+        "Blinky": 547,
+        "Pinky": 832,
+        "Inky": 651,
+        "Clyde": 541
+      }
     }
   ],
   "usernames": [
-    "TIENDAT",
     "PHUONGTHUY",
+    "TIENDAT",
     "KIETTRUONG"
   ]
 }
