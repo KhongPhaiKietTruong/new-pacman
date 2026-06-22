@@ -363,7 +363,7 @@ class GameEngine:
         center_r = self.rows // 2 if (self.rows // 2) % 2 != 0 else (self.rows // 2) + 1
         center_c = self.cols // 2 if (self.cols // 2) % 2 != 0 else (self.cols // 2) + 1
         self.pacman = Pacman(center_r, center_c)
-        self.pacman.algo = "A*"
+        self.pacman.algo = algorithms.get("Pacman", "A*")
         if pacman_heuristics is not None:
             self.pacman.heuristic_formulas = pacman_heuristics.copy()
         self.pacman.last_dir = DIR_RIGHT
@@ -434,7 +434,7 @@ class GameEngine:
         # Pacman
         pr, pc = pacman_pos
         self.pacman = Pacman(pr, pc)
-        self.pacman.algo = "A*"
+        self.pacman.algo = algorithms.get("Pacman", "A*")
         if pacman_heuristics is not None:
             self.pacman.heuristic_formulas = pacman_heuristics.copy()
         self.pacman.last_dir = DIR_RIGHT

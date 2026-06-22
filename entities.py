@@ -219,8 +219,35 @@ class Pacman(Entity):
                             cost += 30
             return cost
 
-        # Pacman luon luon su dung thuat toan A* de duong di toi uu nhat theo heuristic
-        path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
+        # Select pathfinding algorithm dynamically
+        algo = getattr(self, 'algo', 'A*')
+        if algo == 'A*':
+            path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
+        elif algo == 'Greedy':
+            path, explored = Pathfinding.greedy_bfs((self.r, self.c), goal, grid, rows, cols, heuristic=manhattan_distance, return_explored=True)
+        elif algo in ('BFS', 'DFS'):
+            # Dynamic Obstacle Mapping for BFS & DFS to dodge active ghosts
+            temp_grid = [row[:] for row in grid]
+            if self.state != 2:  # Only avoid ghosts if not in hunting mode
+                for g in ghosts:
+                    if not g.is_dead:
+                        temp_grid[g.r][g.c] = 1
+                        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                            nr, nc = g.r + dr, g.c + dc
+                            if 0 <= nr < rows and 0 <= nc < cols:
+                                temp_grid[nr][nc] = 1
+            
+            if algo == 'BFS':
+                path, explored = Pathfinding.bfs((self.r, self.c), goal, temp_grid, rows, cols, return_explored=True)
+                if not path:  # Fallback if no safe path exists
+                    path, explored = Pathfinding.bfs((self.r, self.c), goal, grid, rows, cols, return_explored=True)
+            else:  # DFS
+                path, explored = Pathfinding.dfs((self.r, self.c), goal, temp_grid, rows, cols, depth_limit=15, return_explored=True)
+                if not path:  # Fallback if no safe path exists
+                    path, explored = Pathfinding.dfs((self.r, self.c), goal, grid, rows, cols, depth_limit=15, return_explored=True)
+        else:
+            path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
+
         self.path = path
         self.last_explored_nodes = explored
         self.explored_nodes_updated = True
@@ -425,7 +452,7 @@ class Clyde(Ghost):
         if self.algo == "A*":
             return pacman_pos
         dist_to_pacman = abs(self.r - pacman_pos[0]) + abs(self.c - pacman_pos[1])
-        if dist_to_pacman <= 4:
+        if dist_to_pacman <= 8:
             return pacman_pos
         if not blinky_pos:
             return pacman_pos

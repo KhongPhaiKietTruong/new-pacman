@@ -60,6 +60,7 @@ class UI:
         except Exception as e:
             print(f"Error loading background image: {e}")
         self.algorithms = {
+            "Pacman": "A*",
             "Blinky": "A*",
             "Pinky": "Greedy",
             "Inky": "DFS",
@@ -143,7 +144,10 @@ class UI:
         max_glow = int(glow_radius * pulse)
         for i in range(max_glow, 0, -2):
             glow_surf = font.render(text, True, glow_color)
-            glow_surf.set_alpha(int(200 / max_glow) if max_glow > 0 else 0)
+            try:
+                glow_surf.set_alpha(int(200 / max_glow) if max_glow > 0 else 0)
+            except Exception:
+                pass
             surface.blit(glow_surf, (text_rect.x - i//2, text_rect.y - i//2))
             
         surface.blit(text_surf, text_rect)
@@ -601,9 +605,7 @@ class UI:
             # Vien neon
             pygame.draw.rect(surface, (0, 229, 255), panel_rect, 2, border_radius=12)
             
-            # Tag hieu he thong o goc top-right
-            lbl_tag = self.font_sidebar.render("[SYS.MAP.CFG]", True, (0, 114, 127))
-            surface.blit(lbl_tag, (panel_rect.right - lbl_tag.get_width() - int(15 * scale), panel_rect.top + int(10 * scale)))
+
             
             # Map select display
             map_options = ["NGAU NHIEN"] + [m["name"] for m in self.custom_maps]
@@ -694,23 +696,24 @@ class UI:
             panel_x = self.width // 2 - panel_w // 2
             panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
             
-            # Ghost buttons
+            # Ghost / Pacman buttons
             Center_R = self.width // 2
             ghost_w = int(220 * scale)
             btn_h = int(50 * scale)
             
             ghost_btns = [
-                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(90 * scale)),
-                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(90 * scale)),
-                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
-                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(155 * scale))
+                ("Pacman", Center_R, panel_rect.top + int(90 * scale)),
+                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
+                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(155 * scale)),
+                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(220 * scale)),
+                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(220 * scale))
             ]
             
             # Legend coordinates
-            legend_y = panel_rect.top + int(215 * scale)
+            legend_y = panel_rect.top + int(280 * scale)
             legend_w = panel_w - int(40 * scale)
-            legend_h = panel_h - int(265 * scale)
-            legend_rect = pygame.Rect(panel_rect.centerx - legend_w // 2, panel_rect.top + int(255 * scale), legend_w, legend_h)
+            legend_h = panel_h - int(340 * scale)
+            legend_rect = pygame.Rect(panel_rect.centerx - legend_w // 2, panel_rect.top + int(320 * scale), legend_w, legend_h)
             
             # Bottom buttons
             buttons_y = self.height - int(50 * scale)
@@ -760,8 +763,9 @@ class UI:
                 pygame.draw.rect(surf, border_color, rect, 2, border_radius=12)
                 
                 # Tag hieu he thong o goc top-right
-                lbl_tag = self.font_sidebar.render(tag_text, True, (border_color[0]//2 + 127, border_color[1]//2 + 127, border_color[2]//2 + 127))
-                surf.blit(lbl_tag, (rect.right - lbl_tag.get_width() - int(15 * scale), rect.top + int(10 * scale)))
+                if tag_text:
+                    lbl_tag = self.font_sidebar.render(tag_text, True, (border_color[0]//2 + 127, border_color[1]//2 + 127, border_color[2]//2 + 127))
+                    surf.blit(lbl_tag, (rect.right - lbl_tag.get_width() - int(15 * scale), rect.top + int(10 * scale)))
                 
                 # Cac hoa tiet cyber o goc
                 dec = int(8 * scale)
@@ -770,12 +774,13 @@ class UI:
                 pygame.draw.line(surf, border_color, (rect.right, rect.bottom), (rect.right - dec*2, rect.bottom), 4)
                 pygame.draw.line(surf, border_color, (rect.right, rect.bottom), (rect.right, rect.bottom - dec*2), 4)
             
-            draw_glass_panel(surface, panel_rect, (255, 0, 128), "[SYS.AI.GHO]")
+            draw_glass_panel(surface, panel_rect, (255, 0, 128), "")
             
             # ── VE GHOST ALGORITHMS ──
-            self.draw_neon_text(surface, "ALGO CHO GHOSTS", self.font_small, (255, 0, 128), (panel_rect.centerx, panel_rect.top + int(26 * scale)), glow_radius=8, pulse=pulse)
+            self.draw_neon_text(surface, "ALGO CHO PACMAN & GHOSTS", self.font_small, (255, 0, 128), (panel_rect.centerx, panel_rect.top + int(26 * scale)), glow_radius=8, pulse=pulse)
             
             ghost_colors = {
+                "Pacman": PACMAN_COLOR,
                 "Blinky": BLINKY_COLOR,
                 "Pinky": PINKY_COLOR,
                 "Inky": INKY_COLOR,
@@ -801,13 +806,14 @@ class UI:
                 text = f"{name.upper()}: {self.algorithms[name]}"
                 self.draw_neon_text(surface, text, self.font_small, border_color, rect.center, glow_radius=10, pulse=btn_pulse)
                 
-            # ── VE LEGEN HANH VI CUA GHOSTS BEN DUOI ALGO ──
-            self.draw_neon_text(surface, "HANH VI DI CHUYEN CUA GHOSTS", self.font_small, PACMAN_COLOR, (panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
+            # ── VE LEGEN HANH VI CUA CAC THUC THE BEN DUOI ALGO ──
+            self.draw_neon_text(surface, "HANH VI DI CHUYEN CUA CAC THUC THE", self.font_small, PACMAN_COLOR, (panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
             
             pygame.draw.rect(surface, (5, 8, 12), legend_rect, border_radius=6)
             pygame.draw.rect(surface, (30, 50, 70), legend_rect, 1, border_radius=6)
             
             legend_lines = [
+                "Pacman (Vang): Di chuyen ne ma tim thuc an (A*, Greedy, BFS, DFS)",
                 "Blinky (Do): Duoi theo truc tiep vi tri Pacman",
                 "Pinky (Hong): Di truoc don dau Pacman 4 o",
                 "Inky (Xanh): Su dung DFS (gioi han 15) de truc tiep duoi bat Pacman",
@@ -960,16 +966,17 @@ class UI:
             panel_x = self.width // 2 - panel_w // 2
             panel_rect = pygame.Rect(panel_x, start_y - int(75 * scale), panel_w, panel_h)
             
-            # Ghost buttons
+            # Ghost / Pacman buttons
             Center_R = self.width // 2
             ghost_w = int(220 * scale)
             btn_h = int(50 * scale)
             
             ghost_btns = [
-                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(90 * scale)),
-                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(90 * scale)),
-                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
-                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(155 * scale))
+                ("Pacman", Center_R, panel_rect.top + int(90 * scale)),
+                ("Blinky", Center_R - int(120 * scale), panel_rect.top + int(155 * scale)),
+                ("Pinky", Center_R + int(120 * scale), panel_rect.top + int(155 * scale)),
+                ("Inky", Center_R - int(120 * scale), panel_rect.top + int(220 * scale)),
+                ("Clyde", Center_R + int(120 * scale), panel_rect.top + int(220 * scale))
             ]
             
             # Check if any input box is clicked
@@ -994,6 +1001,7 @@ class UI:
             if reset_rect.collidepoint(mouse_x, mouse_y):
                 self.sound_volume = 0.8
                 self.algorithms = {
+                    "Pacman": "A*",
                     "Blinky": "A*",
                     "Pinky": "Greedy",
                     "Inky": "DFS",
@@ -1495,47 +1503,48 @@ class UI:
             lbl_nodes = self.font_sidebar.render(f"{total_nodes} NUT", True, color)
             surface.blit(lbl_nodes, (self.width - 30 - lbl_nodes.get_width(), y_pos + line_height))
 
-        # --- SPEED SLIDER (Next to the map, left of the sidebar border) ---
-        slider_h = int(250 * scale)
-        slider_w = int(10 * scale)
-        slider_x = x_start - int(35 * scale)
-        slider_y = self.height // 2 - slider_h // 2
+        # --- SPEED SLIDER (Centered in the sidebar, above control buttons) ---
+        slider_w = int(320 * scale)
+        slider_h = int(10 * scale)
+        slider_x = x_start + (SIDEBAR_WIDTH - slider_w) // 2
+        slider_y = self.height - int(285 * scale)
         
         # Draw track
-        track_rect = pygame.Rect(slider_x - slider_w // 2, slider_y, slider_w, slider_h)
+        track_rect = pygame.Rect(slider_x, slider_y - slider_h // 2, slider_w, slider_h)
         pygame.draw.rect(surface, (10, 15, 25), track_rect, border_radius=4)
         pygame.draw.rect(surface, (40, 50, 70), track_rect, 1, border_radius=4)
         
         # Current speed scale
         current_speed = getattr(game, 'speed_scale', 1.0)
         fraction = (current_speed - 0.2) / 2.8
-        handle_y = slider_y + slider_h - int(fraction * slider_h)
+        handle_x = slider_x + int(fraction * slider_w)
         
         # Draw ticks & tick labels
-        ticks = [3.0, 2.0, 1.0, 0.2]
+        ticks = [0.2, 1.0, 2.0, 3.0]
         for tick in ticks:
             tick_frac = (tick - 0.2) / 2.8
-            tick_y = slider_y + slider_h - int(tick_frac * slider_h)
-            pygame.draw.line(surface, (60, 70, 90), (slider_x - int(10 * scale), tick_y), (slider_x - int(5 * scale), tick_y), 1)
+            tick_x = slider_x + int(tick_frac * slider_w)
+            pygame.draw.line(surface, (60, 70, 90), (tick_x, slider_y + int(5 * scale)), (tick_x, slider_y + int(10 * scale)), 1)
             
             lbl_text = f"{tick}x"
             lbl_surf = self.font_guide.render(lbl_text, True, (120, 140, 160))
-            lbl_rect = lbl_surf.get_rect(right=slider_x - int(14 * scale), centery=tick_y)
+            lbl_rect = lbl_surf.get_rect(centerx=tick_x, top=slider_y + int(14 * scale))
             surface.blit(lbl_surf, lbl_rect)
             
         # Slider Title & Value Label
-        title_lbl = self.font_guide.render("TOC DO", True, WALL_COLOR)
-        title_rect = title_lbl.get_rect(centerx=slider_x, bottom=slider_y - int(20 * scale))
-        surface.blit(title_lbl, title_rect)
-        
+        title_lbl = self.font_guide.render("TOC DO:", True, WALL_COLOR)
         speed_lbl = self.font_guide.render(f"{current_speed}x", True, PACMAN_COLOR)
-        speed_rect = speed_lbl.get_rect(centerx=slider_x, bottom=slider_y - int(4 * scale))
-        surface.blit(speed_lbl, speed_rect)
+        
+        total_w = title_lbl.get_width() + speed_lbl.get_width() + int(10 * scale)
+        start_title_x = x_start + (SIDEBAR_WIDTH - total_w) // 2
+        
+        surface.blit(title_lbl, (start_title_x, slider_y - int(32 * scale)))
+        surface.blit(speed_lbl, (start_title_x + title_lbl.get_width() + int(10 * scale), slider_y - int(32 * scale)))
         
         # Handle (draggable knob)
-        handle_w = int(24 * scale)
-        handle_h = int(12 * scale)
-        handle_rect = pygame.Rect(slider_x - handle_w // 2, handle_y - handle_h // 2, handle_w, handle_h)
+        handle_w = int(12 * scale)
+        handle_h = int(24 * scale)
+        handle_rect = pygame.Rect(handle_x - handle_w // 2, slider_y - handle_h // 2, handle_w, handle_h)
         
         is_hovered_handle = handle_rect.collidepoint(pygame.mouse.get_pos())
         is_dragging = (self.dragging_slider == "speed")
@@ -1614,15 +1623,15 @@ class UI:
         # Check if Speed Slider clicked
         scale = self.scale
         x_start = self.width - SIDEBAR_WIDTH
-        slider_h = int(250 * scale)
-        slider_w = int(20 * scale)
-        slider_x = x_start - int(45 * scale)
-        slider_y = self.height // 2 - slider_h // 2
-        click_rect = pygame.Rect(slider_x, slider_y - 10, slider_w + 20, slider_h + 20)
+        slider_w = int(320 * scale)
+        slider_h = int(20 * scale)
+        slider_x = x_start + (SIDEBAR_WIDTH - slider_w) // 2
+        slider_y = self.height - int(285 * scale)
+        click_rect = pygame.Rect(slider_x - 10, slider_y - slider_h // 2 - 10, slider_w + 20, slider_h + 20)
         
         if click_rect.collidepoint(mouse_pos):
             self.dragging_slider = "speed"
-            fraction = (slider_y + slider_h - mouse_pos[1]) / slider_h
+            fraction = (mouse_pos[0] - slider_x) / slider_w
             fraction = max(0.0, min(1.0, fraction))
             game.speed_scale = round(0.2 + fraction * 2.8, 1)
             return "speed"
@@ -1645,10 +1654,10 @@ class UI:
         if self.dragging_slider == "speed":
             scale = self.scale
             x_start = self.width - SIDEBAR_WIDTH
-            slider_h = int(250 * scale)
-            slider_y = self.height // 2 - slider_h // 2
+            slider_w = int(320 * scale)
+            slider_x = x_start + (SIDEBAR_WIDTH - slider_w) // 2
             
-            fraction = (slider_y + slider_h - mouse_pos[1]) / slider_h
+            fraction = (mouse_pos[0] - slider_x) / slider_w
             fraction = max(0.0, min(1.0, fraction))
             game.speed_scale = round(0.2 + fraction * 2.8, 1)
 
@@ -2240,7 +2249,10 @@ class LeaderboardUI:
         max_glow = int(glow_radius * pulse)
         for i in range(max_glow, 0, -2):
             glow_surf = font.render(text, True, glow_color)
-            glow_surf.set_alpha(int(200 / max_glow) if max_glow > 0 else 0)
+            try:
+                glow_surf.set_alpha(int(200 / max_glow) if max_glow > 0 else 0)
+            except Exception:
+                pass
             surface.blit(glow_surf, (text_rect.x - i//2, text_rect.y - i//2))
         surface.blit(text_surf, text_rect)
 
