@@ -1,3 +1,72 @@
+import sys
+
+# Kiểm tra môi trường pygame/pygame-ce trước khi khởi chạy game
+def check_pygame_installation():
+    try:
+        import importlib.metadata
+        packages = {p.metadata['Name'].lower() for p in importlib.metadata.distributions() if p.metadata and p.metadata['Name']}
+        has_pygame = 'pygame' in packages
+        has_ce = 'pygame-ce' in packages
+    except Exception:
+        # Fallback nếu importlib.metadata có lỗi
+        has_pygame = False
+        has_ce = False
+        try:
+            # pyrefly: ignore [missing-import]
+            import pygame
+            has_pygame = True
+            if hasattr(pygame, 'IS_CE') or 'ce' in getattr(pygame, '__version__', '').lower():
+                has_ce = True
+                has_pygame = False # Không coi là xung đột nếu chỉ nhận diện được CE hoạt động tốt
+        except ImportError:
+            pass
+
+    if has_pygame and has_ce:
+        print("=" * 70)
+        print("PHÁT HIỆN LỖI: XUNG ĐỘT THƯ VIỆN PYGAME!")
+        print("Môi trường của thầy đang cài đặt cả 'pygame' và 'pygame-ce'.")
+        print("Hai phiên bản này xung đột với nhau và sẽ gây lỗi khi chạy game, thầy cần xóa pygame, chỉ để lại duy nhất pygame-ce.")
+        print("\nĐể khắc phục, thầy chạy các lệnh sau trong terminal:")
+        print("  1. Kích hoạt môi trường ảo (nếu có):")
+        print("     source .venv/bin/activate")
+        print("  2. Gỡ cài đặt hoàn toàn cả hai thư viện:")
+        print("     pip uninstall -y pygame pygame-ce")
+        print("  3. Cài đặt lại CHỈ thư viện pygame-ce:")
+        print("     pip install pygame-ce")
+        print("Sau khi test game em xong thì thầy có thể tải lại pygame bằng lệnh \"pip install pygame\" và xóa pygame-ce bằng \"pip uninstall pygame-ce\" để test game các bạn khác ạ!")
+        print("=" * 70)
+        sys.exit(1)
+        
+    elif has_pygame and not has_ce:
+        print("=" * 70)
+        print("PHÁT HIỆN LỖI: SAI THƯ VIỆN PYGAME!")
+        print("Thầy đang cài đặt 'pygame' (bản thường), nhưng game yêu cầu 'pygame-ce' (Community Edition).")
+        print("Thầy cần đảm bảo rằng trong pip chỉ có duy nhất pygame-ce, không được có pygame tồn tại song song")
+        print("\nĐể khắc phục, thầy chạy các lệnh sau trong terminal:")
+        print("  1. Kích hoạt môi trường ảo (nếu thầy có đang dùng môi trường ảo):")
+        print("     source .venv/bin/activate")
+        print("  2. Gỡ cài đặt thư viện pygame cũ:")
+        print("     pip uninstall -y pygame")
+        print("  3. Cài đặt thư viện pygame-ce:")
+        print("     pip install pygame-ce")
+        print("Sau khi test game em xong thì thầy có thể tải lại pygame bằng lệnh \"pip install pygame\" và xóa pygame-ce bằng \"pip uninstall pygame-ce\" để test game các bạn khác ạ!")
+        print("=" * 70)
+        sys.exit(1)
+        
+    elif not has_ce:
+        print("=" * 70)
+        print("PHÁT HIỆN LỖI: THIẾU THƯ VIỆN PYGAME-CE!")
+        print("Thầy chưa cài đặt thư viện 'pygame-ce' cần thiết để chạy game.")
+        print("\nĐể khắc phục, thầy chạy các lệnh sau trong terminal:")
+        print("  1. Kích hoạt môi trường ảo (nếu thầy có đang dùng môi trường ảo):")
+        print("     source .venv/bin/activate")
+        print("  2. Cài đặt thư viện pygame-ce:")
+        print("     pip install pygame-ce")
+        print("=" * 70)
+        sys.exit(1)
+
+check_pygame_installation()
+
 # pyrefly: ignore [missing-import]
 import pygame
 import sys
