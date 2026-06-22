@@ -1439,5 +1439,24 @@
       "Inky": 3147,
       "Clyde": 1309
     }
+  },
+  {
+    "name": "KIETTRUONG",
+    "score": 0,
+    "result": "LOSS",
+    "ghosts": 0,
+    "time": "00:05",
+    "elapsed": 5.7,
+    "steps": 13,
+    "turns": 6,
+    "map_size": "35x25",
+    "date": "2026-06-22",
+    "pacman_explored": 538,
+    "ghost_explored": {
+      "Blinky": 833,
+      "Pinky": 2672,
+      "Inky": 1582,
+      "Clyde": 1408
+    }
   }
 ]

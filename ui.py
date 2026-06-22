@@ -806,6 +806,33 @@ class UI:
                 text = f"{name.upper()}: {self.algorithms[name]}"
                 self.draw_neon_text(surface, text, self.font_small, border_color, rect.center, glow_radius=10, pulse=btn_pulse)
                 
+                if name == "Pacman":
+                    # Draw a beautiful animated Pacman sprite to the left & right of Pacman button
+                    time_passed = pygame.time.get_ticks() / 1000.0
+                    p_color = PACMAN_COLOR
+                        
+                    for side in (-1, 1):
+                        px = Center_R + side * int(185 * scale)
+                        float_y = math.sin(time_passed * 4 + (side * 0.5)) * int(4 * scale)
+                        py = gy + float_y
+                        prad = int(22 * scale)
+                        
+                        # Anim mouth
+                        mouth_angle = (math.sin(time_passed * 12) + 1) / 2 * math.pi / 4
+                        # Rotate mouth to look at the button
+                        base_angle = 0 if side == -1 else math.pi
+                        
+                        points = [(px, py)]
+                        for angle in range(int(math.degrees(mouth_angle)), int(math.degrees(2 * math.pi - mouth_angle)), 15):
+                            rad = math.radians(angle) + base_angle
+                            x = px + prad * math.cos(rad)
+                            y = py - prad * math.sin(rad)
+                            points.append((x, y))
+                            
+                        # Draw base body
+                        if len(points) > 2:
+                            pygame.draw.polygon(surface, p_color, points)
+                
             # ── VE LEGEN HANH VI CUA CAC THUC THE BEN DUOI ALGO ──
             self.draw_neon_text(surface, "HANH VI DI CHUYEN CUA CAC THUC THE", self.font_small, PACMAN_COLOR, (panel_rect.centerx, legend_y + int(20 * scale)), glow_radius=5, pulse=0.5)
             
@@ -2042,18 +2069,27 @@ class NameSelectUI:
         self.hovered_name = None
         self.confirmed_name = None   # duoc thiet lap khi nguoi choi xac nhan
         self.cancelled = False
+        self.last_choice = None
 
     def reset(self, known_names):
-        self.name_input = ""
         self.known_names = list(known_names)
         self.scroll_offset = 0
         self.hovered_name = None
         self.confirmed_name = None
         self.cancelled = False
+        
+        # Remember the last choice from the current session or persistent leaderboard
+        if getattr(self, 'last_choice', None):
+            self.name_input = self.last_choice
+        elif self.known_names:
+            self.name_input = self.known_names[0]
+        else:
+            self.name_input = ""
 
     def _confirm(self):
         name = self.name_input.strip().upper()
         self.confirmed_name = name if name else "ANON"
+        self.last_choice = self.confirmed_name
 
     def handle_event(self, event, mouse_pos):
         mx, my = mouse_pos

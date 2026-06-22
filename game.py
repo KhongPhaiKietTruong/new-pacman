@@ -897,6 +897,7 @@ class GameEngine:
                 x = center_x + radius * math.cos(rad)
                 y = center_y - radius * math.sin(rad)
                 points.append((x, y))
+
             if len(points) > 2:
                 pygame.draw.polygon(grid_surface, p_color, points)
         
