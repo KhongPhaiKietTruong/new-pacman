@@ -221,32 +221,38 @@ class Pacman(Entity):
 
         # Select pathfinding algorithm dynamically
         algo = getattr(self, 'algo', 'A*')
+
+        # Create a dynamic obstacle grid (marking ghost locations and their adjacent tiles as walls)
+        temp_grid = [row[:] for row in grid]
+        if self.state != 2:  # Only avoid ghosts if not in hunting/power mode
+            for g in ghosts:
+                if not g.is_dead:
+                    temp_grid[g.r][g.c] = 1
+                    for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
+                        nr, nc = g.r + dr, g.c + dc
+                        if 0 <= nr < rows and 0 <= nc < cols:
+                            temp_grid[nr][nc] = 1
+
         if algo == 'A*':
-            path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
+            path, explored = Pathfinding.a_star_search((self.r, self.c), goal, temp_grid, rows, cols, heuristic, cost_fn, return_explored=True)
+            if not path:  # Fallback if no safe path exists
+                path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
         elif algo == 'Greedy':
-            path, explored = Pathfinding.greedy_bfs((self.r, self.c), goal, grid, rows, cols, heuristic=manhattan_distance, return_explored=True)
-        elif algo in ('BFS', 'DFS'):
-            # Dynamic Obstacle Mapping for BFS & DFS to dodge active ghosts
-            temp_grid = [row[:] for row in grid]
-            if self.state != 2:  # Only avoid ghosts if not in hunting mode
-                for g in ghosts:
-                    if not g.is_dead:
-                        temp_grid[g.r][g.c] = 1
-                        for dr, dc in [(-1, 0), (1, 0), (0, -1), (0, 1)]:
-                            nr, nc = g.r + dr, g.c + dc
-                            if 0 <= nr < rows and 0 <= nc < cols:
-                                temp_grid[nr][nc] = 1
-            
-            if algo == 'BFS':
-                path, explored = Pathfinding.bfs((self.r, self.c), goal, temp_grid, rows, cols, return_explored=True)
-                if not path:  # Fallback if no safe path exists
-                    path, explored = Pathfinding.bfs((self.r, self.c), goal, grid, rows, cols, return_explored=True)
-            else:  # DFS
-                path, explored = Pathfinding.dfs((self.r, self.c), goal, temp_grid, rows, cols, depth_limit=float('inf'), return_explored=True)
-                if not path:  # Fallback if no safe path exists
-                    path, explored = Pathfinding.dfs((self.r, self.c), goal, grid, rows, cols, depth_limit=float('inf'), return_explored=True)
+            path, explored = Pathfinding.greedy_bfs((self.r, self.c), goal, temp_grid, rows, cols, heuristic=manhattan_distance, return_explored=True)
+            if not path:  # Fallback if no safe path exists
+                path, explored = Pathfinding.greedy_bfs((self.r, self.c), goal, grid, rows, cols, heuristic=manhattan_distance, return_explored=True)
+        elif algo == 'BFS':
+            path, explored = Pathfinding.bfs((self.r, self.c), goal, temp_grid, rows, cols, return_explored=True)
+            if not path:  # Fallback if no safe path exists
+                path, explored = Pathfinding.bfs((self.r, self.c), goal, grid, rows, cols, return_explored=True)
+        elif algo == 'DFS':
+            path, explored = Pathfinding.dfs((self.r, self.c), goal, temp_grid, rows, cols, depth_limit=float('inf'), return_explored=True)
+            if not path:  # Fallback if no safe path exists
+                path, explored = Pathfinding.dfs((self.r, self.c), goal, grid, rows, cols, depth_limit=float('inf'), return_explored=True)
         else:
-            path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
+            path, explored = Pathfinding.a_star_search((self.r, self.c), goal, temp_grid, rows, cols, heuristic, cost_fn, return_explored=True)
+            if not path:
+                path, explored = Pathfinding.a_star_search((self.r, self.c), goal, grid, rows, cols, heuristic, cost_fn, return_explored=True)
 
         self.path = path
         self.last_explored_nodes = explored

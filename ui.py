@@ -509,7 +509,7 @@ class UI:
             # Hien thi thong tin doi ngu phat trien
             credits = [
                 "PHAT TRIEN BOI DOI NGU:",
-                "T.A. Kiet 2411026 | T.N.P. Thuy 24110346 | N.T. Dat 24110194"
+                "T.A. Kiet 24110267 | T.N.P. Thuy 24110346 | N.T. Dat 24110194"
             ]
             if self.using_pixel_font:
                 font_credits = pygame.font.Font("assets/PressStart2P-Regular.ttf", int(14 * self.scale))
@@ -2308,14 +2308,14 @@ class LeaderboardUI:
     def _back_rect(self):
         w = int(280 * self.scale)
         h = int(50 * self.scale)
-        x = self.w // 2 - w - int(20 * self.scale)
+        x = self.w // 2 - w // 2
         y = self.h - int(80 * self.scale)
         return pygame.Rect(x, y, w, h)
 
     def _clear_rect(self):
         w = int(280 * self.scale)
         h = int(50 * self.scale)
-        x = self.w // 2 + int(20 * self.scale)
+        x = self.w - w - int(40 * self.scale)
         y = self.h - int(80 * self.scale)
         return pygame.Rect(x, y, w, h)
 
